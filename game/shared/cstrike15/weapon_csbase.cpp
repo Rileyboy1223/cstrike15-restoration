@@ -3832,8 +3832,6 @@ void CWeaponCSBase::OnLand(float fVelocity)
 
 void CWeaponCSBase::Recoil(CSWeaponMode weaponMode)
 {
-	/** Removed for partner depot **/
-	//lwss - rebuilt this function from reversing retail bins
 	CCSPlayer *pPlayer = GetPlayerOwner();
 	if (!pPlayer)
 		return;
@@ -3851,7 +3849,6 @@ void CWeaponCSBase::Recoil(CSWeaponMode weaponMode)
 	}
 
 	pPlayer->KickBack(angle, magnitude);
-	//lwss end
 }
 
 #ifdef CLIENT_DLL
