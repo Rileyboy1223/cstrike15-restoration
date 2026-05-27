@@ -5,6 +5,7 @@
 
 #include "cbase.h"
 #include <crtmemdebug.h>
+#include <econ/econ_item_system.h>
 #include "vgui_int.h"
 #include "clientmode.h"
 #include "iinput.h"
