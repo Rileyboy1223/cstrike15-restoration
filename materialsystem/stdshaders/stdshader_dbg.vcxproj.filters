@@ -1,0 +1,863 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup >
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{922C6F41-C460-59B1-3A59-D4FA6DDC9C37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Link Libraries">
+      <UniqueIdentifier>{6D11200E-4206-7C82-1DCE-61EA5E3FE718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader Source">
+      <UniqueIdentifier>{24C57016-E761-1E70-38BA-7DE252E7CED3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader Source\fxc">
+      <UniqueIdentifier>{B4899C86-05D2-4909-70A1-83791026CB9A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader Source\psh">
+      <UniqueIdentifier>{70F0BCAE-7AF8-3B93-7337-DD8747831E06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader Source\vsh">
+      <UniqueIdentifier>{35DB05F3-2CD2-3F92-53EE-7F324BE8124F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{9A3C0498-7C60-1BDF-BDF7-06BDDE4E468F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Remove me when VAC2 is out">
+      <UniqueIdentifier>{6DC7267D-41B0-1C90-F43E-99FA3D5FB500}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VPC Scripts">
+      <UniqueIdentifier>{308191AE-A754-30DF-D5BD-5928E19D585F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup >
+    <Library Include="..\..\dx9sdk\lib\d3dx9.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\..\lib\public\interfaces.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\..\lib\public\mathlib.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\..\lib\public\shaderlib.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\..\lib\public\tier0.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\..\lib\public\tier1.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\..\lib\public\vstdlib.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup >
+    <ClInclude Include="BaseVSShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shader_dll_verify.h">
+      <Filter>Source Files\Remove me when VAC2 is out</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup >
+    <ClCompile Include="BaseVSShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\debug_dll_check.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debugdepth.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugDrawEnvmapMask.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debugluxel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debugnormalmap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debugtangentspace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fillrate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\public\tier0\memoverride.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shader_dll_verify.cpp">
+      <Filter>Source Files\Remove me when VAC2 is out</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup  />
+  <ItemGroup  />
+  <ItemGroup >
+    <None Include="..\..\devtools\bin\fxc_prep.pl">
+      <Filter />    </None>
+    <None Include="..\..\devtools\bin\psh_prep.pl">
+      <Filter />    </None>
+    <None Include="..\..\devtools\bin\updateshaders.pl">
+      <Filter />    </None>
+    <None Include="..\..\devtools\bin\vsh_prep.pl">
+      <Filter />    </None>
+    <None Include="stdshader_dx9_20b.txt">
+      <Filter>Shader Source</Filter>
+    </None>
+    <None Include="stdshader_dx9_30.txt">
+      <Filter>Shader Source</Filter>
+    </None>
+    <None Include="AccumBuff4Sample_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="accumbuff5sample_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="aftershock_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="aftershock_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="appchooser360movie_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="bik_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="bik_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="blob_arm_ps20b.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="blob_arm_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="blob_ps30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="blob_vs30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="Bloom_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="bloomadd_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="blurentity_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="BlurFilter_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="BlurFilter_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="blurgaussian_3x3_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="bufferclearobeystencil_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="bufferclearobeystencil_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="cable_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="cable_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="character_ps20b.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="character_ssao_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="character_ssao_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="character_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="clearalpha_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="cloak_blended_pass_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="cloak_blended_pass_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="cloak_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="cloak_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="colorcorrection_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="colorout_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="colorout_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="compositedeferredshadow_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="constant_color_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="copy_fp_rt_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="cs_grass_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="cs_grass_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="cs_replay_ps30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="cs_ssao_ps30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="customcharacter_ps30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="customcharacter_vs30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="customclothing_ps20b.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="customclothing_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="customweapon_ps20b.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="customweapon_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="DebugDrawDepth_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="DebugDrawDepth_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="DebugDrawEnvmapMask_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="DebugDrawEnvmapMask_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="debugluxel_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="debugluxel_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="debugmorphaccumulator_ps30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="debugmorphaccumulator_vs30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="debugmrttexture_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="debugmrttexture_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="debugshadowbuffer_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="debugtangentspace_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="DebugTextureView_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="DebugTextureView_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="decalmodulate_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="decalmodulate_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="depth_of_field_ps20b.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="depth_of_field_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="depthtodestalpha_ps20b.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="depthtodestalpha_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="depthwrite_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="depthwrite_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="Downsample_nohdr_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="Downsample_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="Downsample_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="downsampledepth_extractnormal_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="embroider_ps30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="embroider_vs30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="emissive_scroll_blended_pass_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="emissive_scroll_blended_pass_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="Engine_Post_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="engine_post_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="eye_refract_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="eye_refract_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="eyeglint_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="eyeglint_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="eyes_flashlight_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="eyes_flashlight_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="eyes_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="Eyes_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="fade_blur_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="fillrate_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="fillrate_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="filmdust_ps20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="filmgrain_ps20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="filmgrain_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="flashlight_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="flesh_interior_blended_pass_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="flesh_interior_blended_pass_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="floatcombine_autoexpose_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="floatcombine_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="floattoscreen_notonemap_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="floattoscreen_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="floattoscreen_vanilla_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="gamecontrols_ps20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="gamecontrols_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="haloadd_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="HDRCombineTo16Bit_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="HDRCombineTo16Bit_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="HDRSelectRange_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="HDRSelectRange_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="hsl_filmgrain_pass1_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="hsl_filmgrain_pass2_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="hsv_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="IceSurface_ps30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="IceSurface_vs30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="IntroScreenSpaceEffect_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="lightmapped_4wayblend_ps20b.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="lightmapped_4wayblend_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="lightmappedgeneric_flashlight_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="lightmappedgeneric_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="lightmappedgeneric_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="lightshafts_ps30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="lightshafts_vs30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="lpreview1_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="lpreview1_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="lpreview_output_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="modulate_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="monitorscreen_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="morphaccumulate_ps30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="morphaccumulate_vs30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="morphweight_ps30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="morphweight_vs30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="motion_blur_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="motion_blur_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="multiblend_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="multiblend_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="object_motion_blur_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="object_motion_blur_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="paintblob_ps20b.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="paintblob_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="parallaxtest_ps30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="parallaxtest_vs30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="particlesphere_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="particlesphere_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="phong_ps20b.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="phong_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="portal_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="portal_refract_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="portal_refract_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="portal_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="portalstaticoverlay_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="portalstaticoverlay_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="projected_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="projected_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="proto_ice_ps20b.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="proto_ice_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="prototype_ps20b.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="prototype_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="refract_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="Refract_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="rendertargetblit_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="rendertargetblit_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sample4x4_blend_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sample4x4_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sample4x4delog_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sample4x4log_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sample4x4maxmin_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="screenspaceeffect_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sfm_ambientocclusion_ps30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sfm_ambientocclusion_vs30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sfm_ao_blur_ps30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sfm_ao_blur_vs30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sfm_blur_ps30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sfm_combine_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sfm_integercombine_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sfm_screenspace_vs30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sfm_shape_ps30.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="shadow_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="shadow_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="shadowbuildtexture_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="shadowmodel_ps20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="shadowmodel_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="ShatteredGlass_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="ShatteredGlass_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="showz_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="showz_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sky_hdr_compressed_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sky_hdr_compressed_rgbs_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sky_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sky_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="solidenergy_ps20b.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="solidenergy_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="splinecard_vsxx.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="splinerope_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="splinerope_vsxx.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sprite_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="sprite_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="spritecard_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="spritecard_vsxx.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="teeth_bump_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="teeth_bump_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="teeth_flashlight_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="teeth_flashlight_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="teeth_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="teeth_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="TreeLeaf_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="TreeLeaf_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="unlitgeneric_notexture_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="unlitgeneric_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="unlitgeneric_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="unlittwotexture_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="unlittwotexture_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="unlitworld_screensample_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="unlitworld_screensample_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="vertexcolor_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="vertexlit_and_unlit_generic_bump_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="vertexlit_and_unlit_generic_bump_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="vertexlit_and_unlit_generic_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="vertexlit_and_unlit_generic_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="vertexlitgeneric_flashlight_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="volume_clouds_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="volume_clouds_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="vortwarp_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="vortwarp_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="Water_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="WaterCheap_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="WaterCheap_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="weapondecal_ps20b.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="weapondecal_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="white_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="windowimposter_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="windowimposter_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="worldtwotextureblend_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="WorldVertexAlpha_ps2x.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="writez_vs20.fxc">
+      <Filter>Shader Source\fxc</Filter>
+    </None>
+    <None Include="ShadowModel.psh">
+      <Filter>Shader Source\psh</Filter>
+    </None>
+    <None Include="WorldVertexTransition_Editor.psh">
+      <Filter>Shader Source\psh</Filter>
+    </None>
+    <None Include="ShadowModel.vsh">
+      <Filter>Shader Source\vsh</Filter>
+    </None>
+    <None Include="vertexlitgeneric_flashlight_vs11.vsh">
+      <Filter>Shader Source\vsh</Filter>
+    </None>
+    <None Include="WorldVertexTransition.vsh">
+      <Filter>Shader Source\vsh</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\loadaddress.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="_vpc_\manifest_stdshader_dbg\win32\manifest.txt">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\platform_dirs.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_dll_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_dll_win32_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_dll_win32_debug.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_dll_win32_release.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_lowest_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_video_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_win32_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="stdshader_dbg.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\version.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+  </ItemGroup>
+</Project>

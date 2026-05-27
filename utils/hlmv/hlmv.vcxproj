@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>Hlmv</ProjectName>
+    <ProjectGuid>{31220729-0679-0CF7-CE7E-87E09947E5D1}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <TargetName>hlmv</TargetName>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <TargetName>hlmv</TargetName>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug\.\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug\.\</IntDir>
+    <ExecutablePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\devtools\vstools;$(ExecutablePath);$(Path)</ExecutablePath>
+    <PreBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</PreBuildEventUseInBuild>
+    <PreLinkEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</PreLinkEventUseInBuild>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</PostBuildEventUseInBuild>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release\.\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release\.\</IntDir>
+    <ExecutablePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\devtools\vstools;$(ExecutablePath);$(Path)</ExecutablePath>
+    <PreBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</PreBuildEventUseInBuild>
+    <PreLinkEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</PreLinkEventUseInBuild>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PreBuildEvent >
+      <Command>if EXIST ..\..\..\game\bin\$(TargetFileName) for /f &quot;delims=&quot; %%A in (&apos;attrib &quot;..\..\..\game\bin\$(TargetFileName)&quot;&apos;) do set valveTmpIsReadOnly=&quot;%%A&quot;&#x0D;&#x0A;set valveTmpIsReadOnlyLetter=%valveTmpIsReadOnly:~6,1%&#x0D;&#x0A;if &quot;%valveTmpIsReadOnlyLetter%&quot;==&quot;R&quot; del /q &quot;$(TargetDir)&quot;$(TargetFileName)&#x0D;&#x0A;</Command>
+    </PreBuildEvent>
+    <ClCompile >
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\common;..\..\public;..\..\public\tier0;..\..\public\tier1;..\common</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=hlmv;_DLL_EXT=.dll;VECTOR;PROTECTED_THINGS_DISABLE;ENABLE_STUDIO_SOFTBODY;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\utils\hlmv;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ExceptionHandling>false</ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <OpenMPSupport>false</OpenMPSupport>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <ExpandAttributedSource>false</ExpandAttributedSource>
+      <AssemblerOutput>NoListing</AssemblerOutput>
+      <AssemblerListingLocation>$(IntDir)/</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)/</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)/</ProgramDataBaseFileName>
+      <BrowseInformation>false</BrowseInformation>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DisableSpecificWarnings>;4061;4062;4091;4097;4100;4121;4127;4191;4201;4239;4242;4244;4250;4254;4255;4263;4264;4265;4266;4296;4302;4311;4316;4324;4350;4351;4355;4365;4371;4388;4435;4464;4471;4481;4505;4511;4512;4514;4530;4544;4547;4548;4571;4574;4577;4587;4611;4619;4623;4625;4626;4628;4640;4647;4668;4702;4710;4711;4738;4748;4774;4777;4786;4820;4826;4868;4883;4917;4928;4946;4986;4987;4996</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <BrowseInformationFile>$(IntDir)/</BrowseInformationFile>
+      <ErrorReporting>Prompt</ErrorReporting>
+    </ClCompile>
+    <ResourceCompile >
+      <PreprocessorDefinitions>;_DEBUG;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>1033</Culture>
+    </ResourceCompile>
+    <PreLinkEvent  />
+    <Link >
+      <AdditionalOptions> /ignore:4221</AdditionalOptions>
+      <AdditionalDependencies>;shell32.lib;user32.lib;advapi32.lib;gdi32.lib;comdlg32.lib;ole32.lib;comctl32.lib;winmm.lib</AdditionalDependencies>
+      <ShowProgress>NotSet</ShowProgress>
+      <OutputFile>$(OutDir)\hlmv.exe</OutputFile>
+      <Version>1.1</Version>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <IgnoreSpecificDefaultLibraries>libc;libcd;libcmt</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(IntDir)/$(TargetName).pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <BaseAddress> </BaseAddress>
+      <TargetMachine>MachineX86</TargetMachine>
+      <LinkErrorReporting>PromptImmediately</LinkErrorReporting>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <Manifest >
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalManifestFiles>..\..\public\windows_default.manifest</AdditionalManifestFiles>
+    </Manifest>
+    <Xdcmake >
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Xdcmake>
+    <Bscmake >
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>$(OutDir)/hlmv.bsc</OutputFile>
+    </Bscmake>
+    <PostBuildEvent >
+      <Message>Publishing to ..\..\..\game\bin</Message>
+      <Command>copy &quot;$(TargetDir)&quot;$(TargetFileName) ..\..\..\game\bin\$(TargetFileName)&#x0D;&#x0A;if ERRORLEVEL 1 goto BuildEventFailed&#x0D;&#x0A;if exist &quot;$(TargetDir)&quot;$(TargetName).map copy &quot;$(TargetDir)&quot;$(TargetName).map ..\..\..\game\bin\$(TargetName).map&#x0D;&#x0A;copy &quot;$(TargetDir)&quot;$(TargetName).pdb ..\..\..\game\bin\$(TargetName).pdb&#x0D;&#x0A;if ERRORLEVEL 1 goto BuildEventFailed&#x0D;&#x0A;goto BuildEventOK&#x0D;&#x0A;:BuildEventFailed&#x0D;&#x0A;echo *** ERROR! PostBuildStep FAILED for $(ProjectName)! EXE or DLL is probably running. ***&#x0D;&#x0A;del /q &quot;$(TargetDir)&quot;$(TargetFileName)&#x0D;&#x0A;exit 1&#x0D;&#x0A;:BuildEventOK&#x0D;&#x0A;</Command>
+    </PostBuildEvent>
+    <CustomBuildStep  />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PreBuildEvent >
+      <Command>if EXIST ..\..\..\game\bin\$(TargetFileName) for /f &quot;delims=&quot; %%A in (&apos;attrib &quot;..\..\..\game\bin\$(TargetFileName)&quot;&apos;) do set valveTmpIsReadOnly=&quot;%%A&quot;&#x0D;&#x0A;set valveTmpIsReadOnlyLetter=%valveTmpIsReadOnly:~6,1%&#x0D;&#x0A;if &quot;%valveTmpIsReadOnlyLetter%&quot;==&quot;R&quot; del /q &quot;$(TargetDir)&quot;$(TargetFileName)&#x0D;&#x0A;</Command>
+    </PreBuildEvent>
+    <ClCompile >
+      <AdditionalOptions> /d2Zi+</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>..\..\common;..\..\public;..\..\public\tier0;..\..\public\tier1;..\common</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32;NDEBUG;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=hlmv;_DLL_EXT=.dll;VECTOR;PROTECTED_THINGS_DISABLE;ENABLE_STUDIO_SOFTBODY;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\utils\hlmv;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <ExceptionHandling>false</ExceptionHandling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <OpenMPSupport>false</OpenMPSupport>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <ExpandAttributedSource>false</ExpandAttributedSource>
+      <AssemblerOutput>NoListing</AssemblerOutput>
+      <AssemblerListingLocation>$(IntDir)/</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)/</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)/</ProgramDataBaseFileName>
+      <BrowseInformation>false</BrowseInformation>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DisableSpecificWarnings>;4061;4062;4091;4097;4100;4121;4127;4191;4201;4239;4242;4244;4250;4254;4255;4263;4264;4265;4266;4296;4302;4311;4316;4324;4350;4351;4355;4365;4371;4388;4435;4464;4471;4481;4505;4511;4512;4514;4530;4544;4547;4548;4571;4574;4577;4587;4611;4619;4623;4625;4626;4628;4640;4647;4668;4702;4710;4711;4738;4748;4774;4777;4786;4820;4826;4868;4883;4917;4928;4946;4986;4987;4996</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <BrowseInformationFile>$(IntDir)/</BrowseInformationFile>
+      <ErrorReporting>Prompt</ErrorReporting>
+    </ClCompile>
+    <ResourceCompile >
+      <PreprocessorDefinitions>;NDEBUG;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>1033</Culture>
+    </ResourceCompile>
+    <PreLinkEvent  />
+    <Link >
+      <AdditionalOptions> /ignore:4221</AdditionalOptions>
+      <AdditionalDependencies>;shell32.lib;user32.lib;advapi32.lib;gdi32.lib;comdlg32.lib;ole32.lib;comctl32.lib;winmm.lib</AdditionalDependencies>
+      <ShowProgress>NotSet</ShowProgress>
+      <OutputFile>$(OutDir)\hlmv.exe</OutputFile>
+      <Version>1.1</Version>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <IgnoreSpecificDefaultLibraries>libc;libcd;libcmtd</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(IntDir)/$(TargetName).pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <BaseAddress> </BaseAddress>
+      <TargetMachine>MachineX86</TargetMachine>
+      <LinkErrorReporting>PromptImmediately</LinkErrorReporting>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <Manifest >
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalManifestFiles>..\..\public\windows_default.manifest</AdditionalManifestFiles>
+    </Manifest>
+    <Xdcmake >
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Xdcmake>
+    <Bscmake >
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>$(OutDir)/hlmv.bsc</OutputFile>
+    </Bscmake>
+    <PostBuildEvent >
+      <Message>Publishing to ..\..\..\game\bin</Message>
+      <Command>copy &quot;$(TargetDir)&quot;$(TargetFileName) ..\..\..\game\bin\$(TargetFileName)&#x0D;&#x0A;if ERRORLEVEL 1 goto BuildEventFailed&#x0D;&#x0A;if exist &quot;$(TargetDir)&quot;$(TargetName).map copy &quot;$(TargetDir)&quot;$(TargetName).map ..\..\..\game\bin\$(TargetName).map&#x0D;&#x0A;copy &quot;$(TargetDir)&quot;$(TargetName).pdb ..\..\..\game\bin\$(TargetName).pdb&#x0D;&#x0A;if ERRORLEVEL 1 goto BuildEventFailed&#x0D;&#x0A;goto BuildEventOK&#x0D;&#x0A;:BuildEventFailed&#x0D;&#x0A;echo *** ERROR! PostBuildStep FAILED for $(ProjectName)! EXE or DLL is probably running. ***&#x0D;&#x0A;del /q &quot;$(TargetDir)&quot;$(TargetFileName)&#x0D;&#x0A;exit 1&#x0D;&#x0A;:BuildEventOK&#x0D;&#x0A;</Command>
+    </PostBuildEvent>
+    <CustomBuildStep  />
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Library Include="..\..\lib\public\appframework.lib" />
+    <Library Include="..\..\lib\public\bitmap.lib" />
+    <Library Include="..\..\lib\public\bonesetup.lib" />
+    <Library Include="..\..\lib\public\datamodel.lib" />
+    <Library Include="..\..\lib\public\dmserializers.lib" />
+    <Library Include="..\..\lib\public\interfaces.lib" />
+    <Library Include="..\..\lib\public\mathlib.lib" />
+    <Library Include="..\..\lib\public\mathlib_extended.lib" />
+    <Library Include="..\..\lib\public\mdlobjects.lib" />
+    <Library Include="..\..\lib\public\movieobjects.lib" />
+    <Library Include="..\..\lib\common\mxtoolkitwin32.lib" />
+    <Library Include="..\..\lib\public\resourcefile.lib" />
+    <Library Include="..\..\lib\public\tier0.lib" />
+    <Library Include="..\..\lib\public\tier1.lib" />
+    <Library Include="..\..\lib\public\tier2.lib" />
+    <Library Include="..\..\lib\public\tier3.lib" />
+    <Library Include="..\..\lib\public\vstdlib.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="attachments_window.h" />
+    <ClInclude Include="..\..\public\basehandle.h" />
+    <ClInclude Include="..\..\public\tier0\basetypes.h" />
+    <ClInclude Include="..\..\public\bitvec.h" />
+    <ClInclude Include="..\..\public\bone_accessor.h" />
+    <ClInclude Include="..\..\public\bone_setup.h" />
+    <ClInclude Include="..\..\public\bspflags.h" />
+    <ClInclude Include="..\..\public\tier1\characterset.h" />
+    <ClInclude Include="..\common\cmdlib.h" />
+    <ClInclude Include="..\..\public\cmodel.h" />
+    <ClInclude Include="..\..\public\collisionutils.h" />
+    <ClInclude Include="..\..\public\mathlib\compressed_vector.h" />
+    <ClInclude Include="..\..\public\const.h" />
+    <ClInclude Include="..\..\public\vphysics\constraints.h" />
+    <ClInclude Include="controlpanel.h" />
+    <ClInclude Include="..\..\public\tier0\dbg.h" />
+    <ClInclude Include="debugdrawmodel.h" />
+    <ClInclude Include="..\..\public\tier0\fasttimer.h" />
+    <ClInclude Include="fileassociation.h" />
+    <ClInclude Include="..\..\public\filesystem.h" />
+    <ClInclude Include="..\..\public\filesystem_helpers.h" />
+    <ClInclude Include="..\..\public\tier1\fmtstr.h" />
+    <ClInclude Include="..\..\public\gametrace.h" />
+    <ClInclude Include="..\..\public\appframework\iappsystem.h" />
+    <ClInclude Include="..\..\public\tier0\icommandline.h" />
+    <ClInclude Include="..\..\public\ihandleentity.h" />
+    <ClInclude Include="..\..\public\materialsystem\imaterial.h" />
+    <ClInclude Include="..\..\public\materialsystem\imaterialproxyfactory.h" />
+    <ClInclude Include="..\..\public\materialsystem\imaterialsystem.h" />
+    <ClInclude Include="..\..\public\materialsystem\imaterialsystemhardwareconfig.h" />
+    <ClInclude Include="..\..\public\materialsystem\imaterialvar.h" />
+    <ClInclude Include="..\..\public\materialsystem\imesh.h" />
+    <ClInclude Include="..\..\public\tier1\interface.h" />
+    <ClInclude Include="..\..\public\ispatialpartition.h" />
+    <ClInclude Include="..\..\public\istudiorender.h" />
+    <ClInclude Include="..\..\public\materialsystem\itexture.h" />
+    <ClInclude Include="..\..\public\jigglebones.h" />
+    <ClInclude Include="..\..\public\materialsystem\materialsystem_config.h" />
+    <ClInclude Include="..\..\public\mathlib\mathlib.h" />
+    <ClInclude Include="matsyswin.h" />
+    <ClInclude Include="mdlviewer.h" />
+    <ClInclude Include="..\..\public\tier0\memdbgoff.h" />
+    <ClInclude Include="..\..\public\tier0\memdbgon.h" />
+    <ClInclude Include="..\..\public\tier1\mempool.h" />
+    <ClInclude Include="..\..\public\mouthinfo.h" />
+    <ClInclude Include="pakviewer.h" />
+    <ClInclude Include="..\..\public\phyfile.h" />
+    <ClInclude Include="..\common\physdll.h" />
+    <ClInclude Include="physmesh.h" />
+    <ClInclude Include="..\..\public\tier0\platform.h" />
+    <ClInclude Include="..\..\public\vstdlib\random.h" />
+    <ClInclude Include="..\..\public\string_t.h" />
+    <ClInclude Include="..\..\public\tier1\strtools.h" />
+    <ClInclude Include="..\..\public\studio.h" />
+    <ClInclude Include="studio_render.h" />
+    <ClInclude Include="studiomodel.h" />
+    <ClInclude Include="sys.h" />
+    <ClInclude Include="..\..\public\texture_group_names.h" />
+    <ClInclude Include="..\..\public\tier1\utlbuffer.h" />
+    <ClInclude Include="..\..\public\tier1\utldict.h" />
+    <ClInclude Include="..\..\public\tier1\utllinkedlist.h" />
+    <ClInclude Include="..\..\public\tier1\utlmemory.h" />
+    <ClInclude Include="..\..\public\tier1\utlrbtree.h" />
+    <ClInclude Include="..\..\public\tier1\utlsymbol.h" />
+    <ClInclude Include="..\..\public\tier1\utlvector.h" />
+    <ClInclude Include="..\..\public\vcollide.h" />
+    <ClInclude Include="..\..\public\vcollide_parse.h" />
+    <ClInclude Include="..\..\public\mathlib\vector.h" />
+    <ClInclude Include="..\..\public\mathlib\vector2d.h" />
+    <ClInclude Include="..\..\public\mathlib\vector4d.h" />
+    <ClInclude Include="viewersettings.h" />
+    <ClInclude Include="..\..\public\mathlib\vmatrix.h" />
+    <ClInclude Include="..\..\public\vphysics_interface.h" />
+    <ClInclude Include="..\..\public\mathlib\vplane.h" />
+    <ClInclude Include="..\..\public\tier0\vprof.h" />
+    <ClInclude Include="..\..\public\vstdlib\vstdlib.h" />
+    <ClInclude Include="..\..\public\mxtk\mx.h" />
+    <ClInclude Include="..\..\public\mxtk\mxbmp.h" />
+    <ClInclude Include="..\..\public\mxtk\mxbutton.h" />
+    <ClInclude Include="..\..\public\mxtk\mxcheckbox.h" />
+    <ClInclude Include="..\..\public\mxtk\mxchoice.h" />
+    <ClInclude Include="..\..\public\mxtk\mxchoosecolor.h" />
+    <ClInclude Include="..\..\public\mxtk\mxevent.h" />
+    <ClInclude Include="..\..\public\mxtk\mxfiledialog.h" />
+    <ClInclude Include="..\..\public\mxtk\mxglwindow.h" />
+    <ClInclude Include="..\..\public\mxtk\mxgroupbox.h" />
+    <ClInclude Include="..\..\public\mxtk\mximage.h" />
+    <ClInclude Include="..\..\public\mxtk\mxinit.h" />
+    <ClInclude Include="..\..\public\mxtk\mxlabel.h" />
+    <ClInclude Include="..\..\public\mxtk\mxlineedit.h" />
+    <ClInclude Include="mxLineEdit2.h" />
+    <ClInclude Include="..\..\public\mxtk\mxlinkedlist.h" />
+    <ClInclude Include="..\..\public\mxtk\mxlistbox.h" />
+    <ClInclude Include="..\..\public\mxtk\mxmatsyswindow.h" />
+    <ClInclude Include="..\..\public\mxtk\mxmenu.h" />
+    <ClInclude Include="..\..\public\mxtk\mxmenubar.h" />
+    <ClInclude Include="..\..\public\mxtk\mxmessagebox.h" />
+    <ClInclude Include="..\..\public\mxtk\mxpath.h" />
+    <ClInclude Include="..\..\public\mxtk\mxpcx.h" />
+    <ClInclude Include="..\..\public\mxtk\mxpopupmenu.h" />
+    <ClInclude Include="..\..\public\mxtk\mxprogressbar.h" />
+    <ClInclude Include="..\..\public\mxtk\mxradiobutton.h" />
+    <ClInclude Include="..\..\public\mxtk\mxscrollbar.h" />
+    <ClInclude Include="..\..\public\mxtk\mxslider.h" />
+    <ClInclude Include="..\..\public\mxtk\mxstring.h" />
+    <ClInclude Include="..\..\public\mxtk\mxtab.h" />
+    <ClInclude Include="..\..\public\mxtk\mxtga.h" />
+    <ClInclude Include="..\..\public\mxtk\mxtogglebutton.h" />
+    <ClInclude Include="..\..\public\mxtk\mxtooltip.h" />
+    <ClInclude Include="..\..\public\mxtk\mxtreeview.h" />
+    <ClInclude Include="..\..\public\mxtk\mxwidget.h" />
+    <ClInclude Include="..\..\public\mxtk\mxwindow.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="attachments_window.cpp" />
+    <ClCompile Include="..\..\public\collisionutils.cpp" />
+    <ClCompile Include="controlpanel.cpp" />
+    <ClCompile Include="debugdrawmodel.cpp" />
+    <ClCompile Include="fileassociation.cpp" />
+    <ClCompile Include="..\..\public\filesystem_helpers.cpp" />
+    <ClCompile Include="..\..\public\filesystem_init.cpp" />
+    <ClCompile Include="..\..\public\interpolatortypes.cpp" />
+    <ClCompile Include="..\..\public\jigglebones.cpp" />
+    <ClCompile Include="matsyswin.cpp" />
+    <ClCompile Include="..\..\public\mdlobjects\mdlobjects.cpp" />
+    <ClCompile Include="mdlviewer.cpp" />
+    <ClCompile Include="..\..\public\tier0\memoverride.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\public\movieobjects\movieobjects_compiletools.cpp" />
+    <ClCompile Include="mxLineEdit2.cpp" />
+    <ClCompile Include="pakviewer.cpp" />
+    <ClCompile Include="physmesh.cpp" />
+    <ClCompile Include="..\..\public\studio.cpp" />
+    <ClCompile Include="studio_flex.cpp" />
+    <ClCompile Include="studio_render.cpp" />
+    <ClCompile Include="studio_utils.cpp" />
+    <ClCompile Include="sys_win.cpp" />
+    <ClCompile Include="viewersettings.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="hlmv.rc" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="icon1.ico" />
+    <None Include="hlmv.vpc" />
+    <None Include="..\..\vpc_scripts\loadaddress.vpc" />
+    <None Include="_vpc_\manifest_hlmv\win32\manifest.txt" />
+    <None Include="..\..\vpc_scripts\source_exe_win_win32_base.vpc" />
+    <None Include="..\..\vpc_scripts\source_exe_win_win32_debug.vpc" />
+    <None Include="..\..\vpc_scripts\source_exe_win_win32_release.vpc" />
+    <None Include="..\..\vpc_scripts\source_lowest_base.vpc" />
+    <None Include="..\..\vpc_scripts\source_win32_base.vpc" />
+    <None Include="..\..\vpc_scripts\version.vpc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

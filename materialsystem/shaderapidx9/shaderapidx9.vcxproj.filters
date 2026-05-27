@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup >
+    <Filter Include="Link Libraries">
+      <UniqueIdentifier>{6D11200E-4206-7C82-1DCE-61EA5E3FE718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderApiDx9">
+      <UniqueIdentifier>{566C16E3-F813-73BF-475B-F56A4B9D7EA9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderApiDx9\DirectX Header Files">
+      <UniqueIdentifier>{B560A80D-48D2-C3B6-02BA-AE4E10A0A5E5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderApiDx9\Header Files">
+      <UniqueIdentifier>{F2D2AB5B-FFFE-F673-B7DD-EE4B75433FB7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderApiDx9\Nvidia Stereo Header Files">
+      <UniqueIdentifier>{076F1D57-CF15-739F-E22C-C411C533E755}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderApiDx9\Public Header Files">
+      <UniqueIdentifier>{31BF6031-E277-55F4-5831-C976DFF73C25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderApiDx9\Source Files">
+      <UniqueIdentifier>{93841129-990D-0CCA-AC82-C89FA37B6F84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{9A3C0498-7C60-1BDF-BDF7-06BDDE4E468F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VPC Scripts">
+      <UniqueIdentifier>{308191AE-A754-30DF-D5BD-5928E19D585F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup >
+    <Library Include="..\..\lib\public\bitmap.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\..\lib\common\bzip2.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\..\dx9sdk\lib\d3d9.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\..\dx9sdk\lib\d3dx9.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\..\lib\public\interfaces.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\..\lib\public\mathlib.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\..\thirdparty\nvidia\nvapi\lib\nvapi.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\..\lib\public\tier0.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\..\lib\public\tier1.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\..\lib\public\tier2.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\..\lib\public\videocfg.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\..\lib\public\vstdlib.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\..\lib\public\vtf.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup >
+    <ClInclude Include="..\..\dx9sdk\include\d3dx9.h">
+      <Filter>ShaderApiDx9\DirectX Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dx9sdk\include\d3dx9anim.h">
+      <Filter>ShaderApiDx9\DirectX Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dx9sdk\include\d3dx9core.h">
+      <Filter>ShaderApiDx9\DirectX Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dx9sdk\include\d3dx9effect.h">
+      <Filter>ShaderApiDx9\DirectX Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dx9sdk\include\d3dx9math.h">
+      <Filter>ShaderApiDx9\DirectX Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dx9sdk\include\d3dx9mesh.h">
+      <Filter>ShaderApiDx9\DirectX Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dx9sdk\include\d3dx9shader.h">
+      <Filter>ShaderApiDx9\DirectX Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dx9sdk\include\d3dx9shape.h">
+      <Filter>ShaderApiDx9\DirectX Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dx9sdk\include\d3dx9tex.h">
+      <Filter>ShaderApiDx9\DirectX Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="colorformatdx8.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d_async.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dynamicib.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dynamicvb.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hardwareconfig.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imeshdx8.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="locald3dtypes.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="meshbase.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="recording.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shaderapibase.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shaderapidx8.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shaderapidx8_global.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shaderdevicebase.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shaderdevicedx8.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shadershadowdx8.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stubd3ddevice.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="texturedx8.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TransitionTable.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vertexdecl.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vertexshaderdx8.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wmi.h">
+      <Filter>ShaderApiDx9\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hl2stereo.h">
+      <Filter>ShaderApiDx9\Nvidia Stereo Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\shaderapi\commandbuffer.h">
+      <Filter>ShaderApiDx9\Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\materialsystem\idebugtextureinfo.h">
+      <Filter>ShaderApiDx9\Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\shaderapi\ishaderapi.h">
+      <Filter>ShaderApiDx9\Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\shaderapi\IShaderDevice.h">
+      <Filter>ShaderApiDx9\Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\shaderapi\ishaderdynamic.h">
+      <Filter>ShaderApiDx9\Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\shaderapi\ishadershadow.h">
+      <Filter>ShaderApiDx9\Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\shaderapi\ishaderutil.h">
+      <Filter>ShaderApiDx9\Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\materialsystem\ivballoctracker.h">
+      <Filter>ShaderApiDx9\Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\vjobs\root.h">
+      <Filter>ShaderApiDx9\Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\materialsystem\shader_vcs_version.h">
+      <Filter>ShaderApiDx9\Public Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup >
+    <ClCompile Include="colorformatdx8.cpp">
+      <Filter>ShaderApiDx9\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cvballoctracker.cpp">
+      <Filter>ShaderApiDx9\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d_async.cpp">
+      <Filter>ShaderApiDx9\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\public\filesystem_helpers.cpp">
+      <Filter>ShaderApiDx9\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hardwareconfig.cpp">
+      <Filter>ShaderApiDx9\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="meshbase.cpp">
+      <Filter>ShaderApiDx9\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="meshdx8.cpp">
+      <Filter>ShaderApiDx9\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="recording.cpp">
+      <Filter>ShaderApiDx9\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shaderapibase.cpp">
+      <Filter>ShaderApiDx9\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shaderapidx8.cpp">
+      <Filter>ShaderApiDx9\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shaderdevicebase.cpp">
+      <Filter>ShaderApiDx9\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shaderdevicedx8.cpp">
+      <Filter>ShaderApiDx9\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shadershadowdx8.cpp">
+      <Filter>ShaderApiDx9\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="texturedx8.cpp">
+      <Filter>ShaderApiDx9\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TransitionTable.cpp">
+      <Filter>ShaderApiDx9\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vertexdecl.cpp">
+      <Filter>ShaderApiDx9\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vertexshaderdx8.cpp">
+      <Filter>ShaderApiDx9\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wmi.cpp">
+      <Filter>ShaderApiDx9\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\debug_dll_check.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\public\tier0\memoverride.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup  />
+  <ItemGroup  />
+  <ItemGroup >
+    <None Include="..\..\dx9sdk\include\d3dx9math.inl">
+      <Filter>ShaderApiDx9\DirectX Header Files</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\loadaddress.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="_vpc_\manifest_shaderapidx9\win32\manifest.txt">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\platform_dirs.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="shaderapidx9.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="shaderapidx9_inc.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_dll_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_dll_win32_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_dll_win32_debug.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_dll_win32_release.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_lowest_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_video_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_win32_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\version.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+  </ItemGroup>
+</Project>

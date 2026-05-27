@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup >
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{922C6F41-C460-59B1-3A59-D4FA6DDC9C37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Protobuf Files">
+      <UniqueIdentifier>{BFFECC52-5EC0-542B-309A-439E1B4F9EB9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Protobuf Files\Generated Files">
+      <UniqueIdentifier>{311BA447-EAEC-3E91-1B2A-B95DB46948EE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Protobuf Files\Google Protobuf Headers">
+      <UniqueIdentifier>{60826895-694B-A48F-6FA3-33D81C5C5B59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Protobuf Files\Helpers">
+      <UniqueIdentifier>{3226581D-6639-D6ED-AD07-1C113F38D020}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{9A3C0498-7C60-1BDF-BDF7-06BDDE4E468F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VPC Scripts">
+      <UniqueIdentifier>{308191AE-A754-30DF-D5BD-5928E19D585F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup  />
+  <ItemGroup >
+    <ClInclude Include="steamextra\clientenums.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\enumutils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\gcclient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\gcclient_sharedobjectcache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\gcclientjob.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\gcclientsdk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\gcconstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\gclogger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\gcmsg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\gcschema.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\gcsdk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\gcsession.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\gcsystemmsgs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="steamextra\gamecoordinator\igamecoordinator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="steamextra\gamecoordinator\igamecoordinatorhost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="steamextra\gamecoordinator\igcsqlquery.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="steamextra\gamecoordinator\igcsqlresultsetlist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="steamextra\steam\isteamgamecoordinator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\job.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\jobmgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\jobtime.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\messagelist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="steamextra\misc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\msgbase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\msgprotobuf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\netpacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\netpacketpool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="steamextra\tier1\pearsonshash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\protobufsharedobject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\refcount.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="steamextra\rtime.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\sharedobject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\sharedobjectcache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\soid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="steamextra\tier0\t0constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="steamextra\tier1\tsmempool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="steamextra\tier1\tsmultimempool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\gcsdk\workthreadpool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="generated_proto\gcsdk_gcmessages.pb.h">
+      <Filter>Protobuf Files\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="generated_proto\gcsystemmsgs.pb.h">
+      <Filter>Protobuf Files\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="generated_proto\steammessages.pb.h">
+      <Filter>Protobuf Files\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\protobuf-2.5.0\src\google\protobuf\io\coded_stream.h">
+      <Filter>Protobuf Files\Google Protobuf Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\protobuf-2.5.0\src\google\protobuf\stubs\common.h">
+      <Filter>Protobuf Files\Google Protobuf Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\protobuf-2.5.0\src\google\protobuf\descriptor.h">
+      <Filter>Protobuf Files\Google Protobuf Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\protobuf-2.5.0\src\google\protobuf\descriptor.pb.h">
+      <Filter>Protobuf Files\Google Protobuf Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\protobuf-2.5.0\src\google\protobuf\extension_set.h">
+      <Filter>Protobuf Files\Google Protobuf Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\protobuf-2.5.0\src\google\protobuf\generated_message_reflection.h">
+      <Filter>Protobuf Files\Google Protobuf Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\protobuf-2.5.0\src\google\protobuf\generated_message_util.h">
+      <Filter>Protobuf Files\Google Protobuf Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\protobuf-2.5.0\src\google\protobuf\message.h">
+      <Filter>Protobuf Files\Google Protobuf Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\protobuf-2.5.0\src\google\protobuf\message_lite.h">
+      <Filter>Protobuf Files\Google Protobuf Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\protobuf-2.5.0\src\google\protobuf\stubs\once.h">
+      <Filter>Protobuf Files\Google Protobuf Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\protobuf-2.5.0\src\google\protobuf\reflection_ops.h">
+      <Filter>Protobuf Files\Google Protobuf Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\protobuf-2.5.0\src\google\protobuf\repeated_field.h">
+      <Filter>Protobuf Files\Google Protobuf Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\protobuf-2.5.0\src\google\protobuf\unknown_field_set.h">
+      <Filter>Protobuf Files\Google Protobuf Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\protobuf-2.5.0\src\google\protobuf\wire_format.h">
+      <Filter>Protobuf Files\Google Protobuf Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\protobuf-2.5.0\src\google\protobuf\wire_format_lite.h">
+      <Filter>Protobuf Files\Google Protobuf Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\protobuf-2.5.0\src\google\protobuf\wire_format_lite_inl.h">
+      <Filter>Protobuf Files\Google Protobuf Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\protobuf_helpers.h">
+      <Filter>Protobuf Files\Helpers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup >
+    <ClCompile Include="generated_proto\gcsdk_gcmessages.pb.cc">
+      <Filter>Protobuf Files\Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="generated_proto\gcsystemmsgs.pb.cc">
+      <Filter>Protobuf Files\Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="generated_proto\steammessages.pb.cc">
+      <Filter>Protobuf Files\Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\protobuf_helpers.cpp">
+      <Filter>Protobuf Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\debug_lib_check.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gcclient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gcclient_sharedobjectcache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gcconstants.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gclogger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gcmsg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="steamextra\tier1\hashglobals.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="job.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="jobmgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="jobtime.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\thirdparty\JSON_parser\JSON_parser.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="messagelist.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="steamextra\misc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="msgprotobuf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="netpacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="netpacketpool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="protobufsharedobject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="steamextra\rtime.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sharedobject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sharedobjectcache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="steamextra\steamid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="steamextra\tier1\tsmempool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="steamextra\tier1\tsmultimempool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="webapi_response.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="workthreadpool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup  />
+  <ItemGroup >
+    <CustomBuild Include="..\gcsdk\gcsdk_gcmessages.proto">
+      <Filter>Protobuf Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gcsystemmsgs.proto">
+      <Filter>Protobuf Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\gcsdk\steammessages.proto">
+      <Filter>Protobuf Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup >
+    <None Include="gcsdk_game.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\gcsdk\gcsdk_gcmessages_include.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="_vpc_\manifest_gcsdk\win32\manifest.txt">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\platform_dirs.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\protobuf_builder.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\source_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\source_lib_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\source_lib_win32_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\source_lib_win32_debug.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\source_lib_win32_release.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\source_lowest_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\source_video_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\source_win32_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\gcsdk\steammessages_include.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\version.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,775 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup >
+    <Filter Include="GameMonkey">
+      <UniqueIdentifier>{D27A5D76-6522-4ED5-11CA-F211DD12D9EA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameMonkey\binds">
+      <UniqueIdentifier>{627656A9-F6C5-5B9A-5BBE-1BF17E683832}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameMonkey\binds\Header Files">
+      <UniqueIdentifier>{8BECC62B-47ED-F62E-A79D-14B030DD5E71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameMonkey\binds\Source Files">
+      <UniqueIdentifier>{E16D219D-4079-0ACD-7C12-CACA250012FA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameMonkey\gm">
+      <UniqueIdentifier>{3BEB2B2E-D075-7182-B544-DF6B71DEC463}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameMonkey\gm\Header Files">
+      <UniqueIdentifier>{34EA3AD2-0E82-14CB-7DE4-6055669AB0A2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameMonkey\gm\Source Files">
+      <UniqueIdentifier>{92FB04A5-7B00-4EC2-20F3-C59CC39C18ED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{922C6F41-C460-59B1-3A59-D4FA6DDC9C37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{8EB58DD5-E328-E978-169C-7B0CBD30D43F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Link Libraries">
+      <UniqueIdentifier>{6D11200E-4206-7C82-1DCE-61EA5E3FE718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua">
+      <UniqueIdentifier>{F8DBBBDB-3B80-B4F1-70A8-272978F579EB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\lua-5.1.4">
+      <UniqueIdentifier>{80378DB6-780D-4F32-CD8D-B7D7785AF812}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\lua-5.1.4\Header Files">
+      <UniqueIdentifier>{2F7D6ED5-B862-E571-1D94-FAAA30357AD7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\lua-5.1.4\Source Files">
+      <UniqueIdentifier>{D9D0CC05-0239-79BE-CD61-4D30F7D656F4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\Support">
+      <UniqueIdentifier>{16E03014-E0BD-67CF-CB64-CCACDE53EB74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{9A3C0498-7C60-1BDF-BDF7-06BDDE4E468F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Script Files">
+      <UniqueIdentifier>{059ED174-7061-5CA3-3E27-CC31AE2F2B62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Squirrel">
+      <UniqueIdentifier>{EAC074B0-503B-4574-0D49-B18EB659BCFC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Squirrel\Header Files">
+      <UniqueIdentifier>{C0231617-29BE-F7D0-2EDE-6FC12C9595D8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Squirrel\sqplus">
+      <UniqueIdentifier>{03850E65-CB56-9E1D-FDDE-8CF8240EF700}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Squirrel\sqplus\Header Files">
+      <UniqueIdentifier>{F8650E67-B00A-EAAF-4FB2-AACB10AF669E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Squirrel\sqplus\Source Files">
+      <UniqueIdentifier>{0F5A9F8C-ED6B-E3ED-D0A0-3F425DE396A0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Squirrel\sqstdlib">
+      <UniqueIdentifier>{0903EF83-DD09-B0FC-02DC-F181A7FA9C57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Squirrel\sqstdlib\Source Files">
+      <UniqueIdentifier>{A02A6EA6-8952-DBD4-BCFD-160EEBFF73BD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Squirrel\squirrel">
+      <UniqueIdentifier>{624337EC-F867-4D98-205C-0EDD2F9F6253}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Squirrel\squirrel\Header Files">
+      <UniqueIdentifier>{CB844648-75F1-B709-A008-6FA9B74402F4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Squirrel\squirrel\Source Files">
+      <UniqueIdentifier>{0E550376-0A94-ABDD-BE5F-76C174D3D8CD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VPC Scripts">
+      <UniqueIdentifier>{308191AE-A754-30DF-D5BD-5928E19D585F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup >
+    <Library Include="..\lib\public\interfaces.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\lib\public\mathlib.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\lib\public\tier0.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\lib\public\tier1.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+    <Library Include="..\lib\public\vstdlib.lib">
+      <Filter>Link Libraries</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup >
+    <ClInclude Include="languages\gm\src\binds\gmArrayLib.h">
+      <Filter>GameMonkey\binds\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\binds\gmCall.h">
+      <Filter>GameMonkey\binds\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\binds\gmGCRoot.h">
+      <Filter>GameMonkey\binds\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\binds\gmGCRootUtil.h">
+      <Filter>GameMonkey\binds\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\binds\gmHelpers.h">
+      <Filter>GameMonkey\binds\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\binds\gmMathLib.h">
+      <Filter>GameMonkey\binds\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\binds\gmStringLib.h">
+      <Filter>GameMonkey\binds\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\binds\gmSystemLib.h">
+      <Filter>GameMonkey\binds\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\binds\gmVector3Lib.h">
+      <Filter>GameMonkey\binds\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmArraySimple.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmByteCode.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmByteCodeGen.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmCodeGen.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmCodeGenHooks.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmCodeTree.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmConfig.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\platform\win32msvc\gmConfig_p.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmCrc.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmDebug.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmFunctionObject.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmHash.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmIncGC.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmIterator.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmLibHooks.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmListDouble.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmLog.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmMachine.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmMachineLib.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmMem.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmMemChain.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmMemFixed.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmMemFixedSet.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmOperators.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmParser.cpp.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmScanner.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmStream.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmStreamBuffer.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmStringObject.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmTableObject.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmThread.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmUserObject.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmUtil.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\src\gm\gmVariable.h">
+      <Filter>GameMonkey\gm\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\gm\vgm\vgm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\vlua\vlua.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\vsquirrel\vsquirrel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\vscript\ivscript.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\vscript\vscript_templates.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lapi.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lauxlib.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lcode.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\ldebug.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\ldo.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lfunc.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lgc.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\llex.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\llimits.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lmem.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lobject.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lopcodes.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lparser.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lstate.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lstring.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\ltable.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\ltm.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lua.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\luaconf.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lualib.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lundump.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lvm.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lzio.h">
+      <Filter>Lua\lua-5.1.4\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\lua\vlua\vec3.h">
+      <Filter>Lua\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\include\sqdbgserver.h">
+      <Filter>Squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\include\sqrdbg.h">
+      <Filter>Squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\include\sqstdaux.h">
+      <Filter>Squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\include\sqstdblob.h">
+      <Filter>Squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\include\sqstdio.h">
+      <Filter>Squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\include\sqstdmath.h">
+      <Filter>Squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\include\sqstdstring.h">
+      <Filter>Squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\include\sqstdsystem.h">
+      <Filter>Squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\include\squirrel.h">
+      <Filter>Squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\sqplus\sqplus.h">
+      <Filter>Squirrel\sqplus\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\sqplus\SqPlusConst.h">
+      <Filter>Squirrel\sqplus\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\sqplus\sqplusWin32.h">
+      <Filter>Squirrel\sqplus\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\sqplus\SquirrelBindingsUtils.h">
+      <Filter>Squirrel\sqplus\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\sqplus\SquirrelBindingsUtilsWin32.h">
+      <Filter>Squirrel\sqplus\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\sqplus\SquirrelObject.h">
+      <Filter>Squirrel\sqplus\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\sqplus\SquirrelVM.h">
+      <Filter>Squirrel\sqplus\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\squirrel\sqarray.h">
+      <Filter>Squirrel\squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\squirrel\sqclass.h">
+      <Filter>Squirrel\squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\squirrel\sqclosure.h">
+      <Filter>Squirrel\squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\squirrel\sqcompiler.h">
+      <Filter>Squirrel\squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\squirrel\sqfuncproto.h">
+      <Filter>Squirrel\squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\squirrel\sqfuncstate.h">
+      <Filter>Squirrel\squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\squirrel\sqlexer.h">
+      <Filter>Squirrel\squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\squirrel\sqobject.h">
+      <Filter>Squirrel\squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\squirrel\sqopcodes.h">
+      <Filter>Squirrel\squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\squirrel\sqpcheader.h">
+      <Filter>Squirrel\squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\squirrel\sqstate.h">
+      <Filter>Squirrel\squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\squirrel\sqstring.h">
+      <Filter>Squirrel\squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\squirrel\sqtable.h">
+      <Filter>Squirrel\squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\squirrel\squserdata.h">
+      <Filter>Squirrel\squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\squirrel\squtils.h">
+      <Filter>Squirrel\squirrel\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="languages\squirrel\squirrel\sqvm.h">
+      <Filter>Squirrel\squirrel\Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup >
+    <ClCompile Include="languages\gm\src\binds\gmArrayLib.cpp">
+      <Filter>GameMonkey\binds\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\binds\gmCall.cpp">
+      <Filter>GameMonkey\binds\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\binds\gmGCRoot.cpp">
+      <Filter>GameMonkey\binds\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\binds\gmGCRootUtil.cpp">
+      <Filter>GameMonkey\binds\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\binds\gmHelpers.cpp">
+      <Filter>GameMonkey\binds\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\binds\gmMathLib.cpp">
+      <Filter>GameMonkey\binds\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\binds\gmStringLib.cpp">
+      <Filter>GameMonkey\binds\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\binds\gmSystemLib.cpp">
+      <Filter>GameMonkey\binds\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\binds\gmVector3Lib.cpp">
+      <Filter>GameMonkey\binds\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmArraySimple.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmByteCode.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmByteCodeGen.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmCodeGen.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmCodeGenHooks.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmCodeTree.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmCrc.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmDebug.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmFunctionObject.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmHash.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmIncGC.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmLibHooks.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmListDouble.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmLog.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmMachine.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmMachineLib.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmMem.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmMemChain.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmMemFixed.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmMemFixedSet.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmOperators.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmParser.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmScanner.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmStream.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmStreamBuffer.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmStringObject.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmTableObject.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmThread.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmUserObject.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmUtil.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmVariable.cpp">
+      <Filter>GameMonkey\gm\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lapi.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lauxlib.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lbaselib.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lcode.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\ldblib.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\ldebug.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\ldo.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\ldump.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lfunc.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lgc.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\linit.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\liolib.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\llex.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lmathlib.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lmem.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\loadlib.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lobject.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lopcodes.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\loslib.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lparser.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lstate.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lstring.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lstrlib.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\ltable.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\ltablib.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\ltm.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lundump.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lvm.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lzio.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\print.c">
+      <Filter>Lua\lua-5.1.4\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\vlua\vec3.cpp">
+      <Filter>Lua\Support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\debug_dll_check.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\tier0\memoverride.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\gm\vgm\vgm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\lua\vlua\vlua.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vscript.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\vsquirrel\vsquirrel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqplus\SqPlus.cpp">
+      <Filter>Squirrel\sqplus\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqplus\SquirrelBindingsUtils.cpp">
+      <Filter>Squirrel\sqplus\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqplus\SquirrelBindingsUtilsWin32.cpp">
+      <Filter>Squirrel\sqplus\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqplus\SquirrelObject.cpp">
+      <Filter>Squirrel\sqplus\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqplus\SquirrelVM.cpp">
+      <Filter>Squirrel\sqplus\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqstdlib\sqstdaux.cpp">
+      <Filter>Squirrel\sqstdlib\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqstdlib\sqstdblob.cpp">
+      <Filter>Squirrel\sqstdlib\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqstdlib\sqstdmath.cpp">
+      <Filter>Squirrel\sqstdlib\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqstdlib\sqstdrex.cpp">
+      <Filter>Squirrel\sqstdlib\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqstdlib\sqstdstream.cpp">
+      <Filter>Squirrel\sqstdlib\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqstdlib\sqstdstring.cpp">
+      <Filter>Squirrel\sqstdlib\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqapi.cpp">
+      <Filter>Squirrel\squirrel\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqbaselib.cpp">
+      <Filter>Squirrel\squirrel\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqclass.cpp">
+      <Filter>Squirrel\squirrel\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqcompiler.cpp">
+      <Filter>Squirrel\squirrel\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqdbg\sqdbgserver.cpp">
+      <Filter>Squirrel\squirrel\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqdebug.cpp">
+      <Filter>Squirrel\squirrel\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqfuncstate.cpp">
+      <Filter>Squirrel\squirrel\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqlexer.cpp">
+      <Filter>Squirrel\squirrel\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqmem.cpp">
+      <Filter>Squirrel\squirrel\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqobject.cpp">
+      <Filter>Squirrel\squirrel\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqdbg\sqrdbg.cpp">
+      <Filter>Squirrel\squirrel\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqstate.cpp">
+      <Filter>Squirrel\squirrel\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqtable.cpp">
+      <Filter>Squirrel\squirrel\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqvm.cpp">
+      <Filter>Squirrel\squirrel\Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup  />
+  <ItemGroup >
+    <CustomBuild Include="languages\squirrel\vsquirrel\init.nut">
+      <Filter>Source Files\Script Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup >
+    <None Include="..\vpc_scripts\loadaddress.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="_vpc_\manifest_vscript\win32\manifest.txt">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\platform_dirs.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\source_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\source_dll_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\source_dll_win32_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\source_dll_win32_debug.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\source_dll_win32_release.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\source_lowest_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\source_video_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\source_win32_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\vpc_scripts\version.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="vscript.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+  </ItemGroup>
+</Project>

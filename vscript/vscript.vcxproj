@@ -1,0 +1,1084 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>vscript</ProjectName>
+    <ProjectGuid>{AA93A75A-4110-C28B-CC6A-914379C90659}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <TargetName>vscript</TargetName>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <TargetName>vscript</TargetName>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug\.\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug\.\</IntDir>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
+    <ExecutablePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\devtools\vstools;$(ExecutablePath);$(Path)</ExecutablePath>
+    <PreBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</PreBuildEventUseInBuild>
+    <PreLinkEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</PreLinkEventUseInBuild>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateManifest>
+    <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</PostBuildEventUseInBuild>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release\.\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release\.\</IntDir>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
+    <ExecutablePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\devtools\vstools;$(ExecutablePath);$(Path)</ExecutablePath>
+    <PreBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</PreBuildEventUseInBuild>
+    <PreLinkEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</PreLinkEventUseInBuild>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
+    <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PreBuildEvent >
+      <Command>if EXIST ..\..\game\bin\.\$(TargetFileName) for /f &quot;delims=&quot; %%A in (&apos;attrib &quot;..\..\game\bin\.\$(TargetFileName)&quot;&apos;) do set valveTmpIsReadOnly=&quot;%%A&quot;&#x0D;&#x0A;set valveTmpIsReadOnlyLetter=%valveTmpIsReadOnly:~6,1%&#x0D;&#x0A;if &quot;%valveTmpIsReadOnlyLetter%&quot;==&quot;R&quot; del /q &quot;$(TargetDir)&quot;$(TargetFileName)&#x0D;&#x0A;..\devtools\bin\vpc.exe -crc2 &quot;vscript.vcxproj&quot;&#x0D;&#x0A;</Command>
+    </PreBuildEvent>
+    <ClCompile >
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\common;..\public;..\public\tier0;..\public\tier1</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ExceptionHandling>false</ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <AssemblerListingLocation>$(IntDir)/</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)/</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)/</ProgramDataBaseFileName>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <BrowseInformation>false</BrowseInformation>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DisableSpecificWarnings>;4061;4062;4091;4097;4100;4121;4127;4191;4201;4239;4242;4244;4250;4254;4255;4263;4264;4265;4266;4296;4302;4311;4316;4324;4350;4351;4355;4365;4371;4388;4435;4464;4471;4481;4505;4511;4512;4514;4530;4544;4547;4548;4571;4574;4577;4587;4611;4619;4623;4625;4626;4628;4640;4647;4668;4702;4710;4711;4738;4748;4774;4777;4786;4820;4826;4868;4883;4917;4928;4946;4986;4987;4996</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <BrowseInformationFile>$(IntDir)/</BrowseInformationFile>
+      <ErrorReporting>Prompt</ErrorReporting>
+    </ClCompile>
+    <ResourceCompile >
+      <PreprocessorDefinitions>;_DEBUG;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>1033</Culture>
+    </ResourceCompile>
+    <PreLinkEvent  />
+    <Link >
+      <AdditionalOptions> /ignore:4221</AdditionalOptions>
+      <AdditionalDependencies>;shell32.lib;user32.lib;advapi32.lib;gdi32.lib;comdlg32.lib;ole32.lib</AdditionalDependencies>
+      <ShowProgress>NotSet</ShowProgress>
+      <OutputFile>$(OutDir)\vscript.dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>..\lib\common\.;..\lib\public\.</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libc;libcd;libcmt</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(IntDir)/$(TargetName).pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <BaseAddress> </BaseAddress>
+      <TargetMachine>MachineX86</TargetMachine>
+      <LinkErrorReporting>PromptImmediately</LinkErrorReporting>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <Manifest >
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Manifest>
+    <Xdcmake >
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Xdcmake>
+    <Bscmake >
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>$(OutDir)/vscript.bsc</OutputFile>
+    </Bscmake>
+    <PostBuildEvent >
+      <Message>Publishing to ..\..\game\bin\.</Message>
+      <Command>if exist ..\..\game\bin\. goto ValveStart&#x0D;&#x0A;mkdir ..\..\game\bin\.&#x0D;&#x0A;:ValveStart&#x0D;&#x0A;copy &quot;$(TargetDir)&quot;$(TargetFileName) ..\..\game\bin\.\$(TargetFileName)&#x0D;&#x0A;if ERRORLEVEL 1 goto BuildEventFailed&#x0D;&#x0A;if exist &quot;$(TargetDir)&quot;$(TargetName).map copy &quot;$(TargetDir)&quot;$(TargetName).map ..\..\game\bin\.\$(TargetName).map&#x0D;&#x0A;copy &quot;$(TargetDir)&quot;$(TargetName).pdb ..\..\game\bin\.\$(TargetName).pdb&#x0D;&#x0A;if ERRORLEVEL 1 goto BuildEventFailed&#x0D;&#x0A;goto BuildEventOK&#x0D;&#x0A;:BuildEventFailed&#x0D;&#x0A;echo *** ERROR! PostBuildStep FAILED for $(ProjectName)! EXE or DLL is probably running. ***&#x0D;&#x0A;del /q &quot;$(TargetDir)&quot;$(TargetFileName)&#x0D;&#x0A;exit 1&#x0D;&#x0A;:BuildEventOK&#x0D;&#x0A;</Command>
+    </PostBuildEvent>
+    <CustomBuildStep  />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PreBuildEvent >
+      <Command>if EXIST ..\..\game\bin\.\$(TargetFileName) for /f &quot;delims=&quot; %%A in (&apos;attrib &quot;..\..\game\bin\.\$(TargetFileName)&quot;&apos;) do set valveTmpIsReadOnly=&quot;%%A&quot;&#x0D;&#x0A;set valveTmpIsReadOnlyLetter=%valveTmpIsReadOnly:~6,1%&#x0D;&#x0A;if &quot;%valveTmpIsReadOnlyLetter%&quot;==&quot;R&quot; del /q &quot;$(TargetDir)&quot;$(TargetFileName)&#x0D;&#x0A;..\devtools\bin\vpc.exe -crc2 &quot;vscript.vcxproj&quot;&#x0D;&#x0A;</Command>
+    </PreBuildEvent>
+    <ClCompile >
+      <AdditionalOptions>/MP /d2Zi+</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>..\common;..\public;..\public\tier0;..\public\tier1</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <ExceptionHandling>false</ExceptionHandling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <AssemblerListingLocation>$(IntDir)/</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)/</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)/</ProgramDataBaseFileName>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <BrowseInformation>false</BrowseInformation>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DisableSpecificWarnings>;4061;4062;4091;4097;4100;4121;4127;4191;4201;4239;4242;4244;4250;4254;4255;4263;4264;4265;4266;4296;4302;4311;4316;4324;4350;4351;4355;4365;4371;4388;4435;4464;4471;4481;4505;4511;4512;4514;4530;4544;4547;4548;4571;4574;4577;4587;4611;4619;4623;4625;4626;4628;4640;4647;4668;4702;4710;4711;4738;4748;4774;4777;4786;4820;4826;4868;4883;4917;4928;4946;4986;4987;4996</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <BrowseInformationFile>$(IntDir)/</BrowseInformationFile>
+      <ErrorReporting>Prompt</ErrorReporting>
+    </ClCompile>
+    <ResourceCompile >
+      <PreprocessorDefinitions>;NDEBUG;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>1033</Culture>
+    </ResourceCompile>
+    <PreLinkEvent  />
+    <Link >
+      <AdditionalOptions> /ignore:4221</AdditionalOptions>
+      <AdditionalDependencies>;shell32.lib;user32.lib;advapi32.lib;gdi32.lib;comdlg32.lib;ole32.lib</AdditionalDependencies>
+      <ShowProgress>NotSet</ShowProgress>
+      <OutputFile>$(OutDir)\vscript.dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>..\lib\common\.;..\lib\public\.</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libc;libcd;libcmtd</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(IntDir)/$(TargetName).pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <BaseAddress> </BaseAddress>
+      <TargetMachine>MachineX86</TargetMachine>
+      <LinkErrorReporting>PromptImmediately</LinkErrorReporting>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <Manifest >
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Manifest>
+    <Xdcmake >
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Xdcmake>
+    <Bscmake >
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>$(OutDir)/vscript.bsc</OutputFile>
+    </Bscmake>
+    <PostBuildEvent >
+      <Message>Publishing to ..\..\game\bin\.</Message>
+      <Command>if exist ..\..\game\bin\. goto ValveStart&#x0D;&#x0A;mkdir ..\..\game\bin\.&#x0D;&#x0A;:ValveStart&#x0D;&#x0A;copy &quot;$(TargetDir)&quot;$(TargetFileName) ..\..\game\bin\.\$(TargetFileName)&#x0D;&#x0A;if ERRORLEVEL 1 goto BuildEventFailed&#x0D;&#x0A;if exist &quot;$(TargetDir)&quot;$(TargetName).map copy &quot;$(TargetDir)&quot;$(TargetName).map ..\..\game\bin\.\$(TargetName).map&#x0D;&#x0A;copy &quot;$(TargetDir)&quot;$(TargetName).pdb ..\..\game\bin\.\$(TargetName).pdb&#x0D;&#x0A;if ERRORLEVEL 1 goto BuildEventFailed&#x0D;&#x0A;goto BuildEventOK&#x0D;&#x0A;:BuildEventFailed&#x0D;&#x0A;echo *** ERROR! PostBuildStep FAILED for $(ProjectName)! EXE or DLL is probably running. ***&#x0D;&#x0A;del /q &quot;$(TargetDir)&quot;$(TargetFileName)&#x0D;&#x0A;exit 1&#x0D;&#x0A;:BuildEventOK&#x0D;&#x0A;</Command>
+    </PostBuildEvent>
+    <CustomBuildStep  />
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Library Include="..\lib\public\interfaces.lib" />
+    <Library Include="..\lib\public\mathlib.lib" />
+    <Library Include="..\lib\public\tier0.lib" />
+    <Library Include="..\lib\public\tier1.lib" />
+    <Library Include="..\lib\public\vstdlib.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="languages\gm\src\binds\gmArrayLib.h" />
+    <ClInclude Include="languages\gm\src\binds\gmCall.h" />
+    <ClInclude Include="languages\gm\src\binds\gmGCRoot.h" />
+    <ClInclude Include="languages\gm\src\binds\gmGCRootUtil.h" />
+    <ClInclude Include="languages\gm\src\binds\gmHelpers.h" />
+    <ClInclude Include="languages\gm\src\binds\gmMathLib.h" />
+    <ClInclude Include="languages\gm\src\binds\gmStringLib.h" />
+    <ClInclude Include="languages\gm\src\binds\gmSystemLib.h" />
+    <ClInclude Include="languages\gm\src\binds\gmVector3Lib.h" />
+    <ClInclude Include="languages\gm\src\gm\gmArraySimple.h" />
+    <ClInclude Include="languages\gm\src\gm\gmByteCode.h" />
+    <ClInclude Include="languages\gm\src\gm\gmByteCodeGen.h" />
+    <ClInclude Include="languages\gm\src\gm\gmCodeGen.h" />
+    <ClInclude Include="languages\gm\src\gm\gmCodeGenHooks.h" />
+    <ClInclude Include="languages\gm\src\gm\gmCodeTree.h" />
+    <ClInclude Include="languages\gm\src\gm\gmConfig.h" />
+    <ClInclude Include="languages\gm\src\platform\win32msvc\gmConfig_p.h" />
+    <ClInclude Include="languages\gm\src\gm\gmCrc.h" />
+    <ClInclude Include="languages\gm\src\gm\gmDebug.h" />
+    <ClInclude Include="languages\gm\src\gm\gmFunctionObject.h" />
+    <ClInclude Include="languages\gm\src\gm\gmHash.h" />
+    <ClInclude Include="languages\gm\src\gm\gmIncGC.h" />
+    <ClInclude Include="languages\gm\src\gm\gmIterator.h" />
+    <ClInclude Include="languages\gm\src\gm\gmLibHooks.h" />
+    <ClInclude Include="languages\gm\src\gm\gmListDouble.h" />
+    <ClInclude Include="languages\gm\src\gm\gmLog.h" />
+    <ClInclude Include="languages\gm\src\gm\gmMachine.h" />
+    <ClInclude Include="languages\gm\src\gm\gmMachineLib.h" />
+    <ClInclude Include="languages\gm\src\gm\gmMem.h" />
+    <ClInclude Include="languages\gm\src\gm\gmMemChain.h" />
+    <ClInclude Include="languages\gm\src\gm\gmMemFixed.h" />
+    <ClInclude Include="languages\gm\src\gm\gmMemFixedSet.h" />
+    <ClInclude Include="languages\gm\src\gm\gmOperators.h" />
+    <ClInclude Include="languages\gm\src\gm\gmParser.cpp.h" />
+    <ClInclude Include="languages\gm\src\gm\gmScanner.h" />
+    <ClInclude Include="languages\gm\src\gm\gmStream.h" />
+    <ClInclude Include="languages\gm\src\gm\gmStreamBuffer.h" />
+    <ClInclude Include="languages\gm\src\gm\gmStringObject.h" />
+    <ClInclude Include="languages\gm\src\gm\gmTableObject.h" />
+    <ClInclude Include="languages\gm\src\gm\gmThread.h" />
+    <ClInclude Include="languages\gm\src\gm\gmUserObject.h" />
+    <ClInclude Include="languages\gm\src\gm\gmUtil.h" />
+    <ClInclude Include="languages\gm\src\gm\gmVariable.h" />
+    <ClInclude Include="languages\gm\vgm\vgm.h" />
+    <ClInclude Include="languages\lua\vlua\vlua.h" />
+    <ClInclude Include="languages\squirrel\vsquirrel\vsquirrel.h" />
+    <ClInclude Include="..\public\vscript\ivscript.h" />
+    <ClInclude Include="..\public\vscript\vscript_templates.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lapi.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lauxlib.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lcode.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\ldebug.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\ldo.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lfunc.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lgc.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\llex.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\llimits.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lmem.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lobject.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lopcodes.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lparser.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lstate.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lstring.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\ltable.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\ltm.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lua.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\luaconf.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lualib.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lundump.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lvm.h" />
+    <ClInclude Include="languages\lua\lua-5.1.4\src\lzio.h" />
+    <ClInclude Include="languages\lua\vlua\vec3.h" />
+    <ClInclude Include="languages\squirrel\include\sqdbgserver.h" />
+    <ClInclude Include="languages\squirrel\include\sqrdbg.h" />
+    <ClInclude Include="languages\squirrel\include\sqstdaux.h" />
+    <ClInclude Include="languages\squirrel\include\sqstdblob.h" />
+    <ClInclude Include="languages\squirrel\include\sqstdio.h" />
+    <ClInclude Include="languages\squirrel\include\sqstdmath.h" />
+    <ClInclude Include="languages\squirrel\include\sqstdstring.h" />
+    <ClInclude Include="languages\squirrel\include\sqstdsystem.h" />
+    <ClInclude Include="languages\squirrel\include\squirrel.h" />
+    <ClInclude Include="languages\squirrel\sqplus\sqplus.h" />
+    <ClInclude Include="languages\squirrel\sqplus\SqPlusConst.h" />
+    <ClInclude Include="languages\squirrel\sqplus\sqplusWin32.h" />
+    <ClInclude Include="languages\squirrel\sqplus\SquirrelBindingsUtils.h" />
+    <ClInclude Include="languages\squirrel\sqplus\SquirrelBindingsUtilsWin32.h" />
+    <ClInclude Include="languages\squirrel\sqplus\SquirrelObject.h" />
+    <ClInclude Include="languages\squirrel\sqplus\SquirrelVM.h" />
+    <ClInclude Include="languages\squirrel\squirrel\sqarray.h" />
+    <ClInclude Include="languages\squirrel\squirrel\sqclass.h" />
+    <ClInclude Include="languages\squirrel\squirrel\sqclosure.h" />
+    <ClInclude Include="languages\squirrel\squirrel\sqcompiler.h" />
+    <ClInclude Include="languages\squirrel\squirrel\sqfuncproto.h" />
+    <ClInclude Include="languages\squirrel\squirrel\sqfuncstate.h" />
+    <ClInclude Include="languages\squirrel\squirrel\sqlexer.h" />
+    <ClInclude Include="languages\squirrel\squirrel\sqobject.h" />
+    <ClInclude Include="languages\squirrel\squirrel\sqopcodes.h" />
+    <ClInclude Include="languages\squirrel\squirrel\sqpcheader.h" />
+    <ClInclude Include="languages\squirrel\squirrel\sqstate.h" />
+    <ClInclude Include="languages\squirrel\squirrel\sqstring.h" />
+    <ClInclude Include="languages\squirrel\squirrel\sqtable.h" />
+    <ClInclude Include="languages\squirrel\squirrel\squserdata.h" />
+    <ClInclude Include="languages\squirrel\squirrel\squtils.h" />
+    <ClInclude Include="languages\squirrel\squirrel\sqvm.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="languages\gm\src\binds\gmArrayLib.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\binds\gmCall.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\binds\gmGCRoot.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\binds\gmGCRootUtil.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\binds\gmHelpers.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\binds\gmMathLib.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\binds\gmStringLib.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\binds\gmSystemLib.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\binds\gmVector3Lib.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmArraySimple.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmByteCode.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmByteCodeGen.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmCodeGen.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmCodeGenHooks.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmCodeTree.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmCrc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmDebug.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmFunctionObject.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmHash.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmIncGC.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmLibHooks.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmListDouble.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmLog.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmMachine.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmMachineLib.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmMem.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmMemChain.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmMemFixed.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmMemFixedSet.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmOperators.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmParser.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmScanner.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmStream.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmStreamBuffer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmStringObject.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmTableObject.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmThread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmUserObject.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmUtil.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\gm\src\gm\gmVariable.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lapi.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lauxlib.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lbaselib.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lcode.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\ldblib.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\ldebug.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\ldo.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\ldump.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lfunc.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lgc.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\linit.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\liolib.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\llex.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lmathlib.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lmem.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\loadlib.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lobject.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lopcodes.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\loslib.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lparser.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lstate.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lstring.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lstrlib.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\ltable.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\ltablib.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\ltm.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lundump.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lvm.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\lzio.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\lua-5.1.4\src\print.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</CompileAs>
+    </ClCompile>
+    <ClCompile Include="languages\lua\vlua\vec3.cpp" />
+    <ClCompile Include="..\common\debug_dll_check.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\public\tier0\memoverride.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="languages\gm\vgm\vgm.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\gm\src\gm;.\languages\gm\src\binds;.\languages\gm\src\platform\win32msvc</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="languages\lua\vlua\vlua.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\lua\lua-5.1.4\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\lua\lua-5.1.4\src</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="vscript.cpp" />
+    <ClCompile Include="languages\squirrel\vsquirrel\vsquirrel.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqplus\SqPlus.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"> /EHsc</AdditionalOptions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/MP /d2Zi+ /EHsc</AdditionalOptions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqplus\SquirrelBindingsUtils.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"> /EHsc</AdditionalOptions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/MP /d2Zi+ /EHsc</AdditionalOptions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqplus\SquirrelBindingsUtilsWin32.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"> /EHsc</AdditionalOptions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel3\include;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/MP /d2Zi+ /EHsc</AdditionalOptions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel3\include;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqplus\SquirrelObject.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"> /EHsc</AdditionalOptions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/MP /d2Zi+ /EHsc</AdditionalOptions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqplus\SquirrelVM.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"> /EHsc</AdditionalOptions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/MP /d2Zi+ /EHsc</AdditionalOptions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqstdlib\sqstdaux.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqstdlib\sqstdblob.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqstdlib\sqstdmath.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqstdlib\sqstdrex.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqstdlib\sqstdstream.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqstdlib\sqstdstring.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqapi.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqbaselib.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqclass.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqcompiler.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqdbg\sqdbgserver.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqdebug.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqfuncstate.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqlexer.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqmem.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqobject.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\sqdbg\sqrdbg.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqstate.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqtable.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="languages\squirrel\squirrel\sqvm.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\public;..\public\tier0;..\public\tier1;.\languages\squirrel\include;.\languages\squirrel\sqplus</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VPC;CSTRIKE_REL_BUILD=1;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DLLNAME=vscript;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;MEMOVERRIDE_MODULE=vscript;_DLL_EXT=.dll;DLLNAME=vscript;AVI_VIDEO;WMV_VIDEO;CSTRIKE15;VSCRIPT_DLL_EXPORT;LUA_MOD_CASE_INSENSITIVE;MSVC;PROTECTED_THINGS_DISABLE;VSCRIPT_DLL_EXPORT;_DLL_EXT=.dll;_DLL_PREFIX=;_EXTERNAL_DLL_EXT=.dll;PROJECTDIR=C:\Users\Riley\OneDrive\SourceCode\cstrike15_src-master\src\vscript;VPCGAME=csgo;VPCGAMECAPS=CSGO</PreprocessorDefinitions>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <CustomBuild Include="languages\squirrel\vsquirrel\init.nut">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename)%(Extension) produces %(Filename)_nut.h</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\devtools\srcsrv\perl\bin\perl.exe ..\devtools\bin\texttoarray.pl %(FullPath) g_Script_%(Filename)&gt; %(RootDir)%(Directory)%(Filename)_nut.h</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\vpc_scripts\vpc_trivial_dependency.txt</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(RootDir)%(Directory)%(Filename)_nut.h</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename)%(Extension) produces %(Filename)_nut.h</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\devtools\srcsrv\perl\bin\perl.exe ..\devtools\bin\texttoarray.pl %(FullPath) g_Script_%(Filename)&gt; %(RootDir)%(Directory)%(Filename)_nut.h</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\vpc_scripts\vpc_trivial_dependency.txt</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(RootDir)%(Directory)%(Filename)_nut.h</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\vpc_scripts\loadaddress.vpc" />
+    <None Include="_vpc_\manifest_vscript\win32\manifest.txt" />
+    <None Include="..\vpc_scripts\platform_dirs.vpc" />
+    <None Include="..\vpc_scripts\source_base.vpc" />
+    <None Include="..\vpc_scripts\source_dll_base.vpc" />
+    <None Include="..\vpc_scripts\source_dll_win32_base.vpc" />
+    <None Include="..\vpc_scripts\source_dll_win32_debug.vpc" />
+    <None Include="..\vpc_scripts\source_dll_win32_release.vpc" />
+    <None Include="..\vpc_scripts\source_lowest_base.vpc" />
+    <None Include="..\vpc_scripts\source_video_base.vpc" />
+    <None Include="..\vpc_scripts\source_win32_base.vpc" />
+    <None Include="..\vpc_scripts\version.vpc" />
+    <None Include="vscript.vpc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

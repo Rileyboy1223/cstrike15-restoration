@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup >
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{922C6F41-C460-59B1-3A59-D4FA6DDC9C37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scripting Header Files">
+      <UniqueIdentifier>{B75E9075-2764-A384-31BA-EE83B61BC0FF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public Header Files">
+      <UniqueIdentifier>{BDBAD8B6-F777-0C5E-367D-3CE1B8CD9ADE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{9A3C0498-7C60-1BDF-BDF7-06BDDE4E468F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scripting Source Files">
+      <UniqueIdentifier>{BFEB22FD-0F9B-6DFE-C40E-94A99B47B8C0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VPC Scripts">
+      <UniqueIdentifier>{308191AE-A754-30DF-D5BD-5928E19D585F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup  />
+  <ItemGroup >
+    <ClInclude Include="animdata.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dynamicrect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gamegraphic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gamelayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gamerect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gamestage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gametext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gameuidefinition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gameuidynamictextures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gameuischeme.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gameuisystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gameuisystemmgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gameuisystemsurface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphicgroup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hitarea.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inputgameui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="keyrepeat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\game_controls\textdisplay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="typedlog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="uigeometry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gameuiscript.h">
+      <Filter>Header Files\Scripting Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gameuiscriptinterface.h">
+      <Filter>Header Files\Scripting Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gameuiscriptsystem.h">
+      <Filter>Header Files\Scripting Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphicscriptinterface.h">
+      <Filter>Header Files\Scripting Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\game_controls\igameuisystemmgr.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\tier1\utlmemory.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\tier1\utlrbtree.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\tier1\utlvector.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup >
+    <ClCompile Include="animdata.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\debug_lib_check.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dynamicrect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gamegraphic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gamerect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gamestage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gametext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gameuidefinition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gameuidynamictextures.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gameuischeme.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUISystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gameuisystemmgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gameuisystemsurface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphicgroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hitarea.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="inputgameui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="keyrepeat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="textdisplay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="typedlog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="uigeometry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gameuiscript.cpp">
+      <Filter>Source Files\Scripting Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gameuiscriptinterface.cpp">
+      <Filter>Source Files\Scripting Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gameuiscriptsystem.cpp">
+      <Filter>Source Files\Scripting Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphicscriptinterface.cpp">
+      <Filter>Source Files\Scripting Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup  />
+  <ItemGroup  />
+  <ItemGroup >
+    <None Include="game_controls.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="_vpc_\manifest_game_controls\win32\manifest.txt">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\platform_dirs.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_lib_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_lib_win32_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_lib_win32_debug.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_lib_win32_release.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_lowest_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_video_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\source_win32_base.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+    <None Include="..\..\vpc_scripts\version.vpc">
+      <Filter>VPC Scripts</Filter>
+    </None>
+  </ItemGroup>
+</Project>
