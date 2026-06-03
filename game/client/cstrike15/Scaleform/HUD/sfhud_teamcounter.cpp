@@ -295,7 +295,26 @@ void SFHudTeamCounter::LevelShutdown( void )
 bool SFHudTeamCounter::ShouldDraw( void )
 {
 	/* Removed for partner depot */
-	return false;
+	//Rileyboy1223 - rebuilt this function from reversing retail bins
+	if ( IsTakingAFreezecamScreenshot() )
+	{
+		return false;
+	}
+
+	if ( CSGameRules() && CSGameRules()->IsPlayingTraining() )
+	{
+		return false;
+	}
+
+	if ( !cl_drawhud.GetBool() ) 
+	{
+		if ( !cl_draw_only_deathnotices.GetBool() ) 
+		{
+			return false;
+		}
+	}
+
+	return CHudElement::ShouldDraw();
 }
 
 void SFHudTeamCounter::SetActive( bool bActive )

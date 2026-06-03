@@ -39,6 +39,7 @@
 #include "vguicenterprint.h"
 #include "text_message.h"
 
+#include "buymenu_scaleform.h"
 #include "teammenu_scaleform.h"
 #include "chooseclass_scaleform.h"
 #include "Scaleform/HUD/sfhudinfopanel.h"
@@ -286,14 +287,14 @@ IViewPortPanel* CounterStrikeViewport::CreatePanelByName( const char *szPanelNam
  	{
  		newpanel = new SFSpectator( this );
  	}
- 	
-	else if ( Q_strcmp( PANEL_BUY, szPanelName ) == 0 )
+ 	*/
+
+	if ( Q_strcmp( PANEL_BUY, szPanelName ) == 0 )
  	{
  		newpanel = new CCSBuyMenuScaleform( this );
  	}
-	*/
 
- 	if ( Q_strcmp( PANEL_TEAM, szPanelName ) == 0 )
+ 	else if ( Q_strcmp( PANEL_TEAM, szPanelName ) == 0 )
  	{
  		newpanel = new CCSTeamMenuScaleform( this );
  	}

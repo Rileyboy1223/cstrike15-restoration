@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup >
+  <ItemGroup>
     <Filter Include="Additional Link Libraries">
       <UniqueIdentifier>{9CDE8417-F6BD-3101-D1A0-AD10DD7B4022}</UniqueIdentifier>
     </Filter>
@@ -122,7 +122,7 @@
       <UniqueIdentifier>{308191AE-A754-30DF-D5BD-5928E19D585F}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
-  <ItemGroup >
+  <ItemGroup>
     <Library Include="..\..\lib\common\vc14\bzip2.lib">
       <Filter>Additional Link Libraries</Filter>
     </Library>
@@ -211,7 +211,7 @@
       <Filter>Link Libraries</Filter>
     </Library>
   </ItemGroup>
-  <ItemGroup >
+  <ItemGroup>
     <ClInclude Include="..\shared\activitylist.h">
       <Filter>Game Shared Header Files</Filter>
     </ClInclude>
@@ -2732,8 +2732,11 @@
     <ClInclude Include="toolframework_client.h">
       <Filter>Tool Framework</Filter>
     </ClInclude>
+    <ClInclude Include="cstrike15\Scaleform\buymenu_scaleform.h">
+      <Filter>Source Files\CounterStrike DLL\scaleform</Filter>
+    </ClInclude>
   </ItemGroup>
-  <ItemGroup >
+  <ItemGroup>
     <ClCompile Include="generated_proto\gcsystemmsgs.pb.cc">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -4849,11 +4852,15 @@
     <ClCompile Include="toolframework_client.cpp">
       <Filter>Tool Framework</Filter>
     </ClCompile>
+    <ClCompile Include="cstrike15\Scaleform\buymenu_scaleform.cpp">
+      <Filter>Source Files\CounterStrike DLL\scaleform</Filter>
+    </ClCompile>
   </ItemGroup>
-  <ItemGroup  />
-  <ItemGroup >
+  <ItemGroup />
+  <ItemGroup>
     <CustomBuild Include="..\..\gcsdk\gcsystemmsgs.proto">
-      <Filter />    </CustomBuild>
+      <Filter />
+    </CustomBuild>
     <CustomBuild Include="..\..\game\shared\base_gcmessages.proto">
       <Filter>Protobuf Files</Filter>
     </CustomBuild>
@@ -4882,7 +4889,7 @@
       <Filter>Source Files</Filter>
     </CustomBuild>
   </ItemGroup>
-  <ItemGroup >
+  <ItemGroup>
     <None Include="..\..\game\shared\cstrike15\viewmodel_arm_config.inc">
       <Filter>Source Files\CounterStrike DLL</Filter>
     </None>

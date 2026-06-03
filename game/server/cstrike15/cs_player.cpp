@@ -12380,7 +12380,6 @@ void CCSPlayer::StockPlayerAmmo(CBaseCombatWeapon *pNewWeapon)
 
 void CCSPlayer::FindMatchingWeaponsForTeamLoadout(const char *pchName, int nTeam, bool bMustBeTeamSpecific, CUtlVector< CEconItemView* > &matchingWeapons)
 {
-	/** Removed for partner depot **/
 	//lwss - rebuilt this function from reversing retail bins
 	const char *weaponName = pchName;
 	CEconItemDefinition *itemDef = GEconItemSchema().GetItemDefinitionByName(pchName);
@@ -12450,7 +12449,6 @@ void CCSPlayer::FindMatchingWeaponsForTeamLoadout(const char *pchName, int nTeam
 			}
 		}
 	}
-	//lwss end
 }
 
 CBaseEntity	*CCSPlayer::GiveNamedItem(const char *pchName, int iSubType /*= 0*/, CEconItemView *pScriptItem /*= NULL*/, bool bForce /*= false*/)

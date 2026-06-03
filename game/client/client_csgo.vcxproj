@@ -401,6 +401,9 @@ exit 1
     <ClInclude Include="..\shared\weapon_ifmsteadycam.h" />
     <ClInclude Include="..\shared\weapon_parse.h" />
     <ClInclude Include="..\shared\weapon_proficiency.h" />
+    <ClInclude Include="cstrike15\Scaleform\buymenu_scaleform.h">
+      <DeploymentContent>true</DeploymentContent>
+    </ClInclude>
     <ClInclude Include="game_controls\baseviewport.h" />
     <ClInclude Include="game_controls\clientscoreboarddialog.h" />
     <ClInclude Include="game_controls\commandmenu.h" />
@@ -1126,6 +1129,7 @@ exit 1
     <ClInclude Include="toolframework_client.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cstrike15\Scaleform\buymenu_scaleform.cpp" />
     <ClCompile Include="generated_proto\gcsystemmsgs.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
