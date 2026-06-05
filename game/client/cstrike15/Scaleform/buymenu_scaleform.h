@@ -2,17 +2,11 @@
 #define SFBUYMENU_H
 #pragma once
 
-#include "cbase.h"
-
 #include "scaleformui/scaleformui.h"
-
 #include "../VGUI/counterstrikeviewport.h"
-
-#include "game/client/iviewport.h"
-#include "gameeventlistener.h"
+#include "GameEventListener.h"
 
 class CounterStrikeViewport;
-class CItemModelPanel;
 
 struct BuyMenuWeaponSlot
 {
@@ -112,29 +106,61 @@ struct InputAnalogActionData_t
 	int y;
 };
 
+struct BuyMenuLoadout_t
+{
+	CUtlVector<int> weapons;
+	CUtlVector<int> weapons_position;
+	CUtlVector<int> counts;
+
+	uint64 m_LoadoutItems[31];
+
+	int primary;
+	int secondary;
+	int taser;
+
+	int price;
+	int armor;
+};
+
+struct PlayerBuyMenuLoadout_t
+{
+	uint64 m_LoadoutItems[31];
+};
+
 class CCSBuyMenuScaleform : public ScaleformFlashInterface, public IViewPortPanel, public CGameEventListener
 {
 public:
 	explicit CCSBuyMenuScaleform( CounterStrikeViewport *pViewport );
 	virtual ~CCSBuyMenuScaleform();
 
+	/************************************
+	* callbacks from scaleform
+	*/
+
+	void OnCancel( SCALEFORM_CALLBACK_ARGS_DECL );
+	void GetPlayerLoadout( SCALEFORM_CALLBACK_ARGS_DECL );
+	void GetPlayerBuyMenuLoadout( SCALEFORM_CALLBACK_ARGS_DECL );
+
 	/****************************************
 	* functionality
 	*/
 
 	bool FillInPlayerLoadout( CCSLoadout &loadout );
+	bool FillInPlayerBuyMenuLoadout( BuyMenuLoadout_t *pLoadout );
 	bool UpdateTimeLeft( bool bForce );
-	void SetPlayerIsCT( bool isCT );
+	bool SetBuyMenuWeaponSliceEntry( uint32 weaponPosition, SFVALUE flashArray, uint32 arrayIndex, const BuyMenuLoadout_t &loadout );
+
+	void SetPlayerIsCT( const bool isCT );
 	void CalculateBestStats();
 	void UpdatePlayerLoadout( bool bForceUpdate, bool bUpdateFlash );
 	void UpdateRadialSelection();
 	void SetRadialSelection( int radialSlot, int categorySlot );
 	void InvalidateWeapon( int weaponID );
-	void OnCancel();
 	void UpdatePlayerCash( bool bForce );
 	void SetHostageMatch( bool bHostageMatch );
 
 	SFVALUE CreateFlashLoadout( const CCSLoadout &loadout );
+	SFVALUE CreateFlashBuyMenuLoadout( const BuyMenuLoadout_t &loadout );
 
 	/************************************************************
 	*  Flash Interface methods
@@ -154,7 +180,7 @@ public:
 	* IViewPortPanel interface
 	*/
 
-	virtual const char *GetName(void) { return PANEL_BUY; }
+	virtual const char *GetName( void ) { return PANEL_BUY; }
 	virtual void SetData( KeyValues *data ) {};
 
 	virtual void Reset( void ) {}  // hibernate
@@ -166,7 +192,7 @@ public:
 	virtual bool CanBeReopened( void ) const { return true; } // returns true if this panel can be re-opened after being hidden by another panel
 	virtual void ViewportThink( void );
 
-	void ShowPanel( bool bShow );
+	void ShowPanel( bool state );
 
 	// VGUI functions:
 	virtual vgui::VPANEL GetVPanel( void ) { return 0; } // returns VGUI panel handle
@@ -184,7 +210,8 @@ public:
 protected:
 	CounterStrikeViewport *m_pViewport;
 	CCSLoadout m_PlayerLoadout;
-	SFVALUE value;
+
+	BuyMenuLoadout_t m_PlayerBuyMenuLoadout;
 
 private:
 
@@ -198,7 +225,8 @@ private:
 	int   m_fGuardianBuyUntilTime;
 	int   m_nLastAccount;
 
-	bool  m_bMovieLoaded;
+	unsigned int m_iFlashHandle;
+
 	bool  m_bLoadingMovie;
 	bool  m_bVisible;
 	bool  m_bNeedUpdate;
@@ -206,10 +234,9 @@ private:
 	bool  m_bRegisteredEvents;
 	bool  m_bShowOnReady;
 	bool  m_bIsLoaded;
+	bool  m_bInitialized;
 
 	char  m_Padding[0x1C8];
-
-	bool  m_bInitialized;
 
 	int   m_iPrimaryWeapon;
 	int   m_iSecondaryWeapon;
@@ -236,7 +263,6 @@ private:
 	int   m_iUnknownState;
 
 	vgui::EditablePanel *m_pItemPanelParent;
-	CItemModelPanel   *m_pItemModelPanel;
 };
 
 #endif // SFBUYMENU_H

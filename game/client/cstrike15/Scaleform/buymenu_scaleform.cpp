@@ -4,38 +4,27 @@
 
 #if defined( INCLUDE_SCALEFORM )
 
-#include "hud.h"
-#include "hudelement.h"
-
 #include "ienginevgui.h"
 #include "buymenu_scaleform.h"
-#include "HUD/sfhudflashinterface.h"
-#include "game/client/iviewport.h"
-#include "filesystem.h"
 #include "gameui_util.h"
 #include "inputsystem/iinputsystem.h"
-
-#include "vstdlib/vstrtools.h"
-#include "strtools.h"
+#include "../gameui/cstrike15/cstrike15basepanel.h"
 
 #include <keyvalues.h>
 
-#include <vgui_controls/Panel.h>
 #include <vgui_controls/EditablePanel.h>
-#include <vgui_controls/Controls.h>
-#include <vgui_controls/AnalogBar.h>
 
 #include "HUD/sfhudinfopanel.h"
 
 #include "c_cs_player.h"
-#include "weapon_csbasegun.h"
-
-#include "econ_item_inventory.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
 SFUI_BEGIN_GAME_API_DEF
+	SFUI_DECL_METHOD( OnCancel ),
+	SFUI_DECL_METHOD( GetPlayerLoadout ),
+	SFUI_DECL_METHOD( GetPlayerBuyMenuLoadout ),
 SFUI_END_GAME_API_DEF( CCSBuyMenuScaleform, BuyMenu );
 
 static BuyMenuWeaponSlot s_defaultLoadoutWeapons[2][4] =
@@ -86,17 +75,22 @@ void InitBuyMenuLoadoutData()
 	}
 }
 
-CCSBuyMenuScaleform::CCSBuyMenuScaleform(CounterStrikeViewport* pViewport) :
-	m_bVisible(false),
-	m_bInitialized(false),
-	m_pViewport(pViewport),
-	m_iSelectedWeapon(-1),
-	m_iPrimaryWeapon(0),
-	m_iSecondaryWeapon(0),
-	m_iArmorValue(0),
-	m_iCurrentMoney(0),
-	m_iUnknownState(-1)
+CCSBuyMenuScaleform::CCSBuyMenuScaleform( CounterStrikeViewport* pViewport ) :
+	m_bVisible( false ),
+	m_bInitialized( false ),
+	m_bLoading( true ),
+	m_bIsLoaded( false ),
+	m_bRegisteredEvents( false ),
+	m_pViewport( pViewport ),
+	m_iSelectedWeapon( -1 ),
+	m_iPrimaryWeapon( 0 ),
+	m_iSecondaryWeapon( 0 ),
+	m_iArmorValue( 0 ),
+	m_iCurrentMoney( 0 ),
+	m_iUnknownState( -1 )
 {
+	m_iSplitScreenSlot = GET_ACTIVE_SPLITSCREEN_SLOT();
+
 	std::memset(m_Padding, 0, sizeof(m_Padding));
 
 	bool shouldInit = false;
@@ -114,7 +108,7 @@ CCSBuyMenuScaleform::CCSBuyMenuScaleform(CounterStrikeViewport* pViewport) :
 		}
 	}
 
-	if (shouldInit)
+	if ( shouldInit )
 	{
 		InitBuyMenuLoadoutData();
 	}
@@ -139,10 +133,158 @@ CCSBuyMenuScaleform::CCSBuyMenuScaleform(CounterStrikeViewport* pViewport) :
 
 CCSBuyMenuScaleform::~CCSBuyMenuScaleform()
 {
+	if (m_bRegisteredEvents)
+	{
+		if (gameeventmanager)
+		{
+			gameeventmanager->RemoveListener(this);
+		}
+
+		m_bRegisteredEvents = false;
+	}
+
+	// Base class destruction begins
+	m_iSplitScreenSlot = 13;
+
+	// Release Scaleform movie if loaded
+	if (m_bIsLoaded)
+	{
+		//m_pScaleformUI->RemoveElement(m_iFlashHandle, m_FlashAPI);
+	}
 }
 
-void CCSBuyMenuScaleform::FlashLoaded()
+void CCSBuyMenuScaleform::SetPlayerIsCT( const bool isCT )
 {
+	SF_FORCE_SPLITSCREEN_PLAYER_GUARD( m_iSplitScreenSlot );
+
+	if ( FlashAPIIsValid() )
+	{
+		SFVALUE value = m_pScaleformUI->CreateValue( 0 );
+
+		m_pScaleformUI->LockSlot( m_iSplitScreenSlot );
+		m_pScaleformUI->Value_SetArraySize(value, 1);
+
+		m_pScaleformUI->Value_SetValue(value, isCT);
+		m_pScaleformUI->Value_InvokeWithoutReturn(m_FlashAPI, "setPlayerIsCT", value, 1);
+		m_pScaleformUI->ReleaseValue(value);
+
+		m_pScaleformUI->UnlockSlot( m_iSplitScreenSlot );
+	}
+}
+
+void CCSBuyMenuScaleform::FlashReady()
+{
+	SF_FORCE_SPLITSCREEN_PLAYER_GUARD( m_iSplitScreenSlot );
+
+	C_CSPlayer *LocalCSPlayer = C_CSPlayer::GetLocalCSPlayer();
+
+	if ( LocalCSPlayer )
+	{
+		//SetPlayerIsCT(LocalCSPlayer->GetTeamNumber() == 3);
+	}
+
+	CalculateBestStats();
+
+	ListenForGameEvent( "cs_game_disconnected" );
+	ListenForGameEvent( "player_team" );
+	ListenForGameEvent( "player_death" );
+	ListenForGameEvent( "item_equip" );
+
+	m_bLoading = false;
+
+	if ( m_bVisible )
+	{
+		Show();
+	}
+	else
+	{
+		Hide();
+	}
+}
+
+void CCSBuyMenuScaleform::Show()
+{
+	// Register for radial input
+	g_pInputSystem->SetSteamControllerMode("RadialControls", this);
+
+	// If the movie hasn't been loaded yet, start loading it.
+	if ( m_bLoading )
+	{
+		if ( !FlashAPIIsValid() )
+		{
+			m_bLoading = true;
+			SFUI_REQUEST_ELEMENT(SF_SS_SLOT(m_iSplitScreenSlot), g_pScaleformUI, CCSBuyMenuScaleform, this, BuyMenu);
+		}
+
+		m_bVisible = true;
+		return;
+	}
+
+	SF_FORCE_SPLITSCREEN_PLAYER_GUARD(m_iSplitScreenSlot);
+
+	m_bNeedUpdate = false;
+	m_iSelectedCategory = 0;
+	m_iCurrentRadialSelection = 0;
+
+	//UpdatePlayerCash(true);
+	//UpdateTimeLeft(true);
+
+#if defined( CEG_ALLOW_BUYMENU )
+	if (true)
+#endif
+	{
+		g_pScaleformUI->Value_InvokeWithoutReturn(m_FlashAPI, "showPanel", 0, NULL);
+
+		m_iWheelSelection = -1;
+
+		GetHud().DisableHud();
+
+		C_CSPlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
+		if (pPlayer)
+			pPlayer->SetBuyMenuOpen(true);
+
+		bool bHostageMap = false;
+		if (CSGameRules())
+			bHostageMap = CSGameRules()->IsHostageRescueMap();
+
+		//SetHostageMatch(bHostageMap);
+
+		m_bVisible = true;
+	}
+}
+
+void CCSBuyMenuScaleform::Hide()
+{
+	// Unregister radial controls
+	g_pInputSystem->SetSteamControllerMode(NULL, this);
+
+	if (!m_bLoading && FlashAPIIsValid() && m_bVisible)
+	{
+		SF_FORCE_SPLITSCREEN_PLAYER_GUARD(m_iSplitScreenSlot);
+
+		g_pScaleformUI->Value_InvokeWithoutReturn(m_FlashAPI, "hidePanel", nullptr, 0);
+
+		GetHud().EnableHud();
+	}
+
+	m_bVisible = false;
+
+	// Clear selected weapon model
+	//if (m_pWeaponModelPanel)
+		//m_pWeaponModelPanel->SetWeapon(nullptr);
+
+	{
+		CGameUiSetActiveSplitScreenPlayerGuard guard(m_iSplitScreenSlot - 2);
+
+		C_CSPlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
+		if (pPlayer)
+			pPlayer->SetBuyMenuOpen(false);
+	}
+}
+
+void CCSBuyMenuScaleform::FlashLoaded( void )
+{
+
 }
 
 struct WeaponStatRange
@@ -242,51 +384,6 @@ void CCSBuyMenuScaleform::CalculateBestStats()
 	}
 }
 
-void CCSBuyMenuScaleform::FlashReady()
-{
-	CGameUiSetActiveSplitScreenPlayerGuard guard(this->m_nPlayerSlot - 2);
-
-	C_CSPlayer *LocalCSPlayer = C_CSPlayer::GetLocalCSPlayer();
-
-	if (LocalCSPlayer)
-	{
-		SetPlayerIsCT(LocalCSPlayer->GetTeamNumber() == 3);
-	}
-
-	CalculateBestStats();
-
-	ListenForGameEvent("cs_game_disconnected");
-	ListenForGameEvent("player_team");
-	ListenForGameEvent("player_death");
-	ListenForGameEvent("item_death");
-
-	m_bLoading = false;
-
-	if (m_bVisible)
-	{
-		Show();
-	}
-	else
-	{
-		Hide();
-	}
-}
-
-void CCSBuyMenuScaleform::SetPlayerIsCT(bool isCT)
-{
-	CGameUiSetActiveSplitScreenPlayerGuard guard(this->m_iSplitScreenSlot - 2);
-
-	if (m_bIsLoaded)
-	{
-		m_pScaleformUI->LockSlot(m_iSplitScreenSlot);
-		m_pScaleformUI->Value_SetArraySize(value, 1);
-		m_pScaleformUI->Value_SetValue(value, isCT);
-		m_pScaleformUI->Value_InvokeWithoutReturn(m_FlashAPI, "setPlayerIsCT", value, 1);
-		m_pScaleformUI->ReleaseValue(value);
-		m_pScaleformUI->UnlockSlot(m_iSplitScreenSlot);
-	}
-}
-
 bool CCSBuyMenuScaleform::PreUnloadFlash()
 {
 	// WIP
@@ -311,15 +408,14 @@ void CCSBuyMenuScaleform::SetHostageMatch(bool bHostageMatch)
 	}
 }
 
-void CCSBuyMenuScaleform::ShowPanel( bool bShow )
+void CCSBuyMenuScaleform::ShowPanel( bool state )
 {
-	Msg("Calling ShowPanel for PANEL_BUY\n");
-	if ( bShow == m_bVisible )
+	if ( state == m_bVisible )
 	{
 		return;
 	}
 
-	if ( bShow )
+	if ( state )
 	{
 		Show();
 	}
@@ -329,67 +425,260 @@ void CCSBuyMenuScaleform::ShowPanel( bool bShow )
 	}
 }
 
-void CCSBuyMenuScaleform::Show()
+void CCSBuyMenuScaleform::OnCancel(SCALEFORM_CALLBACK_ARGS_DECL)
 {
-	// Register for radial input
-	//g_pInputSystem->AttachToInputContext("RadialControls", this);
-
-	// If the movie hasn't been loaded yet, start loading it.
-	if (!m_bMovieLoaded)
-	{
-		if (!m_bLoadingMovie)
-		{
-			m_bMovieLoaded = true;
-
-			g_pScaleformUI->Value_InvokeWithoutReturn(m_FlashAPI, "BuyMenu", NULL, 0);
-		}
-
-		m_bVisible = true;
-		return;
-	}
-
 	SF_FORCE_SPLITSCREEN_PLAYER_GUARD(m_iSplitScreenSlot);
 
-	m_bNeedUpdate = false;
-	m_iSelectedCategory = 0;
-	m_iCurrentRadialSelection = 0;
+	C_BasePlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
 
-	UpdatePlayerCash(true);
-	UpdateTimeLeft(true);
-
-#if defined( CEG_ALLOW_BUYMENU )
-	if (true)
-#endif
+	int nUserID = -1;
+	if (pPlayer)
 	{
-		//if (m_pScaleformFlashInterface)
-			//m_pScaleformFlashInterface->PrePanelShow(m_iSplitScreenSlot);
-
-		g_pScaleformUI->Value_InvokeWithoutReturn(m_FlashAPI, "showPanel", NULL, NULL);
-
-		//if (m_pScaleformFlashInterface)
-			//m_pScaleformFlashInterface->PostPanelShow(m_iSplitScreenSlot);
-
-		m_iWheelSelection = -1;
-
-		GetHud().DisableHud();
-
-		C_CSPlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
-		if (pPlayer)
-			pPlayer->SetBuyMenuOpen(true);
-
-		bool bHostageMap = false;
-		if (CSGameRules())
-			bHostageMap = CSGameRules()->IsHostageRescueMap();
-
-		SetHostageMatch(bHostageMap);
-
-		m_bVisible = true;
+		nUserID = pPlayer->GetUserID();
 	}
+
+	CSGameRules()->CloseBuyMenu(nUserID);
 }
 
-void CCSBuyMenuScaleform::Hide()
+void CCSBuyMenuScaleform::GetPlayerBuyMenuLoadout(SCALEFORM_CALLBACK_ARGS_DECL)
 {
-	m_pScaleformUI->Value_InvokeWithoutReturn( m_FlashAPI, "hidePanel", NULL, 0 );
+	BuyMenuLoadout_t tempLoadout;
+	memset(&tempLoadout, 0, sizeof(tempLoadout));
+
+	if (FillInPlayerBuyMenuLoadout(&tempLoadout))
+	{
+		memcpy(&m_PlayerBuyMenuLoadout, &tempLoadout, sizeof(tempLoadout));
+	}
+
+	SFVALUE pFlashLoadout = CreateFlashBuyMenuLoadout(m_PlayerBuyMenuLoadout);
+
+	// Invoke callback into Scaleform
+	//m_pScaleformUI->Value_Invoke(pInvokeName, pResult, pFlashLoadout);
+
+	// Release GFx object if one was created
+	if (pFlashLoadout)
+	{
+		m_pScaleformUI->ReleaseValue(pFlashLoadout);
+	}
+
+	//return true;
+}
+
+void CCSBuyMenuScaleform::GetPlayerLoadout(SCALEFORM_CALLBACK_ARGS_DECL)
+{
+	// Refresh cached loadout data
+	UpdatePlayerLoadout(true, false);
+
+	// Build flash representation from m_Loadout
+	SFVALUE flashLoadout = CreateFlashLoadout(m_PlayerLoadout);
+
+	C_CSPlayer* pLocalPlayer = C_CSPlayer::GetLocalCSPlayer();
+
+	if (pLocalPlayer &&
+		pLocalPlayer->IsAlive() &&
+		!CSGameRules()->IsArmorFree() &&
+		pLocalPlayer->ArmorValue() > 0)
+	{
+		m_pScaleformUI->Value_SetMember(flashLoadout, "armor", pLocalPlayer->ArmorValue());
+	}
+
+	SafeReleaseSFVALUE(flashLoadout);
+
+	//return true;
+}
+
+bool CCSBuyMenuScaleform::SetBuyMenuWeaponSliceEntry(uint32 weaponPosition, SFVALUE flashArray, uint32 arrayIndex, const BuyMenuLoadout_t &loadout)
+{
+	C_CSPlayer *pLocalPlayer = C_CSPlayer::GetLocalCSPlayer();
+	if (!pLocalPlayer)
+		return false;
+
+	SFVALUE flashObject = CreateFlashObject();
+
+	m_pScaleformUI->Value_SetMember(flashObject, "sliceType", "weapon");
+
+	uint64 itemID = loadout.m_LoadoutItems[weaponPosition];
+
+	//-------------------------------------------------------------------------
+	// Equipped weapon
+	//-------------------------------------------------------------------------
+	if (itemID != INVALID_ITEM_ID)
+	{
+		C_EconItemView *pItem = nullptr;
+
+		auto *pInventory = CSInventoryManager()->GetLocalInventory();
+
+		if ((itemID >> 60) == 0xF)
+		{
+			pItem = CSInventoryManager()->FindOrCreateReferenceEconItem(itemID);
+		}
+		else if (pInventory)
+		{
+			pItem = pInventory->GetInventoryItemByItemID(itemID);
+		}
+
+		if (pItem)
+		{
+			char itemIDString[256];
+			V_snprintf(itemIDString, sizeof(itemIDString), "%llu", itemID);
+
+			m_pScaleformUI->Value_SetMember(flashObject, "weapon_itemid", itemIDString);
+			m_pScaleformUI->Value_SetMember(flashObject, "weapon_position", (int)weaponPosition);
+
+			const CEconItemDefinition *pDef = pItem->GetStaticData();
+
+			const char *pszClassname =
+				pDef ? pDef->GetItemClass() : "";
+
+			if (IsWeaponClassname(pszClassname))
+				pszClassname += 7;
+
+			m_pScaleformUI->Value_SetMember(flashObject, "weapon", pszClassname);
+		}
+	}
+
+	//-------------------------------------------------------------------------
+	// Prohibited replacement weapon
+	//-------------------------------------------------------------------------
+	auto *pInventory = CSInventoryManager()->GetLocalInventory();
+
+	if (pInventory)
+	{
+		C_EconItemView *pProhibitedItem = pInventory->GetItemInLoadout(pLocalPlayer->GetTeamNumber(), weaponPosition);
+
+		if (pProhibitedItem)
+		{
+			if (CSGameRules()->IsWeaponAllowed(nullptr, pLocalPlayer->GetTeamNumber(), pProhibitedItem))
+			{
+				const CEconItemDefinition *pDef = pProhibitedItem->GetStaticData();
+
+				if (pDef)
+				{
+					C_EconItemView *pReference = CSInventoryManager()->FindOrCreateReferenceEconItem(pDef->GetDefinitionIndex(), 0, 0);
+
+					if (pReference)
+					{
+						uint64 prohibitedID = pReference->GetFauxItemIDFromDefinitionIndex();
+
+						char prohibitedString[256];
+
+						V_snprintf(prohibitedString, sizeof(prohibitedString), "%llu", prohibitedID);
+
+						m_pScaleformUI->Value_SetMember(flashObject, "weapon_prohibiteditemid", prohibitedString);
+					}
+				}
+			}
+		}
+	}
+
+	m_pScaleformUI->Value_SetArrayElement(flashArray, arrayIndex, flashObject);
+
+	SafeReleaseSFVALUE(flashObject);
+
+	return true;
+}
+
+SFVALUE CCSBuyMenuScaleform::CreateFlashBuyMenuLoadout(const BuyMenuLoadout_t &loadout)
+{
+	C_CSPlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
+	if (!pPlayer)
+		return SFVALUE();
+
+	SFVALUE rootMenu = CreateFlashObject();
+
+	//
+	// Main radial menu
+	//
+	SFVALUE mainMenu = CreateFlashObject();
+	m_pScaleformUI->Value_SetMember(mainMenu, "centerText", "#SFUI_BuyMenu_SelectWeapon");
+	m_pScaleformUI->Value_SetMember(mainMenu, "menuType", "parent");
+
+	SFVALUE slices = CreateFlashArray(6);
+	//AddSubMenuSlice(slices, 0, "#SFUI_BuyMenu_Pistols", "glock", "PistolMenu");
+	//AddSubMenuSlice(slices, 1, "#SFUI_BuyMenu_HeavyWeapons", "m249", "HeavyMenu");
+	//AddSubMenuSlice(slices, 2, "#SFUI_BuyMenu_SMGs", "p90", "SMGMenu");
+	//AddSubMenuSlice(slices, 3, "#SFUI_BuyMenu_Rifles", "m4a1", "RifleMenu");
+	//AddSubMenuSlice(slices, 4, "#SFUI_BuyMenu_Equipment", "equipment", "EquipmentMenu");
+	//AddSubMenuSlice(slices, 5, "#SFUI_BuyMenu_Grenades", "grenades", "GrenadeMenu");
+
+	m_pScaleformUI->Value_SetMember(mainMenu, "Slices", slices);
+	m_pScaleformUI->Value_SetMember(rootMenu, "MainMenu", mainMenu);
+
+	//
+	// Pistol menu
+	//
+	{
+		int count = 0;
+
+		for (int i = 2; i <= 7; ++i)
+		{
+			if (loadout.m_LoadoutItems[i] != uint64(-1))
+				++count;
+		}
+
+		SFVALUE pistolMenu = CreateFlashObject();
+		SFVALUE pistolSlices = CreateFlashArray(count);
+
+		m_pScaleformUI->Value_SetMember(pistolMenu, "centerText", "#SFUI_BuyMenu_Pistols");
+		m_pScaleformUI->Value_SetMember(pistolMenu, "menuType", "weapon");
+
+		int slot = 0;
+
+		for (int i = 2; i <= 7; ++i)
+		{
+			if (loadout.m_LoadoutItems[i] != uint64(-1))
+			{
+				SetBuyMenuWeaponSliceEntry(i, pistolSlices, slot++, loadout);
+			}
+		}
+
+		m_pScaleformUI->Value_SetMember(pistolMenu, "Slices", pistolSlices);
+		m_pScaleformUI->Value_SetMember(rootMenu, "PistolMenu", pistolMenu);
+	}
+
+	return rootMenu;
+}
+
+bool CCSBuyMenuScaleform::FillInPlayerBuyMenuLoadout(BuyMenuLoadout_t *pLoadout)
+{
+	SF_FORCE_SPLITSCREEN_PLAYER_GUARD(m_iSplitScreenSlot);
+
+	C_CSPlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
+	if (!pPlayer)
+		return false;
+
+	if (!pPlayer->IsAlive())
+		return false;
+
+	int team = pPlayer->GetTeamNumber();
+
+	if ((team & ~1) != TEAM_TERRORIST)
+		return false;
+
+	Q_memset(pLoadout, 0, sizeof(*pLoadout));
+
+	auto *pInventory = CSInventoryManager()->GetLocalInventory();
+
+	for (int slot = 0; slot < 31; ++slot)
+	{
+		pLoadout->m_LoadoutItems[slot] = INVALID_ITEM_ID;
+
+		C_EconItemView *pItem = pInventory->GetItemInLoadout(team, slot);
+
+		if (!pItem)
+			continue;
+
+		uint64 itemID;
+
+		if (pItem->GetItemID())
+			itemID = pItem->GetItemID();
+		else
+			itemID = pItem->GetFauxItemIDFromDefinitionIndex();
+
+		pLoadout->m_LoadoutItems[slot] = itemID;
+	}
+
+	return true;
 }
 
 bool CCSBuyMenuScaleform::FillInPlayerLoadout(CCSLoadout &loadout)
@@ -640,16 +929,16 @@ SFVALUE CCSBuyMenuScaleform::CreateFlashLoadout(const CCSLoadout &loadout)
 		++idx;
 	}
 
-	m_pScaleformUI->Value_SetMember(flashObj, "weapons", weaponsArray);
-	m_pScaleformUI->Value_SetMember(flashObj, "weapons_position", slotsArray);
-	m_pScaleformUI->Value_SetMember(flashObj, "counts", countsArray);
-	m_pScaleformUI->Value_SetMember(flashObj, "price", totalPrice);
-	m_pScaleformUI->Value_SetMember(flashObj, "bomb", (loadout.m_nFlags && loadout.m_nFlags == 2) != 0);
-	m_pScaleformUI->Value_SetMember(flashObj, "defuse", (loadout.m_nFlags && loadout.m_nFlags == 999) != 0); // Rileyboy1223 -- 999 for now lol until I find the right flag number.
+	g_pScaleformUI->Value_SetMember(flashObj, "weapons", weaponsArray);
+	//g_pScaleformUI->Value_SetMember(flashObj, "weapons_position", slotsArray);
+	//g_pScaleformUI->Value_SetMember(flashObj, "counts", countsArray);
+	//g_pScaleformUI->Value_SetMember(flashObj, "price", totalPrice);
+	//g_pScaleformUI->Value_SetMember(flashObj, "bomb", (loadout.m_nFlags && loadout.m_nFlags == 2) != 0);
+	//g_pScaleformUI->Value_SetMember(flashObj, "defuse", (loadout.m_nFlags && loadout.m_nFlags == 999) != 0); // Rileyboy1223 -- 999 for now lol until I find the right flag number.
 
-	SafeReleaseSFVALUE(weaponsArray);
-	SafeReleaseSFVALUE(slotsArray);
-	SafeReleaseSFVALUE(countsArray);
+	//SafeReleaseSFVALUE(weaponsArray);
+	//SafeReleaseSFVALUE(slotsArray);
+	//SafeReleaseSFVALUE(countsArray);
 
 	return flashObj;
 }
@@ -722,7 +1011,6 @@ void CCSBuyMenuScaleform::FireGameEvent(IGameEvent *event)
 
 			if (userid == pLocalPlayer->GetUserID())
 			{
-				Msg("Player switched to CT team");
 				SetPlayerIsCT(team == TEAM_CT);
 			}
 		}
@@ -852,7 +1140,7 @@ void CCSBuyMenuScaleform::UpdateRadialSelection()
 		categorySelection = (static_cast<int>(floorf(angle / 60.0f)) + 1) % 6;
 	}
 
-	SetRadialSelection(wheelSelection, categorySelection);
+	//SetRadialSelection(wheelSelection, categorySelection);
 }
 
 void CCSBuyMenuScaleform::InvalidateWeapon(int weaponID)
@@ -868,10 +1156,10 @@ void CCSBuyMenuScaleform::InvalidateWeapon(int weaponID)
 	{
 		SFVALUEARRAY args;
 
-		m_pScaleformUI->CreateValueArray(args, 1);
-		m_pScaleformUI->ValueArray_SetElement(args, 0, pszAlias);
-		m_pScaleformUI->Value_InvokeWithoutReturn(m_FlashAPI, "InvalidateWeapon", args, 1);
-		m_pScaleformUI->ReleaseValueArray(args);
+		g_pScaleformUI->CreateValueArray(args, 1);
+		g_pScaleformUI->ValueArray_SetElement(args, 0, pszAlias);
+		g_pScaleformUI->Value_InvokeWithoutReturn(m_FlashAPI, "InvalidateWeapon", args, 1);
+		g_pScaleformUI->ReleaseValueArray(args);
 	}
 }
 
@@ -882,7 +1170,7 @@ bool CCSBuyMenuScaleform::UpdateTimeLeft(bool bForce)
 
 	C_CSPlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
 
-	float flTimeLeft = 0.0f;
+	float flTimeLeft = 99.0f;
 
 	if (CSGameRules()->IsPlayingCoopMission())
 	{
@@ -929,31 +1217,12 @@ bool CCSBuyMenuScaleform::UpdateTimeLeft(bool bForce)
 	{
 		m_nLastTimeLeft = nScaledTime;
 
-		WITH_SFVALUEARRAY_SLOT_LOCKED(args, 2)
-		{
-			//args[0].SetNumber(floorf(flTimeLeft));
-			//args[1].SetBoolean((nScaledTime % 5) < 3);
+		SFVALUEARRAY args = g_pScaleformUI->CreateValueArray(1);
 
-			m_pScaleformUI->Value_InvokeWithoutReturn(m_FlashAPI, "setBuyTimeLeft", args, 2);
-		}
+		g_pScaleformUI->ValueArray_SetElement(args, 0, floorf(flTimeLeft));
+		//g_pScaleformUI->ValueArray_SetElement(args, 1, (nScaledTime % 5) < 3);
+		g_pScaleformUI->Value_InvokeWithoutReturn(m_FlashAPI, "setBuyTimeLeft", args, 1);
 	}
-
-	return false;
-}
-
-void CCSBuyMenuScaleform::OnCancel()
-{
-	SF_FORCE_SPLITSCREEN_PLAYER_GUARD(m_iSplitScreenSlot);
-
-	C_BasePlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
-
-	int nUserID = -1;
-	if (pPlayer)
-	{
-		nUserID = pPlayer->GetUserID();
-	}
-
-	CSGameRules()->CloseBuyMenu(nUserID);
 }
 
 void CCSBuyMenuScaleform::UpdatePlayerCash(bool bForce)
@@ -961,8 +1230,7 @@ void CCSBuyMenuScaleform::UpdatePlayerCash(bool bForce)
 	if (!m_bShowOnReady)
 		return;
 
-	CGameUiSetActiveSplitScreenPlayerGuard guard(
-		m_iSplitScreenSlot - 2);
+	SF_FORCE_SPLITSCREEN_PLAYER_GUARD(m_iSplitScreenSlot);
 
 	C_CSPlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
 
@@ -973,15 +1241,13 @@ void CCSBuyMenuScaleform::UpdatePlayerCash(bool bForce)
 	if (nAccount == m_nLastAccount && !bForce)
 		return;
 
-	SFVALUEARRAY args;
+	SFVALUEARRAY args = g_pScaleformUI->CreateValueArray(1);
 
-	//m_pScaleformUI->CreateValueArray(args, 1);
-
-	//WITH_SFVALUEARRAY_SLOT_LOCKED(args, 1)
-	//{
-		//m_pScaleformUI->ValueArray_SetElement(args, 0, nAccount);
-		//m_pScaleformUI->Value_InvokeWithoutReturn(m_FlashAPI, "setPlayerCash", args, 1);
-	//}
+	WITH_SFVALUEARRAY_SLOT_LOCKED(args, 1)
+	{
+		m_pScaleformUI->ValueArray_SetElement(args, 0, nAccount);
+		m_pScaleformUI->Value_InvokeWithoutReturn(m_FlashAPI, "setPlayerCash", args, 1);
+	}
 
 	m_nLastAccount = nAccount;
 }
@@ -1010,20 +1276,20 @@ void CCSBuyMenuScaleform::ViewportThink( void )
 	}
 
 	// Buy time expired
-	if (UpdateTimeLeft(false))
-	{
-		OnCancel();
+	//if (UpdateTimeLeft(false))
+	//{
+		//Hide();
 
-		if (!CSGameRules()->IsPlayingCooperativeGametype())
-			PrintBuyTimeOverMessage();
+		//if (!CSGameRules()->IsPlayingCooperativeGametype())
+			//PrintBuyTimeOverMessage();
 
-		return;
-	}
+		//return;
+	//}
 
 	// Player left buyzone
 	if (!pPlayer->IsInBuyZone())
 	{
-		OnCancel();
+		Hide();
 
 		SFHudInfoPanel *pInfoPanel = GET_HUDELEMENT(SFHudInfoPanel);
 
