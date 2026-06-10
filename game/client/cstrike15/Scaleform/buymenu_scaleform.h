@@ -6,6 +6,9 @@
 #include "../VGUI/counterstrikeviewport.h"
 #include "GameEventListener.h"
 
+const int cMaxEquipment = 6;  // if this # changes, bump version # cl_titledataversionblock3 and loadoutData in TitleData1 block for title data storageCCSSteamStats::SyncCSLoadoutsToTitleData
+const int cMaxLoadouts = 4;	// if this # changes, bump version # cl_titledataversionblock3 and loadoutData in TitleData1 block  for title data storageCCSSteamStats::SyncCSLoadoutsToTitleData
+
 class CounterStrikeViewport;
 
 struct BuyMenuWeaponSlot
@@ -33,69 +36,111 @@ struct BuyMenuWeaponData
 };
 extern BuyMenuWeaponData g_LoadoutArray[2][4];
 
-enum BuyMenuEquipmentFlags
+struct CCSEquipmentLoadout
 {
-	BUYMENU_EQUIPMENT_KEVLAR = 0x01,
-	BUYMENU_EQUIPMENT_ZEUS = 0x02,
-	BUYMENU_EQUIPMENT_DEFUSER = 0x04,
+	int m_EquipmentID;
+	int m_EquipmentPos;
+	int m_Quantity;
 
-	WEAPON_ASSAULTSUIT = 0x05,
-	WEAPON_KEVLAR = 0x06,
-};
-
-struct BuyMenuGrenadeEntry
-{
-	int m_nWeaponID;       // CSWeaponID
-	int m_nLoadoutSlot;    // inventory loadout slot
-	int m_nCount;          // reserve ammo / quantity
-
-	BuyMenuGrenadeEntry()
+	CCSEquipmentLoadout()
 	{
-		m_nWeaponID = 0;
-		m_nLoadoutSlot = 0;
-		m_nCount = 0;
+		m_EquipmentID = 0;
+		m_EquipmentPos = 0;
+		m_Quantity = 0;
 	}
 
-	bool operator==(const BuyMenuGrenadeEntry &rhs) const
+	bool operator==(const CCSEquipmentLoadout &in_rhs) const
 	{
-		return m_nWeaponID == rhs.m_nWeaponID && m_nLoadoutSlot == rhs.m_nLoadoutSlot && m_nCount == rhs.m_nCount;
+		return m_EquipmentID == in_rhs.m_EquipmentID && m_EquipmentPos == in_rhs.m_EquipmentPos && m_Quantity == in_rhs.m_Quantity;
 	}
 };
 
 struct CCSLoadout
 {
-	// Primary weapon currently equipped
-	int m_nPrimaryWeaponID;
-	int m_nSecondaryWeaponID;
+	enum
+	{
+		HAS_TASER = 0x1,
+		HAS_BOMB = 0x2,
+		HAS_DEFUSE = 0x4,
+	};
 
-	// Loadout slots selected in inventory
-	int m_nPrimaryLoadoutSlot;
-	int m_nSecondaryLoadoutSlot;
+	int m_primaryWeaponID;
+	int m_secondaryWeaponID;
 
-	// Index slots
+	int m_primaryWeaponItemPos;
+	int m_secondaryWeaponItemPos;
+
 	int m_nPrimaryWeaponDefIndex;
 	int m_nSecondaryWeaponDefIndex;
 
-	// Armor / grenades / utility
-	BuyMenuGrenadeEntry m_Items[6];
-
-	// Zeus / Knife / Defuser flags
-	uint8 m_nFlags;
+	// Data fields
+	CCSEquipmentLoadout m_EquipmentArray[cMaxEquipment];
+	uint8 m_flags;
 
 	CCSLoadout()
 	{
 		Q_memset(this, 0, sizeof(*this));
 	}
 
-	bool operator==(const CCSLoadout &rhs) const
+	bool operator==(const CCSLoadout &in_rhs) const
 	{
-		return memcmp(this, &rhs, sizeof(CCSLoadout)) == 0;
+		return memcmp(this, &in_rhs, sizeof(CCSLoadout)) == 0;
 	}
 
-	bool operator!=(const CCSLoadout &rhs) const
+	bool operator!=(const CCSLoadout &in_rhs) const
 	{
-		return !(*this == rhs);
+		return !(*this == in_rhs);
 	}
+};
+
+struct CCSBuyMenuLoadout
+{
+	CCSBuyMenuLoadout()
+	{
+		ClearLoadout();
+	}
+
+	void ClearLoadout(void)
+	{
+		for (int i = 0; i < ARRAYSIZE(m_WeaponID); i++)
+		{
+			m_WeaponID[i] = 0;
+		}
+	}
+
+	CCSBuyMenuLoadout& operator=(const CCSBuyMenuLoadout& in_rhs)
+	{
+		for (int i = 0; i < ARRAYSIZE(m_WeaponID); i++)
+		{
+			m_WeaponID[i] = in_rhs.m_WeaponID[i];
+		}
+
+		return *this;
+	}
+
+	bool operator==(const CCSBuyMenuLoadout& in_rhs) const
+	{
+		for (int i = 0; i < ARRAYSIZE(m_WeaponID); i++)
+		{
+			if (m_WeaponID[i] != in_rhs.m_WeaponID[i])
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	inline bool operator!=(const CCSBuyMenuLoadout& in_rhs) const
+	{
+		return !(*this == in_rhs);
+	}
+
+	//CEconItemView * GetWeaponView(loadout_positions_t pos, int nTeamNumber) const;
+
+	// Data fields
+	itemid_t          m_WeaponID[LOADOUT_POSITION_COUNT];
+	uint64			  m_LoadoutItems[LOADOUT_POSITION_COUNT];
 };
 
 struct InputAnalogActionData_t
@@ -112,7 +157,7 @@ struct BuyMenuLoadout_t
 	CUtlVector<int> weapons_position;
 	CUtlVector<int> counts;
 
-	uint64 m_LoadoutItems[31];
+	uint64 m_LoadoutItems[ LOADOUT_POSITION_COUNT ];
 
 	int primary;
 	int secondary;
@@ -120,11 +165,6 @@ struct BuyMenuLoadout_t
 
 	int price;
 	int armor;
-};
-
-struct PlayerBuyMenuLoadout_t
-{
-	uint64 m_LoadoutItems[31];
 };
 
 class CCSBuyMenuScaleform : public ScaleformFlashInterface, public IViewPortPanel, public CGameEventListener
@@ -138,17 +178,21 @@ public:
 	*/
 
 	void OnCancel( SCALEFORM_CALLBACK_ARGS_DECL );
+	void InitWeapon( SCALEFORM_CALLBACK_ARGS_DECL );
+	void GetWeaponPriceScript( SCALEFORM_CALLBACK_ARGS_DECL );
+	void GetWeaponPriceFromIDScript( SCALEFORM_CALLBACK_ARGS_DECL );
 	void GetPlayerLoadout( SCALEFORM_CALLBACK_ARGS_DECL );
 	void GetPlayerBuyMenuLoadout( SCALEFORM_CALLBACK_ARGS_DECL );
+	void AreWeaponsFree( SCALEFORM_CALLBACK_ARGS_DECL );
 
 	/****************************************
 	* functionality
 	*/
 
 	bool FillInPlayerLoadout( CCSLoadout &loadout );
-	bool FillInPlayerBuyMenuLoadout( BuyMenuLoadout_t *pLoadout );
+	bool FillInPlayerBuyMenuLoadout( CCSBuyMenuLoadout *pLoadout );
 	bool UpdateTimeLeft( bool bForce );
-	bool SetBuyMenuWeaponSliceEntry( uint32 weaponPosition, SFVALUE flashArray, uint32 arrayIndex, const BuyMenuLoadout_t &loadout );
+	bool SetBuyMenuWeaponSliceEntry( uint32 weaponPosition, SFVALUE flashArray, uint32 arrayIndex, CCSBuyMenuLoadout &loadout );
 
 	void SetPlayerIsCT( const bool isCT );
 	void CalculateBestStats();
@@ -160,7 +204,7 @@ public:
 	void SetHostageMatch( bool bHostageMatch );
 
 	SFVALUE CreateFlashLoadout( const CCSLoadout &loadout );
-	SFVALUE CreateFlashBuyMenuLoadout( const BuyMenuLoadout_t &loadout );
+	SFVALUE CreateFlashBuyMenuLoadout( CCSBuyMenuLoadout &loadout );
 
 	/************************************************************
 	*  Flash Interface methods
@@ -211,7 +255,7 @@ protected:
 	CounterStrikeViewport *m_pViewport;
 	CCSLoadout m_PlayerLoadout;
 
-	BuyMenuLoadout_t m_PlayerBuyMenuLoadout;
+	CCSBuyMenuLoadout m_PlayerBuyMenuLoadout;
 
 private:
 
