@@ -497,7 +497,50 @@ void CCreateMainMenuScreenScaleform::Tick()
 	{
 		s_dblTickTime = dblTimeNow;
 		SF_COMPONENT_NOTIFY_FLASH( Device, Tick );
-		/* Removed for partner depot */
+		if ( FlashAPIIsValid() )
+		{
+			WITH_SLOT_LOCKED
+			{
+				m_pScaleformUI->Value_InvokeWithoutReturn( m_FlashAPI, "ScaleformComponent_Device_Tick", NULL, 0 );
+			}
+		}
+	}
+
+	// Tick every 25 seconds
+	if ( ( dblTimeNow - s_dblTickTime ) > 25.0 )
+	{
+		CUtlVector<CUtlString*> *pEngineArray = reinterpret_cast<CUtlVector<CUtlString*>*>(g_pvPassedEngineArray);
+
+		// Send pending client variable notifications to GC
+		if ( pEngineArray && pEngineArray->Count() > 0 )
+		{
+			GCSDK::CProtoBufMsg<CMsgGCCStrike15_v2_ClientVarValueNotificationInfo > msg( k_EMsgGCCStrike15_v2_ClientVarValueNotificationInfo );
+
+			int count = MIN( pEngineArray->Count(), 5 );
+
+			for ( int i = 0; i < count; ++i )
+			{
+				CUtlString *pString = ( *pEngineArray )[i];
+
+				if ( pString )
+				{
+					msg.Body().set_value_name( pString->Get() );
+				}
+			}
+
+			if ( GCClientSystem()->GetGCClient()->BSendMessage( msg ) )
+			{
+				pEngineArray->PurgeAndDeleteElements();
+			}
+		}
+
+		// Force inventory refresh if inventory not initialized
+		CInventoryManager *pInventory = InventoryManager();
+
+		if ( !pInventory->GetLocalInventory() )
+		{
+			pInventory->UpdateLocalInventory();
+		}
 	}
 }
 
