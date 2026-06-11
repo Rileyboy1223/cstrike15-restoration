@@ -1462,7 +1462,29 @@ CEconItemView* CCSPlayerInventory::GetItemInLoadoutFilteredByProhibition( int iT
 	if ( !pItem || !CSGameRules() )
 		return pItem;
 
-	/** Removed for partner depot **/
+	const CEconItemDefinition *pDef = pItem->GetStaticData();
+	if ( !pDef )
+		return nullptr;
+
+	int iLoadoutSlot = pDef->GetLoadoutSlot();
+
+	CEconItemView *pDefaultItem = g_CSInventoryManager.GetItemInLoadoutForTeam( iTeam, iLoadoutSlot );
+
+	if ( iLoadoutSlot <= LOADOUT_POSITION_MUSICKIT && iTeam <= TEAM_CT )
+	{
+		pDefaultItem = g_CSInventoryManager.GetItemInLoadoutForTeam( iTeam, iLoadoutSlot );
+	}
+
+	// If the default item is prohibited, keep checking the actual item.
+	if ( CSGameRules()->IsWeaponAllowed( 0, iTeam, pDefaultItem ) != 10 )
+	{
+		// Actual equipped item is allowed.
+		if ( CSGameRules()->IsWeaponAllowed( 0, iTeam, pItem ) != 10 )
+			return pItem;
+
+		// Equipped item prohibited, use default.
+		return pDefaultItem;
+	}
 
 	return pItem;
 }
