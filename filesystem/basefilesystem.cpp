@@ -280,8 +280,30 @@ static char const * V_FormatFilenameForSymlinking( char (&tempSymlinkBuffer)[MAX
 		 ( ( pFileName[13] == CORRECT_PATH_SEPARATOR ) || ( pFileName[13] == INCORRECT_PATH_SEPARATOR ) ) )
 	{
 		//    maps/workshop/
-		if ( ( false
-			/** Removed for partner depot **/
+		if ( ( !V_strnicmp( pFileName + 14, "125444404", 9 ) 
+			|| !V_strnicmp( pFileName + 14, "125441004", 9 )
+			|| !V_strnicmp( pFileName + 14, "125440847", 9 )
+			|| !V_strnicmp( pFileName + 14, "125440714", 9 )
+			|| !V_strnicmp( pFileName + 14, "125440557", 9 )
+			|| !V_strnicmp( pFileName + 14, "125440342", 9 )
+			|| !V_strnicmp( pFileName + 14, "125440261", 9 )
+			|| !V_strnicmp( pFileName + 14, "125440154", 9 )
+			|| !V_strnicmp( pFileName + 14, "125440026", 9 )
+			|| !V_strnicmp( pFileName + 14, "125439851", 9 )
+			|| !V_strnicmp( pFileName + 14, "125439738", 9 )
+			|| !V_strnicmp( pFileName + 14, "125439125", 9 )
+			|| !V_strnicmp( pFileName + 14, "125438669", 9 )
+			|| !V_strnicmp( pFileName + 14, "125438372", 9 )
+			|| !V_strnicmp( pFileName + 14, "125438255", 9 )
+			|| !V_strnicmp( pFileName + 14, "125438157", 9 )
+			|| !V_strnicmp( pFileName + 14, "125438072", 9 )
+			|| !V_strnicmp( pFileName + 14, "125436057", 9 ) 
+			|| !V_strnicmp( pFileName + 14, "125432575", 9 )
+			|| !V_strnicmp( pFileName + 14, "133256570", 9 )
+			|| !V_strnicmp( pFileName + 14, "152508932", 9 )
+			|| !V_strnicmp( pFileName + 14, "205240106", 9 )
+			|| !V_strnicmp( pFileName + 14, "205239595", 9 )
+			|| !V_strnicmp( pFileName + 14, "344476023", 9 )
 			) &&
 			( ( pFileName[23] == CORRECT_PATH_SEPARATOR ) || ( pFileName[23] == INCORRECT_PATH_SEPARATOR ) ) )
 		{
