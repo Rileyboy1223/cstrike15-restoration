@@ -1,4 +1,4 @@
-//fbr
+// RILEY WALLIS
 
 #include "cbase.h"
 
@@ -25,59 +25,82 @@
 SFUI_BEGIN_GAME_API_DEF
 	SFUI_DECL_METHOD( OnCancel ),
 	SFUI_DECL_METHOD( InitWeapon ),
+
 	SFUI_DECL_METHOD( GetWeaponPriceScript ),
 	SFUI_DECL_METHOD( GetWeaponPriceFromIDScript ),
+	SFUI_DECL_METHOD( GetWeaponShortNameFromPosition ),
+	SFUI_DECL_METHOD( GetWeaponFirepower ),
+	SFUI_DECL_METHOD( GetWeaponFireRate ),
+	SFUI_DECL_METHOD( GetWeaponMoveRate ),
+	SFUI_DECL_METHOD( GetWeaponHandling ),
+	SFUI_DECL_METHOD( GetWeaponArmorPen ),
+	SFUI_DECL_METHOD( GetWeaponClipSize ),
+	SFUI_DECL_METHOD( GetWeaponMaxCarry ),
+	SFUI_DECL_METHOD( GetWeaponPenetration ),
+	SFUI_DECL_METHOD( GetWeaponDMPoints ),
+	SFUI_DECL_METHOD( GetWeaponKillAward ),
+	SFUI_DECL_METHOD( GetWeaponItemID ),
+	SFUI_DECL_METHOD( GetWeaponFirepowerRaw ),
+	SFUI_DECL_METHOD( GetWeaponArmorPenRaw ),
+	SFUI_DECL_METHOD( GetWeaponRawMoveRatio ),
+	SFUI_DECL_METHOD( GetEffectiveRange ),
+	SFUI_DECL_METHOD( GetEffectiveRangeRaw ),
+
 	SFUI_DECL_METHOD( GetPlayerLoadout ),
 	SFUI_DECL_METHOD( GetPlayerBuyMenuLoadout ),
 	SFUI_DECL_METHOD( AreWeaponsFree ),
+	SFUI_DECL_METHOD( Autobuy ),
+	SFUI_DECL_METHOD( BuyWeapon ),
+	SFUI_DECL_METHOD( BuyPrevious ),
+	SFUI_DECL_METHOD( CanAcquire ),
+	SFUI_DECL_METHOD( WeaponIsValid ),
 SFUI_END_GAME_API_DEF( CCSBuyMenuScaleform, BuyMenu );
 
-static BuyMenuWeaponSlot s_defaultLoadoutWeapons[2][4] =
+struct BuyMenuLoadoutEntry s_defaultLoadoutWeapons[2][4] =
 {
 	{
-		{ 1, 0 },
-		{ 2, 0 },
-		{ 3, 0 },
-		{ 4, 0 }
+
 	},
 
 	{
-		{ 5, 0 },
-		{ 6, 0 },
-		{ 7, 0 },
-		{ 8, 0 }
+
 	}
 };
 
-BuyMenuWeaponData g_LoadoutArray[2][4];
+CCSBuyMenuLoadout s_LoadoutArray[2][4];
+
+bool m_bLoadoutInitialized = false;
 
 void InitBuyMenuLoadoutData()
 {
 	Msg("Init BuyMenu Loadout Data");
-	for (int team = 0; team < 2; ++team)
+	for ( int team = 0; team < 2; ++team )
 	{
-		for (int i = 0; i < 4; ++i)
+		for ( int slot = 0; slot < 4; ++slot )
 		{
-			BuyMenuWeaponData& data = g_LoadoutArray[team][i];
+			CCSBuyMenuLoadout &entry = s_LoadoutArray[team][slot];
 
-			data.m_iWeaponDefIndex = s_defaultLoadoutWeapons[team][i].m_iWeaponDefIndex;
+			entry.m_iWeaponID = s_defaultLoadoutWeapons[team][slot].weapon;
+			entry.m_iCount = s_defaultLoadoutWeapons[team][slot].count;
 
-			data.m_iSlot = s_defaultLoadoutWeapons[team][i].m_iSlot;
+			entry.m_iPrice = 0;
+			entry.m_bRestricted = false;
 
-			data.m_iTeam = 0;
-			data.m_iPrice = 0;
+			entry.m_LoadoutItems[0].m_iWeaponID = WEAPON_HEGRENADE;
+			entry.m_LoadoutItems[0].m_iCount = 1;
 
-			data.m_szWeaponName[0] = '\0';
+			entry.m_LoadoutItems[1].m_iWeaponID = WEAPON_FLASHBANG;
+			entry.m_LoadoutItems[1].m_iCount = 1;
 
-			data.m_Unknown1 = 0x2C;
-			data.m_Unknown2 = 0x2B00000001ULL;
-			data.m_Unknown3 = 0x100000000ULL;
+			entry.m_LoadoutItems[2].m_iWeaponID = WEAPON_SMOKEGRENADE;
+			entry.m_LoadoutItems[2].m_iCount = 1;
 
-			data.m_Unknown4 = 0x2D;
-			data.m_Unknown5 = 1;
-			data.m_Unknown6 = 0x100000000ULL;
+			entry.m_LoadoutItems[3].m_iWeaponID = 0;
+			entry.m_LoadoutItems[3].m_iCount = 1;
 		}
 	}
+
+	m_bLoadoutInitialized = true;
 }
 
 CCSBuyMenuScaleform::CCSBuyMenuScaleform( CounterStrikeViewport* pViewport ) :
@@ -87,35 +110,33 @@ CCSBuyMenuScaleform::CCSBuyMenuScaleform( CounterStrikeViewport* pViewport ) :
 	m_bIsLoaded( false ),
 	m_bRegisteredEvents( false ),
 	m_pViewport( pViewport ),
-	m_iSelectedWeapon( -1 ),
-	m_iPrimaryWeapon( 0 ),
-	m_iSecondaryWeapon( 0 ),
-	m_iArmorValue( 0 ),
-	m_iCurrentMoney( 0 ),
-	m_iUnknownState( -1 )
+	m_iSelectedWeapon( -1 )
+	//m_iUnknownState( -1 )
 {
 	m_iSplitScreenSlot = GET_ACTIVE_SPLITSCREEN_SLOT();
 
 	std::memset( m_Padding, 0, sizeof( m_Padding ) );
 
-	bool shouldInit = false;
-
-	for (int i = 0; i < 2 && shouldInit; ++i)
+	if ( !s_LoadoutArray )
 	{
-		for (int j = 0; j < 4; ++j)
+		bool shouldInit = false;
+
+		for ( int i = 0; i < 2; ++i )
 		{
-			if (g_LoadoutArray[i][j].m_iWeaponDefIndex != 0 &&
-				g_LoadoutArray[i][j].m_iSlot != 0)
+			for ( int s = 0; s < 4; ++s )
 			{
-				shouldInit = true;
-				break;
+				if ( s_defaultLoadoutWeapons[i][s].weapon && s_defaultLoadoutWeapons[i][s].count )
+				{
+					shouldInit = true;
+					break;
+				}
 			}
 		}
-	}
 
-	if ( shouldInit )
-	{
-		InitBuyMenuLoadoutData();
+		if ( !shouldInit )
+		{
+			InitBuyMenuLoadoutData();
+		}
 	}
 
 	vgui::VPANEL pRoot = enginevgui->GetPanel( PANEL_CLIENTDLL );
@@ -138,11 +159,11 @@ CCSBuyMenuScaleform::CCSBuyMenuScaleform( CounterStrikeViewport* pViewport ) :
 
 CCSBuyMenuScaleform::~CCSBuyMenuScaleform()
 {
-	if (m_bRegisteredEvents)
+	if ( m_bRegisteredEvents )
 	{
-		if (gameeventmanager)
+		if ( gameeventmanager )
 		{
-			gameeventmanager->RemoveListener(this);
+			gameeventmanager->RemoveListener( this );
 		}
 
 		m_bRegisteredEvents = false;
@@ -152,9 +173,9 @@ CCSBuyMenuScaleform::~CCSBuyMenuScaleform()
 	m_iSplitScreenSlot = 13;
 
 	// Release Scaleform movie if loaded
-	if (m_bIsLoaded)
+	if ( m_bIsLoaded )
 	{
-		//m_pScaleformUI->RemoveElement(m_iFlashHandle, m_FlashAPI);
+		g_pScaleformUI->RemoveElement( m_iSplitScreenSlot, m_FlashAPI );
 	}
 }
 
@@ -167,7 +188,7 @@ void CCSBuyMenuScaleform::SetPlayerIsCT( const bool isCT )
 		SFVALUE value = m_pScaleformUI->CreateValue( 0 );
 
 		m_pScaleformUI->Value_SetValue( value, isCT );
-		m_pScaleformUI->Value_InvokeWithoutReturn( m_FlashAPI, "setPlayerIsCT", value, 1 );
+		g_pScaleformUI->Value_InvokeWithoutReturn( m_FlashAPI, "setPlayerIsCT", value, 1 );
 		m_pScaleformUI->ReleaseValue( value );
 	}
 }
@@ -287,100 +308,84 @@ void CCSBuyMenuScaleform::FlashLoaded( void )
 
 }
 
-struct WeaponStatRange
-{
-	float maxDamage;      // +0x00
-	float minDamage;      // +0x04
-
-	float maxROF;         // +0x08
-	float minROF;         // +0x0C
-
-	float maxAccuracy;    // +0x10
-	float minAccuracy;    // +0x14
-
-	float maxMobility;    // +0x18
-	float minMobility;    // +0x1C
-};
-
-
 void CCSBuyMenuScaleform::CalculateBestStats()
 {
-	WeaponStatRange *pSecondaryStats = reinterpret_cast<WeaponStatRange*>(reinterpret_cast<char*>(this) + 0x264);
-	WeaponStatRange *pPrimaryStats = reinterpret_cast<WeaponStatRange*>(reinterpret_cast<char*>(this) + 0x284);
+	WeaponStatRange *pSecondaryStats = reinterpret_cast<WeaponStatRange*>( reinterpret_cast<char*>(this) + 0x264 );
+	WeaponStatRange *pPrimaryStats = reinterpret_cast<WeaponStatRange*>( reinterpret_cast<char*>(this) + 0x284 );
 
-	for (int i = 1; i < WEAPON_MAX; ++i)
+	for ( int i = 1; i < WEAPON_MAX; ++i )
 	{
 		// Assembly skips weapon id 31
-		if (i == 31)
+		if ( i == 31 )
 			continue;
 
-		const CCSWeaponInfo *pInfo = GetWeaponInfo((CSWeaponID)i);
-		if (!pInfo)
+		const CCSWeaponInfo *pInfo = GetWeaponInfo( (CSWeaponID)i );
+		if ( !pInfo )
 			continue;
 
-		if (!IsGunWeapon((CSWeaponType)pInfo->GetWeaponType(nullptr)))
+		if ( !IsGunWeapon( (CSWeaponType)pInfo->GetWeaponType( nullptr ) ) )
 		{
 			continue;
 		}
 
-		bool bKnife = pInfo->GetWeaponType(nullptr) == WEAPONTYPE_KNIFE;
+		bool bKnife = pInfo->GetWeaponType( nullptr ) == WEAPONTYPE_KNIFE;
 
-		WeaponStatRange *pStats = IsPrimaryWeapon((CSWeaponID)i) ? pPrimaryStats : pSecondaryStats;
+		WeaponStatRange *pStats = IsPrimaryWeapon( (CSWeaponID)i ) ? pPrimaryStats : pSecondaryStats;
 
-		float damage = (float)pInfo->GetDamage(nullptr, 0, 1.0f);
-		float armorDamage = pInfo->GetArmorRatio(nullptr, 0, 1.0f) * damage;
+		float damage = (float)pInfo->GetDamage( nullptr, 0, 1.0f );
+		float armorDamage = pInfo->GetArmorRatio( nullptr, 0, 1.0f ) * damage;
 
-		pStats->maxDamage = MAX(pStats->maxDamage, armorDamage);
-		pStats->minDamage = MIN(pStats->minDamage, armorDamage);
+		pStats->m_flFirepowerMax = MAX( pStats->m_flFirepowerMax, armorDamage );
+		pStats->m_flFirepowerMin = MIN( pStats->m_flFirepowerMin, armorDamage );
 
-		float cycleTime = pInfo->GetCycleTime(nullptr, 0, 1.0f);
+		float cycleTime = pInfo->GetCycleTime( nullptr, 0, 1.0f );
 
-		if (cycleTime > 0.0f)
+		if ( cycleTime > 0.0f )
 		{
 			float rof = 1.0f / cycleTime;
 
-			pStats->maxROF = MAX(pStats->maxROF, rof);
-			pStats->minROF = MIN(pStats->minROF, rof);
+			pStats->m_flFireRateMax = MAX( pStats->m_flFireRateMax, rof );
+			pStats->m_flFireRateMin = MIN( pStats->m_flFireRateMin, rof );
 		}
 
 		float maxSpeed;
 
-		if (bKnife)
+		if ( bKnife )
 		{
-			maxSpeed = pInfo->GetMaxSpeed(nullptr, 1, 1.0f);
+			maxSpeed = pInfo->GetMaxSpeed( nullptr, 1, 1.0f );
 		}
 		else
 		{
-			maxSpeed = pInfo->GetMaxSpeed(nullptr, 0, 1.0f);
+			maxSpeed = pInfo->GetMaxSpeed( nullptr, 0, 1.0f );
 		}
 
-		pStats->maxMobility = MAX(pStats->maxMobility, maxSpeed);
-		pStats->minMobility = MIN(pStats->minMobility, maxSpeed);
+		pStats->m_flMoveRateMax = MAX( pStats->m_flMoveRateMax, maxSpeed );
+		pStats->m_flMoveRateMin = MIN( pStats->m_flMoveRateMin, maxSpeed );
 
 		float inaccuracy;
 
-		if (bKnife)
+		if ( bKnife )
 		{
-			inaccuracy = pInfo->GetInaccuracyStand(nullptr, 1, 0.0f);
+			inaccuracy = pInfo->GetInaccuracyStand( nullptr, 1, 0.0f );
 		}
 		else
 		{
-			inaccuracy = pInfo->GetInaccuracyStand(nullptr, 0, 0.0f);
+			inaccuracy = pInfo->GetInaccuracyStand( nullptr, 0, 0.0f );
 		}
 
 		float spread;
 
-		if (bKnife)
+		if ( bKnife )
 		{
-			spread = pInfo->GetSpread(nullptr, 1, 0.0f);
+			spread = pInfo->GetSpread( nullptr, 1, 0.0f );
 		}
 		else
 		{
-		spread = pInfo->GetSpread(nullptr, 0, 	0.0f);}
+		spread = pInfo->GetSpread( nullptr, 0, 	0.0f );}
 
-		float accuracy = 100.0f / (spread + inaccuracy);
-		pStats->maxAccuracy = MAX(pStats->maxAccuracy, accuracy);
-		pStats->minAccuracy = MIN(pStats->minAccuracy, accuracy);
+		float accuracy = 100.0f / ( spread + inaccuracy );
+		pStats->m_flAccuracyMax = MAX( pStats->m_flAccuracyMax, accuracy );
+		pStats->m_flAccuracyMin = MIN( pStats->m_flAccuracyMin, accuracy );
 	}
 }
 
@@ -400,7 +405,7 @@ void CCSBuyMenuScaleform::SetHostageMatch( bool bHostageMatch )
 
 		m_pScaleformUI->CreateValueArray( args, 1 );
 		m_pScaleformUI->ValueArray_SetElement( args, true, bHostageMatch );
-		m_pScaleformUI->Value_InvokeWithoutReturn( m_FlashAPI, "setIsHostageMatch", args, 1 );
+		g_pScaleformUI->Value_InvokeWithoutReturn( m_FlashAPI, "setIsHostageMatch", args, 1 );
 	}
 }
 
@@ -457,7 +462,7 @@ void CCSBuyMenuScaleform::InitWeapon( SCALEFORM_CALLBACK_ARGS_DECL )
 	// Resolve inventory item for loadout slot
 	if ( loadoutSlot >= 0 && loadoutSlot < 57 )
 	{
-		uint64 itemID = loadout.m_LoadoutItems[loadoutSlot];
+		uint64 itemID = loadout.m_WeaponID[loadoutSlot];
 	
 		if ( itemID != INVALID_ITEM_ID )
 		{
@@ -717,7 +722,7 @@ void CCSBuyMenuScaleform::GetWeaponPriceScript( SCALEFORM_CALLBACK_ARGS_DECL )
 		}
 	}
 
-	pui->Params_SetResult( obj, nPrice );
+	m_pScaleformUI->Params_SetResult( obj, nPrice );
 }
 
 void CCSBuyMenuScaleform::GetWeaponPriceFromIDScript( SCALEFORM_CALLBACK_ARGS_DECL )
@@ -743,7 +748,187 @@ void CCSBuyMenuScaleform::GetWeaponPriceFromIDScript( SCALEFORM_CALLBACK_ARGS_DE
 		}
 	}
 
-	pui->Params_SetResult( obj, nPrice );
+	m_pScaleformUI->Params_SetResult( obj, nPrice );
+}
+
+void CCSBuyMenuScaleform::GetWeaponShortNameFromPosition( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	SF_FORCE_SPLITSCREEN_PLAYER_GUARD( m_iSplitScreenSlot );
+
+	C_CSPlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
+	if ( !pPlayer )
+		return;
+
+	int iLoadoutPosition = -1;
+
+	if ( m_pScaleformUI->Params_GetArgAsNumber( obj, 0 ) != 0.0 )
+	{
+		iLoadoutPosition = ( int )m_pScaleformUI->Params_GetArgAsNumber( obj, 0 );
+	}
+
+	int iWeaponID = ( int )m_pScaleformUI->Params_GetArgAsNumber( obj, 1 );
+
+	int iTeam = pPlayer->GetTeamNumber();
+
+	if ( iLoadoutPosition > 56 )
+		return;
+
+	if ( !CSInventoryManager() )
+		return;
+
+	CCSPlayerInventory *pInventory = CSInventoryManager()->GetLocalCSInventory();
+
+	if ( !pInventory )
+		return;
+
+	itemid_t itemID = m_PlayerBuyMenuLoadout.m_WeaponID[ iLoadoutPosition ];
+
+	if ( itemID == INVALID_ITEM_ID )
+		return;
+
+	C_EconItemView *pItem = pInventory->GetInventoryItemByItemID( itemID );
+
+	// If inventory lookup failed, try fallback methods.
+	if ( !pItem || !pItem->GetStaticData() )
+	{
+		if ( ( itemID >> 60 ) == 0xF )
+		{
+			pItem = CSInventoryManager()->FindOrCreateReferenceEconItem( itemID );
+		}
+		else
+		{
+			pItem = CSInventoryManager()->GetItemInLoadoutForTeam( iTeam, iLoadoutPosition, false );
+		}
+	}
+
+	if ( !pItem )
+		return;
+
+	const CEconItemDefinition *pDef = pItem->GetStaticData();
+
+	if ( !pDef )
+		return;
+
+	const char *pszClass = pDef->GetItemClass();
+
+	// Preferred path:
+	// "weapon_ak47" -> "ak47"
+	if ( pszClass && IsWeaponClassname( pszClass ) )
+	{
+		SFVALUE result = CreateFlashString( pszClass + 7 );
+
+		m_pScaleformUI->Params_SetResult( obj, result );
+
+		SafeReleaseSFVALUE(result);
+		return;
+	}
+
+	// Fallback:
+	const char *pszAlias = WeaponIDToAlias( ( CSWeaponID )iWeaponID );
+
+	if ( pszAlias && pszAlias[0] )
+	{
+		SFVALUE result = CreateFlashString( pszAlias );
+
+		m_pScaleformUI->Params_SetResult( obj, result );
+
+		SafeReleaseSFVALUE( result );
+	}
+}
+
+void CCSBuyMenuScaleform::GetWeaponFirepower( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	SF_FORCE_SPLITSCREEN_PLAYER_GUARD( m_iSplitScreenSlot );
+
+	int weaponID = (int)m_pScaleformUI->Params_GetArgAsNumber( obj, 0 );
+
+	float firepower = GetWeaponFirepowerRawValue( weaponID );
+
+	m_pScaleformUI->Params_SetResult( obj, firepower );
+}
+
+void CCSBuyMenuScaleform::GetWeaponFireRate( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	SF_FORCE_SPLITSCREEN_PLAYER_GUARD( m_iSplitScreenSlot );
+
+	WeaponStatRange *stats;
+	C_CSPlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
+	if ( !pPlayer )
+		return;
+
+	int position = (int)m_pScaleformUI->Params_GetArgAsNumber( obj, 0 );
+
+	int team = pPlayer->GetTeamNumber();
+
+	C_EconItemView *pItem = NULL;
+
+	if ( position < LOADOUT_POSITION_COUNT )
+	{
+		itemid_t itemID = m_PlayerBuyMenuLoadout.m_WeaponID[position];
+
+		if ( itemID != INVALID_ITEM_ID )
+		{
+			CCSPlayerInventory *pInventory = CSInventoryManager()->GetLocalCSInventory();
+
+			if ( pInventory )
+			{
+				pItem = pInventory->GetInventoryItemByItemID( itemID );
+
+				if ( !pItem || !pItem->GetStaticData() )
+				{
+					if ( ( itemID >> 60 ) == 0xF )
+					{
+						pItem = CSInventoryManager()->FindOrCreateReferenceEconItem( itemID );
+					}
+					else
+					{
+						pItem = CSInventoryManager()->GetItemInLoadoutForTeam( team, position );
+					}
+				}
+			}
+		}
+	}
+
+	const CCSWeaponInfo *pWeaponInfo = GetWeaponInfoForPosition( position );
+
+	float fireRate = 0.0f;
+
+	if ( pWeaponInfo )
+	{
+		float cycleTime = pWeaponInfo->GetCycleTime( nullptr, 0, 1.0f );
+
+		if ( cycleTime > 0.0f )
+		{
+			fireRate = 1.0f / cycleTime;
+		}
+	}
+
+	CSWeaponID weaponID = WEAPON_NONE;
+
+	if ( pItem && pItem->GetStaticData() )
+	{
+		weaponID = WeaponIdFromString( pItem->GetStaticData()->GetItemClass() );
+	}
+
+	float minRate;
+	float maxRate;
+
+	if ( IsPrimaryWeapon( weaponID ) )
+	{
+		minRate = m_WeaponStatRange.m_flFireRateMin;
+		maxRate = m_WeaponStatRange.m_flFireRateMax;
+	}
+	else
+	{
+		minRate = m_WeaponStatRange.m_flFireRateMin;
+		maxRate = m_WeaponStatRange.m_flFireRateMax;
+	}
+
+	float normalized = ( ( fireRate - minRate ) * 100.0f ) / ( maxRate - minRate );
+
+	normalized = clamp( normalized + 0.5f, 0.0f, 100.0f );
+
+	m_pScaleformUI->Params_SetResult( obj, (int)floorf( normalized ) );
 }
 
 void CCSBuyMenuScaleform::GetPlayerBuyMenuLoadout( SCALEFORM_CALLBACK_ARGS_DECL )
@@ -756,139 +941,565 @@ void CCSBuyMenuScaleform::GetPlayerBuyMenuLoadout( SCALEFORM_CALLBACK_ARGS_DECL 
 		memcpy( &m_PlayerBuyMenuLoadout, &tempLoadout, sizeof( tempLoadout ) );
 	}
 
-	SFVALUE pFlashLoadout = CreateFlashBuyMenuLoadout( m_PlayerBuyMenuLoadout );
+	SFVALUE pFlashBuyMenuLoadout = CreateFlashBuyMenuLoadout( m_PlayerBuyMenuLoadout );
 
-	pui->Params_SetResult( obj, pFlashLoadout );
+	m_pScaleformUI->Params_SetResult( obj, pFlashBuyMenuLoadout );
 
-	if ( pFlashLoadout )
+	if ( pFlashBuyMenuLoadout )
 	{
-		m_pScaleformUI->ReleaseValue( pFlashLoadout );
+		m_pScaleformUI->ReleaseValue( pFlashBuyMenuLoadout );
 	}
 }
 
-void CCSBuyMenuScaleform::GetPlayerLoadout( SCALEFORM_CALLBACK_ARGS_DECL )
+void CCSBuyMenuScaleform::GetWeaponMoveRate( SCALEFORM_CALLBACK_ARGS_DECL )
 {
-	UpdatePlayerLoadout( true, false );
+	SF_FORCE_SPLITSCREEN_PLAYER_GUARD( m_iSplitScreenSlot )
 
-	SFVALUE flashLoadout = CreateFlashLoadout( m_PlayerLoadout );
+	C_CSPlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
+	if ( !pPlayer )
+		return;
 
-	C_CSPlayer* pLocalPlayer = C_CSPlayer::GetLocalCSPlayer();
+	int position = (int)m_pScaleformUI->Params_GetArgAsNumber( obj, 0 );
 
-	if ( pLocalPlayer && pLocalPlayer->IsAlive() && !CSGameRules()->IsArmorFree() && pLocalPlayer->ArmorValue() > 0 )
+	int team = pPlayer->GetTeamNumber();
+
+	C_EconItemView *pItem = NULL;
+
+	if ( position < LOADOUT_POSITION_COUNT )
 	{
-		m_pScaleformUI->Value_SetMember( flashLoadout, "armor", pLocalPlayer->ArmorValue() );
-	}
+		itemid_t itemID = m_PlayerBuyMenuLoadout.m_WeaponID[position];
 
-	pui->Params_SetResult( obj, flashLoadout );
-
-	SafeReleaseSFVALUE( flashLoadout );
-}
-
-void CCSBuyMenuScaleform::AreWeaponsFree( SCALEFORM_CALLBACK_ARGS_DECL )
-{
-	bool IsPlayingGunGameDeathmatch = CSGameRules()->IsPlayingGunGameDeathmatch();
-
-	//Msg("Gamemode is GunGame or Deathmatch: %s \n", IsPlayingGunGameDeathmatch ? "Yes, weapons are free!" : "No, sorry bro you gotta pay for your weapons!");
-
-	return pui->Params_SetResult( obj, IsPlayingGunGameDeathmatch );
-}
-
-bool CCSBuyMenuScaleform::SetBuyMenuWeaponSliceEntry(uint32 weaponPosition, SFVALUE flashArray, uint32 arrayIndex, CCSBuyMenuLoadout &loadout)
-{
-	C_CSPlayer *pLocalPlayer = C_CSPlayer::GetLocalCSPlayer();
-	if (!pLocalPlayer)
-		return false;
-
-	SFVALUE flashObject = CreateFlashObject();
-
-	m_pScaleformUI->Value_SetMember(flashObject, "sliceType", "weapon");
-
-	uint64 itemID = weaponPosition;
-
-	//Msg("ID: %s\n", itemID ? "" : "");
-
-	//-------------------------------------------------------------------------
-	// Equipped weapon
-	//-------------------------------------------------------------------------
-	if (itemID != INVALID_ITEM_ID)
-	{
-		C_EconItemView *pItem = nullptr;
-
-		auto *pInventory = CSInventoryManager()->GetLocalInventory();
-
-		if ((itemID >> 60) == 0xF)
+		if ( itemID != INVALID_ITEM_ID )
 		{
-			pItem = CSInventoryManager()->FindOrCreateReferenceEconItem(itemID);
-		}
-		else if (pInventory)
-		{
-			pItem = pInventory->GetInventoryItemByItemID(itemID);
-		}
+			CCSPlayerInventory *pInventory = CSInventoryManager()->GetLocalCSInventory();
 
-		if (pItem)
-		{
-			char itemIDString[256];
-			V_snprintf(itemIDString, sizeof(itemIDString), "%llu", itemID);
-
-			m_pScaleformUI->Value_SetMember(flashObject, "weapon_itemid", itemIDString);
-			m_pScaleformUI->Value_SetMember(flashObject, "weapon_position", (int)weaponPosition);
-
-			const CEconItemDefinition *pDef = pItem->GetStaticData();
-
-			const char *pszClassname = pDef ? pDef->GetItemClass() : "";
-
-			if (IsWeaponClassname(pszClassname))
-				pszClassname += 7;
-
-			m_pScaleformUI->Value_SetMember(flashObject, "weapon", pszClassname);
-		}
-	}
-
-	//-------------------------------------------------------------------------
-	// Prohibited replacement weapon
-	//-------------------------------------------------------------------------
-	auto *pInventory = CSInventoryManager()->GetLocalInventory();
-
-	if (pInventory)
-	{
-		C_EconItemView *pProhibitedItem = pInventory->GetItemInLoadout(pLocalPlayer->GetTeamNumber(), weaponPosition);
-
-		if (pProhibitedItem)
-		{
-			if (CSGameRules()->IsWeaponAllowed(nullptr, pLocalPlayer->GetTeamNumber(), pProhibitedItem))
+			if ( pInventory )
 			{
-				const CEconItemDefinition *pDef = pProhibitedItem->GetStaticData();
+				pItem = pInventory->GetInventoryItemByItemID( itemID );
 
-				if (pDef)
+				if ( !pItem || !pItem->GetStaticData() )
 				{
-					C_EconItemView *pReference = CSInventoryManager()->FindOrCreateReferenceEconItem(pDef->GetDefinitionIndex(), 0, 0);
-
-					if (pReference)
+					if ( ( itemID >> 60 ) == 0xF )
 					{
-						uint64 prohibitedID = pReference->GetFauxItemIDFromDefinitionIndex();
-
-						char prohibitedString[256];
-
-						V_snprintf(prohibitedString, sizeof(prohibitedString), "%llu", prohibitedID);
-
-						m_pScaleformUI->Value_SetMember(flashObject, "weapon_prohibiteditemid", prohibitedString);
+						pItem = CSInventoryManager()->FindOrCreateReferenceEconItem( itemID );
+					}
+					else
+					{
+						pItem = CSInventoryManager()->GetItemInLoadoutForTeam( team, position );
 					}
 				}
 			}
 		}
 	}
 
-	m_pScaleformUI->Value_SetArrayElement(flashArray, arrayIndex, flashObject);
+	const CCSWeaponInfo *pWeaponInfo = GetWeaponInfoForPosition( position );
 
-	SafeReleaseSFVALUE(flashObject);
+	if ( !pWeaponInfo )
+		return;
+
+	CSWeaponID weaponID = WEAPON_NONE;
+
+	if ( pItem && pItem->GetStaticData() )
+	{
+		weaponID = WeaponIdFromString( pItem->GetStaticData()->GetItemClass() );
+	}
+
+	float maxSpeed;
+
+	if ( pWeaponInfo->GetWeaponType( pItem ) == WEAPONTYPE_KNIFE || pWeaponInfo->IsRevolver( pItem, false, 1.0f ) )
+	{
+		maxSpeed = pWeaponInfo->GetMaxSpeed( pItem, true, 1.0f );
+	}
+	else
+	{
+		maxSpeed = pWeaponInfo->GetMaxSpeed( pItem, false, 1.0f );
+	}
+
+	float minSpeed;
+	float maxSpeedRange;
+
+	if ( IsPrimaryWeapon( weaponID ) )
+	{
+		maxSpeedRange = m_WeaponStatRange.m_flMoveRateMax;
+		minSpeed = m_WeaponStatRange.m_flMoveRateMin;
+	}
+	else
+	{
+		maxSpeedRange = m_WeaponStatRange.m_flMoveRateMax;
+		minSpeed = m_WeaponStatRange.m_flMoveRateMin;
+	}
+
+	float normalized = ( ( maxSpeed - minSpeed ) * 100.0f ) / ( maxSpeedRange - minSpeed );
+
+	normalized = (int)floorf( clamp( normalized + 0.5f, 0.0f, 100.0f ) );
+
+	m_pScaleformUI->Params_SetResult( obj, normalized );
+}
+
+void CCSBuyMenuScaleform::GetWeaponHandling( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	// To be added later.
+}
+
+void CCSBuyMenuScaleform::GetWeaponArmorPen( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	// To be added later.
+}
+
+void CCSBuyMenuScaleform::GetWeaponClipSize( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	// To be added later.
+}
+
+void CCSBuyMenuScaleform::GetWeaponMaxCarry( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	// To be added later.
+}
+
+void CCSBuyMenuScaleform::GetWeaponPenetration( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	// To be added later.
+}
+
+void CCSBuyMenuScaleform::GetWeaponDMPoints( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	// To be added later.
+}
+
+void CCSBuyMenuScaleform::GetWeaponKillAward( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	// To be added later.
+}
+
+void CCSBuyMenuScaleform::GetWeaponItemID( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	// To be added later.
+}
+
+void CCSBuyMenuScaleform::GetWeaponFirepowerRaw( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	// To be added later.
+}
+
+void CCSBuyMenuScaleform::GetWeaponArmorPenRaw( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	// To be added later.
+}
+
+void CCSBuyMenuScaleform::GetWeaponRawMoveRatio( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	// To be added later.
+}
+
+void CCSBuyMenuScaleform::GetEffectiveRange( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	// To be added later.
+}
+
+void CCSBuyMenuScaleform::GetEffectiveRangeRaw( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	// To be added later.
+}
+
+void CCSBuyMenuScaleform::GetPlayerLoadout( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	UpdatePlayerLoadout( true, false );
+
+	SFVALUE pFlashLoadout = CreateFlashLoadout( m_PlayerLoadout );
+
+	C_CSPlayer* pLocalPlayer = C_CSPlayer::GetLocalCSPlayer();
+
+	if ( pLocalPlayer && pLocalPlayer->IsAlive() && !CSGameRules()->IsArmorFree() && pLocalPlayer->ArmorValue() > 0 )
+	{
+		m_pScaleformUI->Value_SetMember( pFlashLoadout, "armor", pLocalPlayer->ArmorValue() );
+	}
+
+	m_pScaleformUI->Params_SetResult( obj, pFlashLoadout );
+
+	if ( pFlashLoadout )
+	{
+		SafeReleaseSFVALUE( pFlashLoadout );
+	}
+}
+
+void CCSBuyMenuScaleform::AreWeaponsFree( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	bool IsPlayingGunGameDeathmatch = CSGameRules()->IsPlayingGunGameDeathmatch();
+
+	m_pScaleformUI->Params_SetResult( obj, IsPlayingGunGameDeathmatch );
+}
+
+void CCSBuyMenuScaleform::Autobuy( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	SF_FORCE_SPLITSCREEN_PLAYER_GUARD( m_iSplitScreenSlot );
+
+	engine->ClientCmd( "autobuy" );
+
+	m_bNeedUpdate = true;
+
+	C_CSPlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
+
+	int userID = -1;
+	if ( pPlayer )
+	{
+		userID = pPlayer->GetUserID();
+	}
+
+	if ( g_pGameRules )
+	{
+		CSGameRules()->CloseBuyMenu( userID );
+	}
+}
+
+void CCSBuyMenuScaleform::BuyWeapon( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	if ( !C_CSPlayer::GetLocalCSPlayer() )
+		return;
+
+	const char *pszWeapon = "";
+
+	if ( m_pScaleformUI->Params_GetArgAsNumber( obj ) > 0 && m_pScaleformUI->Params_GetArgType( obj ) == IUIMarshalHelper::VT_String )
+	{
+		pszWeapon = m_pScaleformUI->Params_GetArgAsString( obj );
+	}
+
+	int nCount = (int)m_pScaleformUI->Params_GetArgAsNumber( obj, 1 );
+
+	SF_FORCE_SPLITSCREEN_PLAYER_GUARD( m_iSplitScreenSlot );
+
+	char command[100];
+	V_snprintf( command, sizeof( command ), "buy %s %d", pszWeapon, nCount );
+
+	engine->ExecuteClientCmd( command );
+
+	m_bNeedUpdate = true;
+}
+
+void CCSBuyMenuScaleform::BuyPrevious( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	SF_FORCE_SPLITSCREEN_PLAYER_GUARD( m_iSplitScreenSlot );
+
+	// Execute the rebuy command
+	engine->ClientCmd( "rebuy" );
+
+	C_CSPlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
+
+	int userID = -1;
+	if ( pPlayer )
+	{
+		userID = pPlayer->GetUserID();
+	}
+
+	if ( g_pGameRules )
+	{
+		CSGameRules()->CloseBuyMenu( userID );
+	}
+}
+
+void CCSBuyMenuScaleform::CanAcquire( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	SF_FORCE_SPLITSCREEN_PLAYER_GUARD(m_iSplitScreenSlot);
+
+	C_CSPlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
+	if ( !pPlayer )
+		return;
+
+	// Optional weapon alias passed from Flash
+	const char *pszWeapon = "";
+
+	if ( m_pScaleformUI->Params_GetArgAsNumber( obj ) > 0 && m_pScaleformUI->Params_GetArgType( obj ) == IUIMarshalHelper::VT_String )
+	{
+		pszWeapon = m_pScaleformUI->Params_GetArgAsString( obj );
+	}
+
+	int weaponID = AliasToWeaponID(pszWeapon);
+
+	// Flash also passes a loadout slot
+	int loadoutSlot = -1;
+
+	if ( m_pScaleformUI->Params_GetNumArgs( obj ) == 2 )
+	{
+		loadoutSlot = (int)m_pScaleformUI->Params_GetArgAsNumber( obj, 1 );
+	}
+
+	CEconItemView *pItem = nullptr;
+
+	if ( loadoutSlot >= 0 && loadoutSlot < LOADOUT_POSITION_COUNT )
+	{
+		itemid_t itemID = m_PlayerBuyMenuLoadout.m_WeaponID[loadoutSlot];
+
+		if ( itemID != INVALID_ITEM_ID )
+		{
+			CCSPlayerInventory *pInventory = CSInventoryManager()->GetLocalCSInventory();
+
+			if ( pInventory )
+			{
+				pItem = pInventory->GetInventoryItemByItemID(itemID);
+
+				if ( !pItem || !pItem->IsValid() )
+				{
+					if ( ( itemID >> 60 ) == 0xF )
+					{
+						pItem = CSInventoryManager()->FindOrCreateReferenceEconItem( itemID );
+					}
+					else
+					{
+						pItem = CSInventoryManager()->GetItemInLoadoutForTeam( pPlayer->GetTeamNumber(), loadoutSlot );
+					}
+				}
+			}
+		}
+	}
+
+	AcquireResult::Type result = pPlayer->CanAcquire( (CSWeaponID)weaponID, AcquireMethod::Buy );
+
+	m_pScaleformUI->Params_SetResult( obj, result );
+}
+
+void CCSBuyMenuScaleform::WeaponIsValid( SCALEFORM_CALLBACK_ARGS_DECL )
+{
+	bool bValid = false;
+
+	double type = m_pScaleformUI->Params_GetArgType( obj );
+
+	if ( type == IUIMarshalHelper::VT_Number ) // The object argument is a loadout position.
+	{
+		int nPosition = (int)m_pScaleformUI->Params_GetArgAsNumber( obj );
+
+		C_CSPlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
+
+		if ( pPlayer )
+		{
+			int nTeam = pPlayer->GetTeamNumber();
+
+			if ( nPosition >= 0 && nPosition < LOADOUT_POSITION_COUNT )
+			{
+				itemid_t itemID = m_PlayerBuyMenuLoadout.m_WeaponID[nPosition];
+
+				C_EconItemView *pItem = NULL;
+
+				if ( itemID != INVALID_ITEM_ID )
+				{
+					CCSInventoryManager *pInv = CSInventoryManager();
+
+					if ( pInv && pInv->GetLocalInventory() )
+					{
+						pItem = pInv->GetLocalInventory()->GetInventoryItemByItemID( itemID );
+
+						if ( !pItem || !pItem->GetStaticData() )
+						{
+							if ( ( itemID >> 60 ) == 0xF )
+							{
+								pItem = pInv->FindOrCreateReferenceEconItem( itemID );
+							}
+							else
+							{
+								pItem = pInv->GetItemInLoadoutForTeam( nTeam, nPosition );
+							}
+						}
+					}
+				}
+
+				bValid = ( pItem != NULL );
+			}
+		}
+	}
+
+	else if ( type == IUIMarshalHelper::VT_String ) // The object argument is a weapon alias.
+	{
+		const char *pszAlias = m_pScaleformUI->Params_GetArgAsString( obj );
+
+		int weaponID = AliasToWeaponID( pszAlias );
+
+		if ( weaponID )
+		{
+			bValid = ( GetWeaponInfo( (CSWeaponID)weaponID ) != NULL );
+		}
+	}
+
+	m_pScaleformUI->Params_SetResult( obj, bValid ); // Return the result to the action script.
+}
+
+const CCSWeaponInfo *CCSBuyMenuScaleform::GetWeaponInfoForPosition( int position )
+{
+	C_CSPlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
+	if ( !pPlayer )
+		return nullptr;
+
+	int team = pPlayer->GetTeamNumber();
+
+	if ( position >= LOADOUT_POSITION_COUNT )
+		return nullptr;
+
+	if ( !CSInventoryManager() )
+		return nullptr;
+
+	CCSPlayerInventory *pInventory = CSInventoryManager()->GetLocalCSInventory();
+
+	if ( !pInventory )
+		return nullptr;
+
+	itemid_t itemID = m_PlayerBuyMenuLoadout.m_WeaponID[position];
+
+	if ( itemID == INVALID_ITEM_ID )
+		return nullptr;
+
+	C_EconItemView *pItem = pInventory->GetInventoryItemByItemID( itemID );
+
+	if ( !pItem || !pItem->GetStaticData() )
+	{
+		if ( ( itemID >> 60 ) == 0xF )
+		{
+			pItem = CSInventoryManager()->FindOrCreateReferenceEconItem( itemID );
+		}
+		else
+		{
+			pItem = CSInventoryManager()->GetItemInLoadoutForTeam( team, position );
+		}
+
+		if ( !pItem || !pItem->GetStaticData() )
+			return nullptr;
+	}
+
+	const CEconItemDefinition *pDef = pItem->GetStaticData();
+
+	const char *pszClassname = pDef ? pDef->GetItemClass() : "";
+
+	CSWeaponID weaponID = WeaponIdFromString( pszClassname );
+
+	if ( weaponID == WEAPON_NONE )
+		return nullptr;
+
+	return GetWeaponInfo( weaponID );
+}
+
+uint32 CCSBuyMenuScaleform::GetWeaponFirepowerRawValue( uint32 position )
+{
+	C_CSPlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
+	if ( !pPlayer )
+		return 0;
+
+	int team = pPlayer->GetTeamNumber();
+
+	const CEconItemView *pItem = nullptr;
+
+	if ( position < LOADOUT_POSITION_COUNT )
+	{
+		itemid_t itemID = m_PlayerBuyMenuLoadout.m_WeaponID[position];
+
+		if ( itemID != INVALID_ITEM_ID )
+		{
+			CCSPlayerInventory *pInventory = CSInventoryManager()->GetLocalCSInventory();
+
+			if ( pInventory )
+			{
+				pItem = pInventory->GetInventoryItemByItemID( itemID );
+
+				// Fallback if not a real inventory item
+				if ( !pItem || !pItem->GetStaticData() )
+				{
+					if ( ( itemID >> 60 ) == 0xF )
+					{
+						pItem = CSInventoryManager()->FindOrCreateReferenceEconItem( itemID );
+					}
+					else
+					{
+						pItem = CSInventoryManager()->GetItemInLoadoutForTeam( team, position );
+					}
+				}
+			}
+		}
+	}
+
+	const CCSWeaponInfo *pWeaponInfo = GetWeaponInfoForPosition( position );
+
+	if ( !pWeaponInfo )
+		return 0;
+
+	int damage = pWeaponInfo->GetDamage( pItem, false, 1.0f );
+	int bullets = pWeaponInfo->GetBullets( pItem, false, 1.0f );
+
+	return damage * bullets;
+}
+
+bool CCSBuyMenuScaleform::SetBuyMenuWeaponSliceEntry( const CCSBuyMenuLoadout &loadout, int weaponPosition, SFVALUE flashArray, uint32 arrayIndex )
+{
+	C_CSPlayer *pLocalPlayer = C_CSPlayer::GetLocalCSPlayer();
+	if ( !pLocalPlayer )
+		return false;
+
+	SFVALUE flashObject = CreateFlashObject();
+
+	m_pScaleformUI->Value_SetMember( flashObject, "sliceType", "weapon" );
+
+	itemid_t itemID = loadout.m_WeaponID[ weaponPosition ];
+
+	// Equipped weapon
+	if ( itemID != INVALID_ITEM_ID )
+	{
+		C_EconItemView *pItem = nullptr;
+
+		CCSPlayerInventory *pInventory = CSInventoryManager()->GetLocalCSInventory();
+
+		if ( ( itemID >> 60 ) == 0xF )
+		{
+			pItem = CSInventoryManager()->FindOrCreateReferenceEconItem( itemID );
+		}
+		else if ( pInventory )
+		{
+			pItem = pInventory->GetInventoryItemByItemID( itemID );
+		}
+
+		if ( pItem )
+		{
+			char itemIDString[256];
+			V_snprintf( itemIDString, sizeof( itemIDString ), "%llu", itemID );
+
+			m_pScaleformUI->Value_SetMember( flashObject, "weapon_itemid", itemIDString );
+			m_pScaleformUI->Value_SetMember( flashObject, "weapon_position", weaponPosition );
+
+			const CEconItemDefinition *pDef = pItem->GetStaticData();
+
+			const char *pszClassname = pDef ? pDef->GetItemClass() : "";
+
+			if ( IsWeaponClassname( pszClassname ) )
+				pszClassname += 7;
+
+			m_pScaleformUI->Value_SetMember( flashObject, "weapon", pszClassname );
+		}
+	}
+
+	// Prohibited replacement weapon
+	CCSPlayerInventory *pInventory = CSInventoryManager()->GetLocalCSInventory();
+
+	C_EconItemView *pProhibitedItem = pInventory->GetItemInLoadoutFilteredByProhibition( pLocalPlayer->GetTeamNumber(), weaponPosition );
+
+	if ( pProhibitedItem )
+	{
+		if ( CSGameRules()->IsWeaponAllowed( nullptr, pLocalPlayer->GetTeamNumber(), pProhibitedItem ) )
+		{
+			uint16 defIndex = pProhibitedItem->GetStaticData()->GetDefinitionIndex();
+			C_EconItemView *pReference = CSInventoryManager()->FindOrCreateReferenceEconItem( defIndex, 0, 0 );
+			uint64 prohibitedID = pReference->GetFauxItemIDFromDefinitionIndex();
+
+			char prohibitedString[256];
+			V_snprintf( prohibitedString, sizeof( prohibitedString ), "%llu", prohibitedID );
+
+			m_pScaleformUI->Value_SetMember( flashObject, "weapon_prohibiteditemid", prohibitedString );
+		}
+	}
+
+	m_pScaleformUI->Value_SetArrayElement( flashArray, arrayIndex, flashObject );
+
+	SafeReleaseSFVALUE( flashObject );
 
 	return true;
 }
 
-SFVALUE CCSBuyMenuScaleform::CreateFlashBuyMenuLoadout(CCSBuyMenuLoadout &loadout)
+SFVALUE CCSBuyMenuScaleform::CreateFlashBuyMenuLoadout( const CCSBuyMenuLoadout &loadout )
 {
 	C_CSPlayer *pPlayer = C_CSPlayer::GetLocalCSPlayer();
-	if (!pPlayer)
+	if ( !pPlayer )
 		return SFVALUE();
 
 	SFVALUE rootMenu = CreateFlashObject();
@@ -899,263 +1510,271 @@ SFVALUE CCSBuyMenuScaleform::CreateFlashBuyMenuLoadout(CCSBuyMenuLoadout &loadou
 	m_pScaleformUI->Value_SetMember( mainMenu, "centerText", "#SFUI_BuyMenu_SelectWeapon" );
 	m_pScaleformUI->Value_SetMember( mainMenu, "menuType", "parent" );
 
-	SFVALUE slices = CreateFlashArray( 24 );
+	SFVALUE menuSlices = CreateFlashArray( 24 );
 
 	SFVALUE pistolSlice = CreateFlashObject();
-	m_pScaleformUI->Value_SetMember(pistolSlice, "sliceType", "subMenu");
-	m_pScaleformUI->Value_SetMember(pistolSlice, "name", "#SFUI_BuyMenu_Pistols");
-	m_pScaleformUI->Value_SetMember(pistolSlice, "image", "glock");
-	m_pScaleformUI->Value_SetMember(pistolSlice, "subMenu", "PistolMenu");
-	m_pScaleformUI->Value_SetArrayElement(slices, 0, pistolSlice);
+	m_pScaleformUI->Value_SetMember( pistolSlice, "sliceType", "subMenu" );
+	m_pScaleformUI->Value_SetMember( pistolSlice, "name", "#SFUI_BuyMenu_Pistols" );
+	m_pScaleformUI->Value_SetMember( pistolSlice, "image", "glock" );
+	m_pScaleformUI->Value_SetMember( pistolSlice, "subMenu", "PistolMenu" );
+	m_pScaleformUI->Value_SetArrayElement( menuSlices, 0, pistolSlice );
 
 	SFVALUE heavySlice = CreateFlashObject();
-	m_pScaleformUI->Value_SetMember(heavySlice, "sliceType", "subMenu");
-	m_pScaleformUI->Value_SetMember(heavySlice, "name", "#SFUI_BuyMenu_HeavyWeapons");
-	m_pScaleformUI->Value_SetMember(heavySlice, "image", "m249");
-	m_pScaleformUI->Value_SetMember(heavySlice, "subMenu", "HeavyMenu");
-	m_pScaleformUI->Value_SetArrayElement(slices, 1, heavySlice);
+	m_pScaleformUI->Value_SetMember( heavySlice, "sliceType", "subMenu" );
+	m_pScaleformUI->Value_SetMember( heavySlice, "name", "#SFUI_BuyMenu_HeavyWeapons" );
+	m_pScaleformUI->Value_SetMember( heavySlice, "image", "m249" );
+	m_pScaleformUI->Value_SetMember( heavySlice, "subMenu", "HeavyMenu" );
+	m_pScaleformUI->Value_SetArrayElement( menuSlices, 1, heavySlice );
 
 	SFVALUE smgSlice = CreateFlashObject();
-	m_pScaleformUI->Value_SetMember(smgSlice, "sliceType", "subMenu");
-	m_pScaleformUI->Value_SetMember(smgSlice, "name", "#SFUI_BuyMenu_SMGs");
-	m_pScaleformUI->Value_SetMember(smgSlice, "image", "p90");
-	m_pScaleformUI->Value_SetMember(smgSlice, "subMenu", "SMGMenu");
-	m_pScaleformUI->Value_SetArrayElement(slices, 2, smgSlice);
+	m_pScaleformUI->Value_SetMember( smgSlice, "sliceType", "subMenu" );
+	m_pScaleformUI->Value_SetMember( smgSlice, "name", "#SFUI_BuyMenu_SMGs" );
+	m_pScaleformUI->Value_SetMember( smgSlice, "image", "p90" );
+	m_pScaleformUI->Value_SetMember( smgSlice, "subMenu", "SMGMenu" );
+	m_pScaleformUI->Value_SetArrayElement( menuSlices, 2, smgSlice );
 
 	SFVALUE rifleSlice = CreateFlashObject();
-	m_pScaleformUI->Value_SetMember(rifleSlice, "sliceType", "subMenu");
-	m_pScaleformUI->Value_SetMember(rifleSlice, "name", "#SFUI_BuyMenu_Rifles");
-	m_pScaleformUI->Value_SetMember(rifleSlice, "image", "m4a1");
-	m_pScaleformUI->Value_SetMember(rifleSlice, "subMenu", "RifleMenu");
-	m_pScaleformUI->Value_SetArrayElement(slices, 3, rifleSlice);
+	m_pScaleformUI->Value_SetMember( rifleSlice, "sliceType", "subMenu" );
+	m_pScaleformUI->Value_SetMember( rifleSlice, "name", "#SFUI_BuyMenu_Rifles" );
+	m_pScaleformUI->Value_SetMember( rifleSlice, "image", "m4a1" );
+	m_pScaleformUI->Value_SetMember( rifleSlice, "subMenu", "RifleMenu" );
+	m_pScaleformUI->Value_SetArrayElement( menuSlices, 3, rifleSlice );
 
 	SFVALUE equipmentSlice = CreateFlashObject();
-	m_pScaleformUI->Value_SetMember(equipmentSlice, "sliceType", "subMenu");
-	m_pScaleformUI->Value_SetMember(equipmentSlice, "name", "#SFUI_BuyMenu_Equipment");
-	m_pScaleformUI->Value_SetMember(equipmentSlice, "image", "equipment");
-	m_pScaleformUI->Value_SetMember(equipmentSlice, "subMenu", "EquipmentMenu");
-	m_pScaleformUI->Value_SetArrayElement(slices, 4, equipmentSlice);
+	m_pScaleformUI->Value_SetMember( equipmentSlice, "sliceType", "subMenu" );
+	m_pScaleformUI->Value_SetMember( equipmentSlice, "name", "#SFUI_BuyMenu_Equipment" );
+	m_pScaleformUI->Value_SetMember( equipmentSlice, "image", "equipment" );
+	m_pScaleformUI->Value_SetMember( equipmentSlice, "subMenu", "EquipmentMenu" );
+	m_pScaleformUI->Value_SetArrayElement( menuSlices, 4, equipmentSlice );
 
 	SFVALUE grenadeSlice = CreateFlashObject();
-	m_pScaleformUI->Value_SetMember(grenadeSlice, "sliceType", "subMenu");
-	m_pScaleformUI->Value_SetMember(grenadeSlice, "name", "#SFUI_BuyMenu_Grenades");
-	m_pScaleformUI->Value_SetMember(grenadeSlice, "image", "grenades");
-	m_pScaleformUI->Value_SetMember(grenadeSlice, "subMenu", "GrenadeMenu");
-	m_pScaleformUI->Value_SetArrayElement(slices, 5, grenadeSlice);
+	m_pScaleformUI->Value_SetMember( grenadeSlice, "sliceType", "subMenu" );
+	m_pScaleformUI->Value_SetMember( grenadeSlice, "name", "#SFUI_BuyMenu_Grenades" );
+	m_pScaleformUI->Value_SetMember( grenadeSlice, "image", "grenades" );
+	m_pScaleformUI->Value_SetMember( grenadeSlice, "subMenu", "GrenadeMenu" );
+	m_pScaleformUI->Value_SetArrayElement( menuSlices, 5, grenadeSlice );
 
-	m_pScaleformUI->Value_SetMember(mainMenu, "Slices", slices);
-	m_pScaleformUI->Value_SetMember(rootMenu, "MainMenu", mainMenu);
+	m_pScaleformUI->Value_SetMember( mainMenu, "Slices", menuSlices );
+	m_pScaleformUI->Value_SetMember( rootMenu, "MainMenu", mainMenu );
 
 	// PISTOL MENU
-
 	{
+		int pistolCount =
+			( loadout.m_WeaponID[LOADOUT_POSITION_SECONDARY0] != -1 ) +
+			( loadout.m_WeaponID[LOADOUT_POSITION_SECONDARY1] != -1 ) +
+			( loadout.m_WeaponID[LOADOUT_POSITION_SECONDARY2] != -1 ) +
+			( loadout.m_WeaponID[LOADOUT_POSITION_SECONDARY3] != -1 ) +
+			( loadout.m_WeaponID[LOADOUT_POSITION_SECONDARY4] != -1 ) +
+			( loadout.m_WeaponID[LOADOUT_POSITION_SECONDARY5] != -1 );
 
 		SFVALUE pistolMenu = CreateFlashObject();
-		SFVALUE pistolSlices = CreateFlashArray( 6 );
+		SFVALUE pistolSlices = CreateFlashArray( pistolCount );
 
-		m_pScaleformUI->Value_SetMember(pistolMenu, "centerText", "#SFUI_BuyMenu_Pistols");
-		m_pScaleformUI->Value_SetMember(pistolMenu, "menuType", "weapon");
+		m_pScaleformUI->Value_SetMember( pistolMenu, "centerText", "#SFUI_BuyMenu_Pistols" );
+		m_pScaleformUI->Value_SetMember( pistolMenu, "menuType", "weapon" );
 
-		SetBuyMenuWeaponSliceEntry(2, pistolSlices, 0, loadout);
-		SetBuyMenuWeaponSliceEntry(3, pistolSlices, 1, loadout);
-		SetBuyMenuWeaponSliceEntry(4, pistolSlices, 2, loadout);
-		SetBuyMenuWeaponSliceEntry(5, pistolSlices, 3, loadout);
-		SetBuyMenuWeaponSliceEntry(6, pistolSlices, 4, loadout);
-		SetBuyMenuWeaponSliceEntry(7, pistolSlices, 5, loadout);
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_SECONDARY0, pistolSlices, 0 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_SECONDARY1, pistolSlices, 1 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_SECONDARY2, pistolSlices, 2 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_SECONDARY3, pistolSlices, 3 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_SECONDARY4, pistolSlices, 4 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_SECONDARY5, pistolSlices, 5 );
 
-		m_pScaleformUI->Value_SetMember(pistolMenu, "Slices", pistolSlices);
-		m_pScaleformUI->Value_SetMember(rootMenu, "PistolMenu", pistolMenu);
+		m_pScaleformUI->Value_SetMember( pistolMenu, "Slices", pistolSlices );
+		m_pScaleformUI->Value_SetMember( rootMenu, "PistolMenu", pistolMenu );
 	}
 
 	// SMG MENU
-
 	{
+		int smgCount =
+			( loadout.m_WeaponID[LOADOUT_POSITION_SMG0] != -1 ) +
+			( loadout.m_WeaponID[LOADOUT_POSITION_SMG1] != -1 ) +
+			( loadout.m_WeaponID[LOADOUT_POSITION_SMG2] != -1 ) +
+			( loadout.m_WeaponID[LOADOUT_POSITION_SMG3] != -1 ) +
+			( loadout.m_WeaponID[LOADOUT_POSITION_SMG4] != -1 ) +
+			( loadout.m_WeaponID[LOADOUT_POSITION_SMG5] != -1 );
 
 		SFVALUE smgMenu = CreateFlashObject();
-		SFVALUE smgSlices = CreateFlashArray( 6 );
+		SFVALUE smgSlices = CreateFlashArray( smgCount );
 
-		m_pScaleformUI->Value_SetMember(smgMenu, "centerText", "#SFUI_BuyMenu_SMGs");
-		m_pScaleformUI->Value_SetMember(smgMenu, "menuType", "weapon");
+		m_pScaleformUI->Value_SetMember( smgMenu, "centerText", "#SFUI_BuyMenu_SMGs" );
+		m_pScaleformUI->Value_SetMember( smgMenu, "menuType", "weapon" );
 
-		SetBuyMenuWeaponSliceEntry(8, smgSlices, 0, loadout);
-		SetBuyMenuWeaponSliceEntry(9, smgSlices, 1, loadout);
-		SetBuyMenuWeaponSliceEntry(10, smgSlices, 2, loadout);
-		SetBuyMenuWeaponSliceEntry(11, smgSlices, 3, loadout);
-		SetBuyMenuWeaponSliceEntry(12, smgSlices, 4, loadout);
-		SetBuyMenuWeaponSliceEntry(13, smgSlices, 5, loadout);
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_SMG0, smgSlices, 0 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_SMG1, smgSlices, 1 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_SMG2, smgSlices, 2 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_SMG3, smgSlices, 3 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_SMG4, smgSlices, 4 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_SMG5, smgSlices, 5 );
 
-		m_pScaleformUI->Value_SetMember(smgMenu, "Slices", smgSlices);
-		m_pScaleformUI->Value_SetMember(rootMenu, "SMGMenu", smgMenu);
+		m_pScaleformUI->Value_SetMember( smgMenu, "Slices", smgSlices );
+		m_pScaleformUI->Value_SetMember( rootMenu, "SMGMenu", smgMenu );
 	}
 
 	// RIFLE MENU
-
 	{
 
 		SFVALUE rifleMenu = CreateFlashObject();
 		SFVALUE rifleSlices = CreateFlashArray( 6 );
 
-		m_pScaleformUI->Value_SetMember(rifleMenu, "centerText", "#SFUI_BuyMenu_Rifles");
-		m_pScaleformUI->Value_SetMember(rifleMenu, "menuType", "weapon");
+		m_pScaleformUI->Value_SetMember( rifleMenu, "centerText", "#SFUI_BuyMenu_Rifles" );
+		m_pScaleformUI->Value_SetMember( rifleMenu, "menuType", "weapon" );
 
-		SetBuyMenuWeaponSliceEntry(14, rifleSlices, 0, loadout);
-		SetBuyMenuWeaponSliceEntry(15, rifleSlices, 1, loadout);
-		SetBuyMenuWeaponSliceEntry(16, rifleSlices, 2, loadout);
-		SetBuyMenuWeaponSliceEntry(17, rifleSlices, 3, loadout);
-		SetBuyMenuWeaponSliceEntry(18, rifleSlices, 4, loadout);
-		SetBuyMenuWeaponSliceEntry(19, rifleSlices, 5, loadout);
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_RIFLE0, rifleSlices, 0 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_RIFLE1, rifleSlices, 1 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_RIFLE2, rifleSlices, 2 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_RIFLE3, rifleSlices, 3 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_RIFLE4, rifleSlices, 4 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_RIFLE5, rifleSlices, 5 );
 
-		m_pScaleformUI->Value_SetMember(rifleMenu, "Slices", rifleSlices);
-		m_pScaleformUI->Value_SetMember(rootMenu, "RifleMenu", rifleMenu);
+		m_pScaleformUI->Value_SetMember( rifleMenu, "Slices", rifleSlices );
+		m_pScaleformUI->Value_SetMember( rootMenu, "RifleMenu", rifleMenu );
 	}
 
 	// HEAVY MENU
-
 	{
 
 		SFVALUE heavyMenu = CreateFlashObject();
 		SFVALUE heavySlices = CreateFlashArray( 6 );
 
-		m_pScaleformUI->Value_SetMember(heavyMenu, "centerText", "#SFUI_BuyMenu_HeavyWeapons");
-		m_pScaleformUI->Value_SetMember(heavyMenu, "menuType", "weapon");
+		m_pScaleformUI->Value_SetMember( heavyMenu, "centerText", "#SFUI_BuyMenu_HeavyWeapons" );
+		m_pScaleformUI->Value_SetMember( heavyMenu, "menuType", "weapon" );
 
-		SetBuyMenuWeaponSliceEntry(20, heavySlices, 0, loadout);
-		SetBuyMenuWeaponSliceEntry(21, heavySlices, 1, loadout);
-		SetBuyMenuWeaponSliceEntry(22, heavySlices, 2, loadout);
-		SetBuyMenuWeaponSliceEntry(23, heavySlices, 3, loadout);
-		SetBuyMenuWeaponSliceEntry(24, heavySlices, 4, loadout);
-		SetBuyMenuWeaponSliceEntry(25, heavySlices, 5, loadout);
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_HEAVY0, heavySlices, 0 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_HEAVY1, heavySlices, 1 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_HEAVY2, heavySlices, 2 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_HEAVY3, heavySlices, 3 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_HEAVY4, heavySlices, 4 );
+		SetBuyMenuWeaponSliceEntry( loadout, LOADOUT_POSITION_HEAVY5, heavySlices, 5 );
 
-		m_pScaleformUI->Value_SetMember(heavyMenu, "Slices", heavySlices);
-		m_pScaleformUI->Value_SetMember(rootMenu, "HeavyMenu", heavyMenu);
+		m_pScaleformUI->Value_SetMember( heavyMenu, "Slices", heavySlices );
+		m_pScaleformUI->Value_SetMember( rootMenu, "HeavyMenu", heavyMenu );
 	}
 
 	// EQUIPMENT MENU
-
 	{
 
 		SFVALUE equipmentMenu = CreateFlashObject();
 		SFVALUE equipmentSlices = CreateFlashArray( 4 );
 
-		m_pScaleformUI->Value_SetMember(equipmentMenu, "centerText", "#SFUI_BuyMenu_Equipment");
-		m_pScaleformUI->Value_SetMember(equipmentMenu, "menuType", "weapon");
-		m_pScaleformUI->Value_SetMember(equipmentMenu, "autoReturn", "false");
+		m_pScaleformUI->Value_SetMember( equipmentMenu, "centerText", "#SFUI_BuyMenu_Equipment" );
+		m_pScaleformUI->Value_SetMember( equipmentMenu, "menuType", "weapon" );
+		m_pScaleformUI->Value_SetMember( equipmentMenu, "autoReturn", "false" );
 
 		SFVALUE armorObj = CreateFlashObject();
 
 		bool coop = CSGameRules()->IsPlayingCoopMission();
-		m_pScaleformUI->Value_SetMember(armorObj, "sliceType", "equipment");
+		m_pScaleformUI->Value_SetMember( armorObj, "sliceType", "equipment" );
 		if (coop)
 		{
-			m_pScaleformUI->Value_SetMember(armorObj, "weapon", "assaultsuit");
-			m_pScaleformUI->Value_SetMember(armorObj, "weapon_position", 32);
-			m_pScaleformUI->Value_SetArrayElement(equipmentSlices, 0, armorObj);
-			SafeReleaseSFVALUE(armorObj);
+			m_pScaleformUI->Value_SetMember( armorObj, "weapon", "assaultsuit" );
+			m_pScaleformUI->Value_SetMember( armorObj, "weapon_position", LOADOUT_POSITION_EQUIPMENT0 );
+			m_pScaleformUI->Value_SetArrayElement( equipmentSlices, 0, armorObj );
+			SafeReleaseSFVALUE( armorObj );
 		}
 		else
 		{
-			m_pScaleformUI->Value_SetMember(armorObj, "weapon", "kevlar");
-			m_pScaleformUI->Value_SetMember(armorObj, "weapon_position", 32);
-			m_pScaleformUI->Value_SetArrayElement(equipmentSlices, 0, armorObj);
-			SafeReleaseSFVALUE(armorObj);
+			m_pScaleformUI->Value_SetMember( armorObj, "weapon", "kevlar" );
+			m_pScaleformUI->Value_SetMember( armorObj, "weapon_position", LOADOUT_POSITION_EQUIPMENT0 );
+			m_pScaleformUI->Value_SetArrayElement( equipmentSlices, 0, armorObj );
+			SafeReleaseSFVALUE( armorObj );
 		}
 
 		SFVALUE suitObj = CreateFlashObject();
-		m_pScaleformUI->Value_SetMember(suitObj, "sliceType", "equipment");
+		m_pScaleformUI->Value_SetMember( suitObj, "sliceType", "equipment" );
 		const char* sutiName = coop ? "heavyassaultsuit" : "assaultsuit";
-		m_pScaleformUI->Value_SetMember(suitObj, "weapon", sutiName);
-		m_pScaleformUI->Value_SetMember(suitObj, "weapon_position", 33);
-		m_pScaleformUI->Value_SetArrayElement(equipmentSlices, 1, suitObj);
-		SafeReleaseSFVALUE(suitObj);
+		m_pScaleformUI->Value_SetMember( suitObj, "weapon", sutiName );
+		m_pScaleformUI->Value_SetMember( suitObj, "weapon_position", LOADOUT_POSITION_EQUIPMENT1 );
+		m_pScaleformUI->Value_SetArrayElement( equipmentSlices, 1, suitObj );
+		SafeReleaseSFVALUE( suitObj );
 
 		SFVALUE taserObj = CreateFlashObject();
-		m_pScaleformUI->Value_SetMember(taserObj, "sliceType", "equipment");
-		m_pScaleformUI->Value_SetMember(taserObj, "weapon", "taser");
-		m_pScaleformUI->Value_SetMember(taserObj, "weapon_position", 34);
-		m_pScaleformUI->Value_SetArrayElement(equipmentSlices, 2, taserObj);
-		SafeReleaseSFVALUE(taserObj);
+		m_pScaleformUI->Value_SetMember( taserObj, "sliceType", "equipment" );
+		m_pScaleformUI->Value_SetMember( taserObj, "weapon", "taser" );
+		m_pScaleformUI->Value_SetMember( taserObj, "weapon_position", LOADOUT_POSITION_EQUIPMENT2 );
+		m_pScaleformUI->Value_SetArrayElement( equipmentSlices, 2, taserObj );
+		SafeReleaseSFVALUE( taserObj );
 
 		SFVALUE weaponObj = CreateFlashObject();
 		SFVALUE weaponObj2 = CreateFlashObject();
-		m_pScaleformUI->Value_SetMember(weaponObj, "sliceType", "equipment");
-		m_pScaleformUI->Value_SetMember(weaponObj2, "ct_hostage", "cutters");
-		m_pScaleformUI->Value_SetMember(weaponObj2, "ct", "defuser");
-		m_pScaleformUI->Value_SetMember(weaponObj2, "t", "null");
-		m_pScaleformUI->Value_SetMember(weaponObj, "weapon", weaponObj2);
-		m_pScaleformUI->Value_SetMember(weaponObj, "weapon_position", 35);
-		m_pScaleformUI->Value_SetArrayElement(equipmentSlices, 3, weaponObj);
-		SafeReleaseSFVALUE(weaponObj2);
-		SafeReleaseSFVALUE(weaponObj);
+		m_pScaleformUI->Value_SetMember( weaponObj, "sliceType", "equipment" );
+		m_pScaleformUI->Value_SetMember( weaponObj2, "ct_hostage", "cutters" );
+		m_pScaleformUI->Value_SetMember( weaponObj2, "ct", "defuser" );
+		m_pScaleformUI->Value_SetMember( weaponObj2, "t", "null" );
+		m_pScaleformUI->Value_SetMember( weaponObj, "weapon", weaponObj2 );
+		m_pScaleformUI->Value_SetMember( weaponObj, "weapon_position", LOADOUT_POSITION_EQUIPMENT3 );
+		m_pScaleformUI->Value_SetArrayElement( equipmentSlices, 3, weaponObj );
+		SafeReleaseSFVALUE( weaponObj2 );
+		SafeReleaseSFVALUE( weaponObj );
 
-		m_pScaleformUI->Value_SetMember(equipmentMenu, "Slices", equipmentSlices);
-		m_pScaleformUI->Value_SetMember(rootMenu, "EquipmentMenu", equipmentMenu);
-		SafeReleaseSFVALUE(equipmentMenu);
-		SafeReleaseSFVALUE(equipmentSlices);
+		m_pScaleformUI->Value_SetMember( equipmentMenu, "Slices", equipmentSlices );
+		m_pScaleformUI->Value_SetMember( rootMenu, "EquipmentMenu", equipmentMenu );
+		SafeReleaseSFVALUE( equipmentMenu );
+		SafeReleaseSFVALUE( equipmentSlices );
 	}
 
 	// GRENADE MENU
-
 	{
 		bool coop = CSGameRules()->IsPlayingCoopMission();
 
 		SFVALUE grenadeMenu = CreateFlashObject();
 		SFVALUE grenadeSlices = CreateFlashArray( 5 );
 
-		m_pScaleformUI->Value_SetMember(grenadeMenu, "centerText", "#SFUI_BuyMenu_Grenades");
-		m_pScaleformUI->Value_SetMember(grenadeMenu, "menuType", "weapon");
-		m_pScaleformUI->Value_SetMember(grenadeMenu, "autoReturn", "false");
+		m_pScaleformUI->Value_SetMember( grenadeMenu, "centerText", "#SFUI_BuyMenu_Grenades" );
+		m_pScaleformUI->Value_SetMember( grenadeMenu, "menuType", "weapon" );
+		m_pScaleformUI->Value_SetMember( grenadeMenu, "autoReturn", "false" );
 
 		SFVALUE fireGrenadeObj = CreateFlashObject();
 		SFVALUE fireObj = CreateFlashObject();
-		m_pScaleformUI->Value_SetMember(fireGrenadeObj, "sliceType", "equipment");
-		m_pScaleformUI->Value_SetMember(fireObj, "ct", "Incgrenade");
-		m_pScaleformUI->Value_SetMember(fireObj, "t", "molotov");
-		m_pScaleformUI->Value_SetMember(fireGrenadeObj, "weapon", fireObj);
-		m_pScaleformUI->Value_SetMember(fireGrenadeObj, "weapon_position", 26);
-		m_pScaleformUI->Value_SetArrayElement(grenadeSlices, 0, fireGrenadeObj);
-		SafeReleaseSFVALUE(fireObj);
-		SafeReleaseSFVALUE(fireGrenadeObj);
+		m_pScaleformUI->Value_SetMember( fireGrenadeObj, "sliceType", "equipment" );
+		m_pScaleformUI->Value_SetMember( fireObj, "ct", "Incgrenade" );
+		m_pScaleformUI->Value_SetMember( fireObj, "t", "molotov" );
+		m_pScaleformUI->Value_SetMember( fireGrenadeObj, "weapon", fireObj );
+		m_pScaleformUI->Value_SetMember( fireGrenadeObj, "weapon_position", LOADOUT_POSITION_GRENADE0 );
+		m_pScaleformUI->Value_SetArrayElement( grenadeSlices, 0, fireGrenadeObj );
+		SafeReleaseSFVALUE( fireObj );
+		SafeReleaseSFVALUE( fireGrenadeObj );
 
 		SFVALUE decoyObj = CreateFlashObject();
-		m_pScaleformUI->Value_SetMember(decoyObj, "sliceType", "equipment");
-		m_pScaleformUI->Value_SetMember(decoyObj, "weapon", "decoy");
-		m_pScaleformUI->Value_SetMember(decoyObj, "weapon_position", 27);
-		m_pScaleformUI->Value_SetArrayElement(grenadeSlices, 1, decoyObj);
-		SafeReleaseSFVALUE(decoyObj);
+		m_pScaleformUI->Value_SetMember( decoyObj, "sliceType", "equipment" );
+		m_pScaleformUI->Value_SetMember( decoyObj, "weapon", "decoy" );
+		m_pScaleformUI->Value_SetMember( decoyObj, "weapon_position", LOADOUT_POSITION_GRENADE1 );
+		m_pScaleformUI->Value_SetArrayElement( grenadeSlices, 1, decoyObj );
+		SafeReleaseSFVALUE( decoyObj );
 
 		SFVALUE flashObj = CreateFlashObject();
-		m_pScaleformUI->Value_SetMember(flashObj, "sliceType", "equipment");
-		m_pScaleformUI->Value_SetMember(flashObj, "weapon", "flashbang");
-		m_pScaleformUI->Value_SetMember(flashObj, "weapon_position", 28);
-		m_pScaleformUI->Value_SetArrayElement(grenadeSlices, 2, flashObj);
-		SafeReleaseSFVALUE(flashObj);
+		m_pScaleformUI->Value_SetMember( flashObj, "sliceType", "equipment" );
+		m_pScaleformUI->Value_SetMember( flashObj, "weapon", "flashbang" );
+		m_pScaleformUI->Value_SetMember( flashObj, "weapon_position", LOADOUT_POSITION_GRENADE2 );
+		m_pScaleformUI->Value_SetArrayElement( grenadeSlices, 2, flashObj );
+		SafeReleaseSFVALUE( flashObj );
 
 		SFVALUE heObj = CreateFlashObject();
-		m_pScaleformUI->Value_SetMember(heObj, "sliceType", "equipment");
-		m_pScaleformUI->Value_SetMember(heObj, "weapon", "hegrenade");
-		m_pScaleformUI->Value_SetMember(heObj, "weapon_position", 29);
-		m_pScaleformUI->Value_SetArrayElement(grenadeSlices, 3, heObj);
-		SafeReleaseSFVALUE(heObj);
+		m_pScaleformUI->Value_SetMember( heObj, "sliceType", "equipment" );
+		m_pScaleformUI->Value_SetMember( heObj, "weapon", "hegrenade" );
+		m_pScaleformUI->Value_SetMember( heObj, "weapon_position", LOADOUT_POSITION_GRENADE3 );
+		m_pScaleformUI->Value_SetArrayElement( grenadeSlices, 3, heObj );
+		SafeReleaseSFVALUE( heObj );
 
 		SFVALUE smokeObj = CreateFlashObject();
-		m_pScaleformUI->Value_SetMember(smokeObj, "sliceType", "equipment");
-		m_pScaleformUI->Value_SetMember(smokeObj, "weapon", "smokegrenade");
-		m_pScaleformUI->Value_SetMember(smokeObj, "weapon_position", 30);
-		m_pScaleformUI->Value_SetArrayElement(grenadeSlices, 4, smokeObj);
-		SafeReleaseSFVALUE(smokeObj);
+		m_pScaleformUI->Value_SetMember( smokeObj, "sliceType", "equipment" );
+		m_pScaleformUI->Value_SetMember( smokeObj, "weapon", "smokegrenade" );
+		m_pScaleformUI->Value_SetMember( smokeObj, "weapon_position", LOADOUT_POSITION_GRENADE4 );
+		m_pScaleformUI->Value_SetArrayElement( grenadeSlices, 4, smokeObj );
+		SafeReleaseSFVALUE( smokeObj );
 
 		if (coop)
 		{
 			SFVALUE taObj = CreateFlashObject();
-			m_pScaleformUI->Value_SetMember(taObj, "sliceType", "equipment");
-			m_pScaleformUI->Value_SetMember(taObj, "weapon", "tagrenade");
-			m_pScaleformUI->Value_SetMember(taObj, "weapon_position", 31);
-			m_pScaleformUI->Value_SetArrayElement(grenadeSlices, 5, taObj);
-			SafeReleaseSFVALUE(taObj);
+			m_pScaleformUI->Value_SetMember( taObj, "sliceType", "equipment" );
+			m_pScaleformUI->Value_SetMember( taObj, "weapon", "tagrenade" );
+			m_pScaleformUI->Value_SetMember( taObj, "weapon_position", LOADOUT_POSITION_GRENADE5 );
+			m_pScaleformUI->Value_SetArrayElement( grenadeSlices, 5, taObj );
+			SafeReleaseSFVALUE( taObj );
 		}
 
-		m_pScaleformUI->Value_SetMember(grenadeMenu, "Slices", grenadeSlices);
-		m_pScaleformUI->Value_SetMember(rootMenu, "GrenadeMenu", grenadeMenu);
+		m_pScaleformUI->Value_SetMember( grenadeMenu, "Slices", grenadeSlices );
+		m_pScaleformUI->Value_SetMember( rootMenu, "GrenadeMenu", grenadeMenu );
 	}
 
 	return rootMenu;
@@ -1181,9 +1800,9 @@ bool CCSBuyMenuScaleform::FillInPlayerBuyMenuLoadout( CCSBuyMenuLoadout *pLoadou
 
 	CCSPlayerInventory *pInventory = CSInventoryManager()->GetLocalCSInventory();
 
-	for ( int slot = LOADOUT_POSITION_MELEE; slot < LOADOUT_POSITION_GRENADE5; ++slot )
+	for ( int slot = LOADOUT_POSITION_SECONDARY0; slot < LOADOUT_POSITION_HEAVY5; ++slot )
 	{
-		pLoadout->m_LoadoutItems[slot] = INVALID_ITEM_ID;
+		pLoadout->m_WeaponID[slot] = INVALID_ITEM_ID;
 		C_EconItemView *pItem = pInventory->GetItemInLoadoutFilteredByProhibition( team, slot );
 
 		if ( !pItem )
@@ -1196,8 +1815,7 @@ bool CCSBuyMenuScaleform::FillInPlayerBuyMenuLoadout( CCSBuyMenuLoadout *pLoadou
 		else
 			itemID = pItem->GetFauxItemIDFromDefinitionIndex();
 
-		Msg( "Weapon: %s, ID: %s\n", pItem, itemID ? "":"" );
-		pLoadout->m_LoadoutItems[slot] = itemID;
+		pLoadout->m_WeaponID[slot] = itemID;
 	}
 
 	return true;
@@ -1245,7 +1863,7 @@ bool CCSBuyMenuScaleform::FillInPlayerLoadout( CCSLoadout &loadout )
 	}
 
 	if ( pPlayer->HasDefuser() )
-		loadout.m_flags |= 4;
+		loadout.m_flags |= loadout.HAS_DEFUSE;
 
 	for ( int i = 0; i < MAX_WEAPONS; ++i )
 	{
@@ -1258,7 +1876,7 @@ bool CCSBuyMenuScaleform::FillInPlayerLoadout( CCSLoadout &loadout )
 
 		if ( weaponID == WEAPON_TASER )
 		{
-			loadout.m_flags |= 1;
+			loadout.m_flags |= loadout.HAS_TASER;
 			continue;
 		}
 
@@ -1315,12 +1933,12 @@ bool CCSBuyMenuScaleform::FillInPlayerLoadout( CCSLoadout &loadout )
 			}
 
 			continue;
+		}
 
-			if ( type == WEAPONTYPE_C4 )
-			{
-				loadout.m_flags |= 2;
-				continue;
-			}
+		if ( type == WEAPONTYPE_C4 )
+		{
+			loadout.m_flags |= loadout.HAS_BOMB;
+			continue;
 		}
 	}
 
@@ -1361,12 +1979,12 @@ bool CCSBuyMenuScaleform::FillInPlayerLoadout( CCSLoadout &loadout )
 
 			if ( pInfo->GetWeaponType() == WEAPONTYPE_PISTOL )
 			{
-				loadout.m_nSecondaryWeaponDefIndex = weaponID;
+				loadout.m_secondaryWeaponID = weaponID;
 				loadout.m_secondaryWeaponItemPos = slot;
 			}
 			else if ( pInfo->GetWeaponType() != WEAPONTYPE_KNIFE )
 			{
-				loadout.m_nPrimaryWeaponDefIndex = weaponID;
+				loadout.m_primaryWeaponID = weaponID;
 				loadout.m_primaryWeaponItemPos = slot;
 			}
 		}
@@ -1430,7 +2048,7 @@ SFVALUE CCSBuyMenuScaleform::CreateFlashLoadout( const CCSLoadout &loadout )
 	}
 
 	// TASER
-	if ( loadout.m_flags && loadout.m_flags == 1 )
+	if ( loadout.m_flags == loadout.HAS_TASER )
 	{
 		m_pScaleformUI->Value_SetArrayElement( weaponsArray, index, WEAPON_TASER );
 		m_pScaleformUI->Value_SetArrayElement( slotsArray, index, 3 );
@@ -1467,8 +2085,8 @@ SFVALUE CCSBuyMenuScaleform::CreateFlashLoadout( const CCSLoadout &loadout )
 	m_pScaleformUI->Value_SetMember( flashObj, "weapons_position", slotsArray );
 	m_pScaleformUI->Value_SetMember( flashObj, "counts", countsArray );
 	m_pScaleformUI->Value_SetMember( flashObj, "price", totalPrice );
-	m_pScaleformUI->Value_SetMember( flashObj, "bomb", ( loadout.m_flags && loadout.HAS_BOMB ) != 0 );
-	m_pScaleformUI->Value_SetMember( flashObj, "defuse", ( loadout.m_flags && loadout.HAS_DEFUSE ) != 0 );
+	m_pScaleformUI->Value_SetMember( flashObj, "bomb", loadout.m_flags == loadout.HAS_BOMB );
+	m_pScaleformUI->Value_SetMember( flashObj, "defuse", loadout.m_flags == loadout.HAS_DEFUSE );
 
 	SafeReleaseSFVALUE( weaponsArray );
 	SafeReleaseSFVALUE( slotsArray );
@@ -1501,7 +2119,7 @@ void CCSBuyMenuScaleform::UpdatePlayerLoadout( bool bForceUpdate, bool bUpdateFl
 	{
 		SFVALUE flashLoadout = CreateFlashLoadout( m_PlayerLoadout );
 		m_pScaleformUI->ValueArray_SetElement( args, 0, flashLoadout );
-		m_pScaleformUI->Value_InvokeWithoutReturn( m_FlashAPI, "updatePlayerInventory", args );
+		g_pScaleformUI->Value_InvokeWithoutReturn( m_FlashAPI, "updatePlayerInventory", args );
 		SafeReleaseSFVALUE( flashLoadout );
 	}
 	}
@@ -1526,7 +2144,7 @@ void CCSBuyMenuScaleform::FireGameEvent( IGameEvent *event )
 
 			if ( m_bShowOnReady )
 			{
-				m_pScaleformUI->RemoveElement( m_iSplitScreenSlot, m_FlashAPI );
+				g_pScaleformUI->RemoveElement( m_iSplitScreenSlot, m_FlashAPI );
 			}
 		}
 
@@ -1769,7 +2387,7 @@ void CCSBuyMenuScaleform::UpdatePlayerCash(bool bForce)
 	WITH_SFVALUEARRAY_SLOT_LOCKED(args, 1)
 	{
 		m_pScaleformUI->ValueArray_SetElement(args, 0, nAccount);
-		m_pScaleformUI->Value_InvokeWithoutReturn(m_FlashAPI, "setPlayerCash", args, 1);
+		g_pScaleformUI->Value_InvokeWithoutReturn(m_FlashAPI, "setPlayerCash", args, 1);
 	}
 
 	m_nLastAccount = nAccount;
