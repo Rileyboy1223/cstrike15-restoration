@@ -130,6 +130,7 @@ class IMatchExtPortal2 *g_pMatchExtPortal2 = &g_MatchExtPortal2;
 #include "uicomponents/uicomponent_mypersona.h"
 #include "uicomponents/uicomponent_competitivematch.h"
 #include "uicomponents/uicomponent_gametypes.h"
+#include "uicomponents/uicomponent_inventory.h"
 
 typedef CBaseModPanel UI_BASEMOD_PANEL_CLASS;
 inline UI_BASEMOD_PANEL_CLASS & GetUiBaseModPanelClass() { return *BasePanel(); }
@@ -350,7 +351,7 @@ void CGameUI::Initialize( CreateInterfaceFn factory )
 	m_arrUiComponents.InsertBefore(0, CUiComponent_MyPersona::GetInstance());
 	//m_arrUiComponents.InsertBefore(0, CUiComponent_PartyList::GetInstance());
 	//m_arrUiComponents.InsertBefore(0, CUiComponent_Store::GetInstance());
-	//m_arrUiComponents.InsertBefore(0, CUiComponent_Inventory::GetInstance());
+	m_arrUiComponents.InsertBefore(0, CUiComponent_Inventory::GetInstance());
 	//m_arrUiComponents.InsertBefore(0, CUiComponent_Loadout::GetInstance());
 	//m_arrUiComponents.InsertBefore(0, CUiComponent_Medals::GetInstance());
 	//m_arrUiComponents.InsertBefore(0, CUiComponent_MatchInfo::GetInstance());
