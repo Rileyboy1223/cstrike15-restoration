@@ -40,6 +40,7 @@
 #include "text_message.h"
 
 #include "buymenu_scaleform.h"
+#include "scoreboard_scaleform.h"
 #include "teammenu_scaleform.h"
 #include "chooseclass_scaleform.h"
 #include "Scaleform/HUD/sfhudinfopanel.h"
@@ -277,19 +278,17 @@ IViewPortPanel* CounterStrikeViewport::CreatePanelByName( const char *szPanelNam
 
 	// overwrite MOD specific panel creation
 
- 	/*
-	if (Q_strcmp(PANEL_SCOREBOARD, szPanelName) == 0)
+	if ( Q_strcmp( PANEL_SCOREBOARD, szPanelName ) == 0 )
  	{
  		newpanel = new CScoreboardScaleform( this );
  	}
  	
-	else if ( Q_strcmp( PANEL_SPECGUI, szPanelName ) == 0 )
- 	{
- 		newpanel = new SFSpectator( this );
- 	}
- 	*/
+	//else if ( Q_strcmp( PANEL_SPECGUI, szPanelName ) == 0 )
+ //	{
+ //		newpanel = new SFSpectator( this );
+ //	}
 
-	if ( Q_strcmp( PANEL_BUY, szPanelName ) == 0 )
+	else if ( Q_strcmp( PANEL_BUY, szPanelName ) == 0 )
  	{
  		newpanel = new CCSBuyMenuScaleform( this );
  	}
