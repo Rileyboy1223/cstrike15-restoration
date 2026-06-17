@@ -41,7 +41,7 @@ SF_COMPONENT_API_DEF_BEGIN(CUiComponent_MyPersona)
 	SF_COMPONENT_FUNCTION_API_DEF(TODO, GetMyOfficialTournamentName, CUiComponent_MyPersona)
 	SF_COMPONENT_FUNCTION_API_DEF(TODO, GetCurrentXp, CUiComponent_MyPersona)
 	SF_COMPONENT_FUNCTION_API_DEF(TODO, GetCurrentLevel, CUiComponent_MyPersona)
-	SF_COMPONENT_FUNCTION_API_DEF(TODO, HasPrestige, CUiComponent_MyPersona)
+	SF_COMPONENT_FUNCTION_API_DEF(void, HasPrestige, CUiComponent_MyPersona)
 	SF_COMPONENT_FUNCTION_API_DEF(int, GetXpPerLevel, CUiComponent_MyPersona)
 	SF_COMPONENT_FUNCTION_API_DEF(TODO, GetActiveXpBonuses, CUiComponent_MyPersona)
 	SF_COMPONENT_FUNCTION_API_DEF(TODO, GetTimePlayedConsecutively, CUiComponent_MyPersona)
@@ -152,7 +152,22 @@ SF_COMPONENT_FUNCTION_TODO(CUiComponent_MyPersona, GetMyOfficialTeamFlag)
 SF_COMPONENT_FUNCTION_TODO(CUiComponent_MyPersona, GetMyOfficialTournamentName)
 SF_COMPONENT_FUNCTION_TODO(CUiComponent_MyPersona, GetCurrentXp)
 SF_COMPONENT_FUNCTION_TODO(CUiComponent_MyPersona, GetCurrentLevel)
-SF_COMPONENT_FUNCTION_TODO(CUiComponent_MyPersona, HasPrestige)
+
+SF_COMPONENT_FUNCTION_IMPL(CUiComponent_MyPersona, HasPrestige)
+{
+	int amount;
+
+	CPlayerInventory *pLocalInventory = CSInventoryManager()->GetLocalInventory();
+
+	if (pLocalInventory)
+	{
+		CEconGameAccountClient *pGameAccountClient = GetSOCacheGameAccountClient(pLocalInventory->GetSOC());
+
+		amount = pGameAccountClient->ComputeXpBonusFlagsNow();
+	}
+
+	pui->Params_SetResult(obj, amount);
+}
 
 SF_COMPONENT_FUNCTION_IMPL(CUiComponent_MyPersona, GetXpPerLevel)
 {
