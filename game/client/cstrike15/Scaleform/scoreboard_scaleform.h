@@ -6,10 +6,12 @@
 #include "../VGUI/counterstrikeviewport.h"
 #include "GameEventListener.h"
 
+class CounterStrikeViewport;
+
 class CScoreboardScaleform : public ScaleformFlashInterface, public IViewPortPanel, public CGameEventListener
 {
 public:
-	explicit CScoreboardScaleform( void );
+	explicit CScoreboardScaleform( CounterStrikeViewport *pViewport );
 	virtual ~CScoreboardScaleform();
 
 	/************************************
@@ -73,7 +75,10 @@ protected:
 	CounterStrikeViewport *m_pViewport;
 
 private:
+	int   m_iSplitScreenSlot;
+
 	bool  m_bVisible;
+	bool  m_bLoading;
 
 	vgui::EditablePanel *m_pItemPanelParent;
 };
